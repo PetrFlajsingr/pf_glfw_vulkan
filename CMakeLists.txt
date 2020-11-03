@@ -178,6 +178,7 @@ set(INCLUDES
 
 option(BUILD_SHARED_LIBS "build this library as shared")
 
+
 SET(CMAKE_DEBUG_POSTFIX "d" CACHE STRING "add a postfix, usually d on windows")
 SET(CMAKE_RELEASE_POSTFIX "" CACHE STRING "add a postfix, usually empty on windows")
 SET(CMAKE_RELWITHDEBINFO_POSTFIX "rd" CACHE STRING "add a postfix, usually empty on windows")
@@ -192,8 +193,22 @@ include(GNUInstallDirs)
 
 target_include_directories(${PROJECT_NAME} PUBLIC $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>)
 target_include_directories(${PROJECT_NAME} PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src>)
-#target_link_libraries(${PROJECT_NAME} PRIVATE pf_common::pf_common fmt::fmt magic_enum range-v3 shaderc glslang)
-target_link_libraries(${PROJECT_NAME} PRIVATE pf_common::pf_common magic_enum)
+
+
+
+function(print_all_vars)
+    get_cmake_property(_variableNames VARIABLES)
+    list(SORT _variableNames)
+    foreach (_variableName ${_variableNames})
+        message(STATUS "${_variableName}=${${_variableName}}")
+    endforeach ()
+endfunction()
+
+#print_all_vars()
+
+
+target_link_libraries(${PROJECT_NAME} PRIVATE pf_common::pf_common fmt::fmt magic_enum range-v3 shaderc glslang ${GLFW_STATIC_LIBRARIES} ${Vulkan_LIBRARIES})
+
 
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_INCLUDE_CURRENT_DIR_IN_INTERFACE ON)
@@ -207,7 +222,7 @@ set_property(TARGET ${PROJECT_NAME} PROPERTY SOVERSION ${PROJECT_VERSION_MAJOR})
 set_property(TARGET ${PROJECT_NAME} PROPERTY INTERFACE_${PROJECT_NAME}_MAJOR_VERSION ${PROJECT_VERSION_MAJOR})
 set_property(TARGET ${PROJECT_NAME} APPEND PROPERTY COMPATIBLE_INTERFACE_STRING ${PROJECT_NAME}_MAJOR_VERSION)
 
-add_dependencies(${PROJECT_NAME} pf_common::pf_common fmt::fmt magic_enum range-v3 shaderc glslang)
+set_property(TARGET ${PROJECT_NAME} PROPERTY INTERFACE_LINK_LIBRARIES "")
 
 install(TARGETS ${PROJECT_NAME} pf_common magic_enum
         EXPORT ${PROJECT_NAME}Targets
