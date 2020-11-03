@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 3.17)
 
 include("cmake/HunterGate.cmake")
+
 HunterGate(
         URL "https://github.com/cpp-pm/hunter/archive/v0.23.269.tar.gz"
         SHA1 "64024b7b95b4c86d50ae05b926814448c93a70a0"
@@ -17,13 +18,11 @@ endif ()
 
 include(${CPM_DOWNLOAD_LOCATION})
 
-
-
 project(pf_glfw_vulkan
         VERSION 0.1.0)
 
 set(CMAKE_CXX_STANDARD 20)
-list(APPEND flags "-o3" "-fconcepts" "-fconcepts-diagnostics-depth=10" "-Werror=return-type" "-fcoroutines"
+list(APPEND flags "-fconcepts" "-fconcepts-diagnostics-depth=10" "-Werror=return-type" "-fcoroutines"
         "-Wall" "-Wextra" "-Werror" "-Wpedantic" "-Wno-unknown-pragmas" "-Wno-unused-function"
         "-Wpointer-arith" "-Wcast-qual" "-Wno-type-limits")
 if (CMAKE_BUILD_TYPE MATCHES Release)
@@ -100,10 +99,15 @@ CPMAddPackage(
         NAME shaderc
         GITHUB_REPOSITORY google/shaderc
         GIT_TAG v2020.3
+        OPTIONS
+        "SHADERC_SKIP_INSTALL ON"
 )
+
 
 hunter_add_package(fmt)
 find_package(fmt CONFIG REQUIRED)
+hunter_add_package(stb)
+find_package(stb CONFIG REQUIRED)
 
 set(SOURCES
         src/pf_glfw_vulkan/concepts/Window.cpp
@@ -194,25 +198,12 @@ include(GNUInstallDirs)
 target_include_directories(${PROJECT_NAME} PUBLIC $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>)
 target_include_directories(${PROJECT_NAME} PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src>)
 
-
-
-function(print_all_vars)
-    get_cmake_property(_variableNames VARIABLES)
-    list(SORT _variableNames)
-    foreach (_variableName ${_variableNames})
-        message(STATUS "${_variableName}=${${_variableName}}")
-    endforeach ()
-endfunction()
-
-#print_all_vars()
-
-
-target_link_libraries(${PROJECT_NAME} PRIVATE pf_common::pf_common fmt::fmt magic_enum range-v3 shaderc glslang ${GLFW_STATIC_LIBRARIES} ${Vulkan_LIBRARIES})
+target_link_libraries(${PROJECT_NAME} PRIVATE pf_common::pf_common fmt::fmt magic_enum range-v3 ${GLFW_STATIC_LIBRARIES} ${Vulkan_LIBRARIES})
+add_dependencies(${PROJECT_NAME} pf_common::pf_common fmt::fmt magic_enum range-v3 shaderc glslang)
 
 
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_INCLUDE_CURRENT_DIR_IN_INTERFACE ON)
-
 
 include(GenerateExportHeader)
 generate_export_header(${PROJECT_NAME} EXPORT_FILE_NAME ${PROJECT_NAME}/${PROJECT_NAME_LOWER}_export.h)
@@ -222,7 +213,6 @@ set_property(TARGET ${PROJECT_NAME} PROPERTY SOVERSION ${PROJECT_VERSION_MAJOR})
 set_property(TARGET ${PROJECT_NAME} PROPERTY INTERFACE_${PROJECT_NAME}_MAJOR_VERSION ${PROJECT_VERSION_MAJOR})
 set_property(TARGET ${PROJECT_NAME} APPEND PROPERTY COMPATIBLE_INTERFACE_STRING ${PROJECT_NAME}_MAJOR_VERSION)
 
-set_property(TARGET ${PROJECT_NAME} PROPERTY INTERFACE_LINK_LIBRARIES "")
 
 install(TARGETS ${PROJECT_NAME} pf_common magic_enum
         EXPORT ${PROJECT_NAME}Targets
@@ -286,3 +276,4 @@ install(
         COMPONENT
         Devel
 )
+
