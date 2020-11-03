@@ -10,14 +10,12 @@
 namespace pf::vulkan {
 namespace details {
 inline std::shared_ptr<ILogger> globalLogger = std::make_shared<EmptyLogger>();
-
-const auto TAG_FORMAT = "[{}] {}";
 }
 
 constexpr auto VK_TAG = "vulkan";
 
 inline void log(LogLevel level, std::string_view tag, std::string_view msg) {
-  details::globalLogger->log(level, fmt::format(details::TAG_FORMAT, tag, msg));
+  details::globalLogger->log(level, tag, msg);
 }
 inline void logt(std::string_view tag, std::string_view msg) {
   log(LogLevel::Trace, tag, msg);
@@ -41,7 +39,7 @@ inline void loge(std::string_view tag, std::string_view msg) {
 
 void logFmt(LogLevel level, std::string_view tag, std::string_view msg,
             const auto &... args) {
-  details::globalLogger->logFmt(level, fmt::format(details::TAG_FORMAT, tag, msg), args...);
+  details::globalLogger->logFmt(level, tag, msg, args...);
 }
 
 void logtFmt(std::string_view tag, std::string_view msg, const auto &...args) {
