@@ -37,6 +37,10 @@ elseif (CMAKE_BUILD_TYPE MATCHES TSAN)
     list(APPEND flags "-fsanitize=thread")
 endif ()
 
+if (BUILD_SHARED_LIBS)
+    list(APPEND flags "-fPIC")
+endif ()
+
 add_compile_definitions(GLFW_INCLUDE_VULKAN
         VULKAN_HPP_DEFAULT_DISPATCH_LOADER_DYNAMIC_STORAGE
         VULKAN_HPP_NO_NODISCARD_WARNINGS
