@@ -3,6 +3,10 @@
 //
 
 #include "RenderPassBuilder.h"
+#include "../../VulkanException.h"
+#include "../PhysicalDevice.h"
+#include "../RenderPass.h"
+#include <range/v3/view.hpp>
 
 namespace pf::vulkan {
 

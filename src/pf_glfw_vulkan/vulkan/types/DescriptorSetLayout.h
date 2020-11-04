@@ -2,14 +2,14 @@
 // Created by petr on 9/28/20.
 //
 
-#ifndef VOXEL_RENDER_DESCRIPTORSETLAYOUT_H
-#define VOXEL_RENDER_DESCRIPTORSETLAYOUT_H
+#ifndef PF_GLFW_VULKAN_VULKAN_TYPES_DESCRIPTORSETLAYOUT_H
+#define PF_GLFW_VULKAN_VULKAN_TYPES_DESCRIPTORSETLAYOUT_H
 
-#include <pf_common/concepts/PtrConstructible.h>
 #include "VulkanObject.h"
 #include "fwd.h"
-#include <vulkan/vulkan.hpp>
+#include <pf_common/concepts/PtrConstructible.h>
 #include <pf_glfw_vulkan/_export.h>
+#include <vulkan/vulkan.hpp>
 
 namespace pf::vulkan {
 
@@ -44,4 +44,4 @@ class PF_GLFW_VULKAN_EXPORT DescriptorSetLayout : public VulkanObject, public Pt
 };
 
 }// namespace pf::vulkan
-#endif//VOXEL_RENDER_DESCRIPTORSETLAYOUT_H
+#endif//PF_GLFW_VULKAN_VULKAN_TYPES_DESCRIPTORSETLAYOUT_H

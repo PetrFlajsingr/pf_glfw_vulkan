@@ -2,15 +2,15 @@
 // Created by petr on 9/28/20.
 //
 
-#ifndef VOXEL_RENDER_FRAMEBUFFER_H
-#define VOXEL_RENDER_FRAMEBUFFER_H
+#ifndef PF_GLFW_VULKAN_VULKAN_TYPES_FRAMEBUFFER_H
+#define PF_GLFW_VULKAN_VULKAN_TYPES_FRAMEBUFFER_H
 
-#include <pf_common/concepts/PtrConstructible.h>
 #include "VulkanObject.h"
 #include "fwd.h"
+#include <pf_common/concepts/PtrConstructible.h>
+#include <pf_glfw_vulkan/_export.h>
 #include <unordered_map>
 #include <vulkan/vulkan.hpp>
-#include <pf_glfw_vulkan/_export.h>
 
 namespace pf::vulkan {
 
@@ -63,4 +63,4 @@ class PF_GLFW_VULKAN_EXPORT FrameBuffer : public VulkanObject, public PtrConstru
 
 }// namespace pf::vulkan
 
-#endif//VOXEL_RENDER_FRAMEBUFFER_H
+#endif//PF_GLFW_VULKAN_VULKAN_TYPES_FRAMEBUFFER_H

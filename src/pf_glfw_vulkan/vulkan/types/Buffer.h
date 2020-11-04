@@ -2,16 +2,16 @@
 // Created by petr on 10/19/20.
 //
 
-#ifndef VOXEL_RENDER_BUFFER_H
-#define VOXEL_RENDER_BUFFER_H
+#ifndef PF_GLFW_VULKAN_VULKAN_TYPES_BUFFER_H
+#define PF_GLFW_VULKAN_VULKAN_TYPES_BUFFER_H
 
-#include <pf_common/concepts/PtrConstructible.h>
 #include "BufferView.h"
 #include "VulkanObject.h"
 #include "fwd.h"
+#include <pf_common/concepts/PtrConstructible.h>
+#include <pf_glfw_vulkan/_export.h>
 #include <span>
 #include <vulkan/vulkan.hpp>
-#include <pf_glfw_vulkan/_export.h>
 
 namespace pf::vulkan {
 
@@ -46,14 +46,13 @@ class PF_GLFW_VULKAN_EXPORT BufferMapping : public VulkanObject, public PtrConst
     return std::span(reinterpret_cast<T *>(dataPtr) + start, count);
   }
 
-  template <std::ranges::contiguous_range  T>
+  template<std::ranges::contiguous_range T>
   void set(const T &container) {
     using ValueType = typename T::value_type;
     const auto typedSize = getTypedSize<ValueType>();
     assert(typedSize <= container.size());
     std::memcpy(dataPtr, container.data(), container.size() * sizeof(T));
   }
-
 
   [[nodiscard]] vk::DeviceSize getSize() const;
 
@@ -73,8 +72,8 @@ class PF_GLFW_VULKAN_EXPORT BufferMapping : public VulkanObject, public PtrConst
 };
 
 class PF_GLFW_VULKAN_EXPORT Buffer : public VulkanObject,
-               public PtrConstructible<Buffer>,
-               public std::enable_shared_from_this<Buffer> {
+                                     public PtrConstructible<Buffer>,
+                                     public std::enable_shared_from_this<Buffer> {
  public:
   Buffer(std::shared_ptr<LogicalDevice> device, BufferConfig &&config,
          bool allocateImmediately = false);
@@ -118,4 +117,4 @@ class PF_GLFW_VULKAN_EXPORT Buffer : public VulkanObject,
 
 }// namespace pf::vulkan
 
-#endif//VOXEL_RENDER_BUFFER_H
+#endif//PF_GLFW_VULKAN_VULKAN_TYPES_BUFFER_H

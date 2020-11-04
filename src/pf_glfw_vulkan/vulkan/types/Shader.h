@@ -2,15 +2,16 @@
 // Created by petr on 9/28/20.
 //
 
-#ifndef VOXEL_RENDER_SHADER_H
-#define VOXEL_RENDER_SHADER_H
-#include <pf_common/concepts/PtrConstructible.h>
-#include "../glsl/Compiler.h"
+#ifndef PF_GLFW_VULKAN_VULKAN_TYPES_SHADER_H
+#define PF_GLFW_VULKAN_VULKAN_TYPES_SHADER_H
+
 #include "VulkanObject.h"
 #include "fwd.h"
 #include <istream>
-#include <vulkan/vulkan.hpp>
+#include <pf_common/concepts/PtrConstructible.h>
 #include <pf_glfw_vulkan/_export.h>
+#include <pf_glfw_vulkan/vulkan/glsl/Compiler.h>
+#include <vulkan/vulkan.hpp>
 
 namespace pf::vulkan {
 // TODO: more shader types
@@ -97,4 +98,4 @@ std::vector<uint8_t> readSpvFile(std::ifstream &&istream);
 
 }// namespace pf::vulkan
 
-#endif//VOXEL_RENDER_SHADER_H
+#endif//PF_GLFW_VULKAN_VULKAN_TYPES_SHADER_H

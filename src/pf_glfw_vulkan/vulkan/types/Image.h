@@ -2,15 +2,15 @@
 // Created by petr on 9/27/20.
 //
 
-#ifndef VOXEL_RENDER_IMAGE_H
-#define VOXEL_RENDER_IMAGE_H
+#ifndef PF_GLFW_VULKAN_VULKAN_TYPES_IMAGE_H
+#define PF_GLFW_VULKAN_VULKAN_TYPES_IMAGE_H
 
-#include <pf_common/concepts/PtrConstructible.h>
 #include "VulkanObject.h"
 #include "fwd.h"
+#include <pf_common/concepts/PtrConstructible.h>
+#include <pf_glfw_vulkan/_export.h>
 #include <unordered_set>
 #include <vulkan/vulkan.hpp>
-#include <pf_glfw_vulkan/_export.h>
 
 namespace pf::vulkan {
 class ImageView;
@@ -50,7 +50,7 @@ class PF_GLFW_VULKAN_EXPORT Image : public VulkanObject, public std::enable_shar
   [[nodiscard]] LogicalDevice &getLogicalDevice();
 
   void transitionLayout(CommandPool &cmdPool, vk::ImageLayout newLayout,
-                        const vk::ImageSubresourceRange& subresourceRange);
+                        const vk::ImageSubresourceRange &subresourceRange);
 
  protected:
   vk::ImageType imageType;
@@ -79,8 +79,8 @@ class PF_GLFW_VULKAN_EXPORT ImageRef : public Image, public PtrConstructible<Ima
 };
 
 class PF_GLFW_VULKAN_EXPORT ImageUnique : public Image,
-                    public PtrConstructible<ImageUnique>,
-                    public std::enable_shared_from_this<ImageUnique> {
+                                          public PtrConstructible<ImageUnique>,
+                                          public std::enable_shared_from_this<ImageUnique> {
  public:
   using Image::operator*;
   using Image::operator->;
@@ -101,4 +101,4 @@ class PF_GLFW_VULKAN_EXPORT ImageUnique : public Image,
 
 }// namespace pf::vulkan
 
-#endif//VOXEL_RENDER_IMAGE_H
+#endif//PF_GLFW_VULKAN_VULKAN_TYPES_IMAGE_H

@@ -2,16 +2,14 @@
 // Created by petr on 9/28/20.
 //
 
-#ifndef VOXEL_RENDER_RENDERPASSBUILDER_H
-#define VOXEL_RENDER_RENDERPASSBUILDER_H
+#ifndef PF_GLFW_VULKAN_VULKAN_TYPES_BUILDERS_RENDERPASSBUILDER_H
+#define PF_GLFW_VULKAN_VULKAN_TYPES_BUILDERS_RENDERPASSBUILDER_H
 
-#include "../../VulkanException.h"
-#include "../PhysicalDevice.h"
-#include "../RenderPass.h"
+#include "../fwd.h"
 #include <map>
-#include <range/v3/view.hpp>
-#include <utility>
 #include <pf_glfw_vulkan/_export.h>
+#include <utility>
+#include <vulkan/vulkan.hpp>
 
 namespace pf::vulkan {
 
@@ -122,4 +120,4 @@ class PF_GLFW_VULKAN_EXPORT RenderPassBuilder {
 };
 
 }// namespace pf::vulkan
-#endif//VOXEL_RENDER_RENDERPASSBUILDER_H
+#endif//PF_GLFW_VULKAN_VULKAN_TYPES_BUILDERS_RENDERPASSBUILDER_H

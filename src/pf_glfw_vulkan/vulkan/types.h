@@ -2,8 +2,8 @@
 // Created by petr on 10/16/20.
 //
 
-#ifndef VOXEL_RENDER_TYPES_H
-#define VOXEL_RENDER_TYPES_H
+#ifndef PF_GLFW_VULKAN_TYPES_H
+#define PF_GLFW_VULKAN_TYPES_H
 
 #include "types/Buffer.h"
 #include "types/BufferView.h"
@@ -27,4 +27,4 @@
 #include "types/builders/GraphicsPipelineBuilder.h"
 #include "types/builders/RenderPassBuilder.h"
 
-#endif//VOXEL_RENDER_TYPES_H
+#endif//PF_GLFW_VULKAN_TYPES_H

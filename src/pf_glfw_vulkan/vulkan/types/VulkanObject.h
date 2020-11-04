@@ -2,12 +2,12 @@
 // Created by petr on 10/12/20.
 //
 
-#ifndef VOXEL_RENDER_VULKANOBJECT_H
-#define VOXEL_RENDER_VULKANOBJECT_H
+#ifndef PF_GLFW_VULKAN_VULKAN_TYPES_VULKANOBJECT_H
+#define PF_GLFW_VULKAN_VULKAN_TYPES_VULKANOBJECT_H
 
 #include <memory>
-#include <string>
 #include <pf_glfw_vulkan/_export.h>
+#include <string>
 
 namespace pf::vulkan {
 class PF_GLFW_VULKAN_EXPORT VulkanObject {
@@ -21,4 +21,4 @@ class PF_GLFW_VULKAN_EXPORT VulkanObject {
 };
 }// namespace pf::vulkan
 
-#endif//VOXEL_RENDER_VULKANOBJECT_H
+#endif//PF_GLFW_VULKAN_VULKAN_TYPES_VULKANOBJECT_H

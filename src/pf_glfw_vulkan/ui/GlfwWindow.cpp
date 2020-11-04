@@ -3,9 +3,9 @@
 //
 
 #include "GlfwWindow.h"
-#include <pf_common/exceptions/StackTraceException.h>
 #include <fmt/format.h>
 #include <magic_enum.hpp>
+#include <pf_common/exceptions/StackTraceException.h>
 
 namespace pf::ui {
 GlfwWindow::GlfwWindow(const WindowSettings &settings) : WindowData(settings) {}

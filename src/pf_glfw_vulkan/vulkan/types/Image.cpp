@@ -98,7 +98,7 @@ vk::Image const *Image::operator->() const { return &getVkImage(); }
 LogicalDevice &Image::getLogicalDevice() { return *logicalDevice; }
 
 void Image::transitionLayout(CommandPool &cmdPool, vk::ImageLayout newLayout,
-                             const vk::ImageSubresourceRange& subresourceRange) {
+                             const vk::ImageSubresourceRange &subresourceRange) {
   auto cmdBuffer =
       cmdPool.createCommandBuffers({.level = vk::CommandBufferLevel::ePrimary, .count = 1})[0];
   auto cmdRecorder = cmdBuffer->begin(vk::CommandBufferUsageFlagBits::eOneTimeSubmit);

@@ -6,6 +6,7 @@
 #include "../VulkanException.h"
 #include "Buffer.h"
 #include "CommandPool.h"
+#include "Fence.h"
 #include "FrameBuffer.h"
 #include "GraphicsPipeline.h"
 #include "Image.h"
@@ -79,7 +80,7 @@ CommandBufferRecording &CommandBufferRecording::copyBuffer(Buffer &src, Buffer &
 
 CommandBufferRecording &CommandBufferRecording::copyBufferToImage(
     Buffer &src, Image &dst, vk::DeviceSize srcOffset, uint32_t srcRowLength, uint32_t srcHeight,
-    vk::Offset3D dstOffset, const vk::ImageSubresourceLayers& imageSubresourceLayers) {
+    vk::Offset3D dstOffset, const vk::ImageSubresourceLayers &imageSubresourceLayers) {
   auto bufferCopy = vk::BufferImageCopy();
   bufferCopy.bufferOffset = srcOffset;
   bufferCopy.bufferRowLength = srcRowLength;

@@ -2,15 +2,14 @@
 // Created by petr on 10/18/20.
 //
 
-#ifndef VOXEL_RENDER_COMMANDBUFFER_H
-#define VOXEL_RENDER_COMMANDBUFFER_H
+#ifndef PF_GLFW_VULKAN_VULKAN_TYPES_COMMANDBUFFER_H
+#define PF_GLFW_VULKAN_VULKAN_TYPES_COMMANDBUFFER_H
 
-#include <pf_common/concepts/PtrConstructible.h>
-#include "Fence.h"
 #include "VulkanObject.h"
 #include "fwd.h"
-#include <vulkan/vulkan.hpp>
+#include <pf_common/concepts/PtrConstructible.h>
 #include <pf_glfw_vulkan/_export.h>
+#include <vulkan/vulkan.hpp>
 
 namespace pf::vulkan {
 
@@ -54,7 +53,7 @@ class PF_GLFW_VULKAN_EXPORT CommandBufferRecording {
   CommandBufferRecording &copyBufferToImage(Buffer &src, Image &dst, vk::DeviceSize srcOffset,
                                             uint32_t srcRowLength, uint32_t srcHeight,
                                             vk::Offset3D dstOffset,
-                                            const vk::ImageSubresourceLayers& imageSubresourceLayers);
+                                            const vk::ImageSubresourceLayers &imageSubresourceLayers);
 
   CommandBufferRecording &pipelineBarrier(vk::PipelineStageFlagBits srcStage,
                                           vk::PipelineStageFlagBits dstStage,
@@ -104,4 +103,4 @@ class PF_GLFW_VULKAN_EXPORT CommandBuffer : public VulkanObject, public PtrConst
 };
 }// namespace pf::vulkan
 
-#endif//VOXEL_RENDER_COMMANDBUFFER_H
+#endif//PF_GLFW_VULKAN_VULKAN_TYPES_COMMANDBUFFER_H

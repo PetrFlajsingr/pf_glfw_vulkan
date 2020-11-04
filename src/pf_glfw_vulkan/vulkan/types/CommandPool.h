@@ -2,15 +2,15 @@
 // Created by petr on 9/28/20.
 //
 
-#ifndef VOXEL_RENDER_COMMANDPOOL_H
-#define VOXEL_RENDER_COMMANDPOOL_H
+#ifndef PF_GLFW_VULKAN_VULKAN_TYPES_COMMANDPOOL_H
+#define PF_GLFW_VULKAN_VULKAN_TYPES_COMMANDPOOL_H
 
-#include <pf_common/concepts/PtrConstructible.h>
 #include "CommandBuffer.h"
 #include "VulkanObject.h"
 #include "fwd.h"
-#include <vulkan/vulkan.hpp>
+#include <pf_common/concepts/PtrConstructible.h>
 #include <pf_glfw_vulkan/_export.h>
+#include <vulkan/vulkan.hpp>
 
 namespace pf::vulkan {
 
@@ -29,8 +29,8 @@ struct PF_GLFW_VULKAN_EXPORT CommandPoolConfig {
 };
 
 class PF_GLFW_VULKAN_EXPORT CommandPool : public VulkanObject,
-                    public PtrConstructible<CommandPool>,
-                    public std::enable_shared_from_this<CommandPool> {
+                                          public PtrConstructible<CommandPool>,
+                                          public std::enable_shared_from_this<CommandPool> {
  public:
   explicit CommandPool(std::shared_ptr<LogicalDevice> device, CommandPoolConfig &&config);
 
@@ -59,4 +59,4 @@ class PF_GLFW_VULKAN_EXPORT CommandPool : public VulkanObject,
 
 }// namespace pf::vulkan
 
-#endif//VOXEL_RENDER_COMMANDPOOL_H
+#endif//PF_GLFW_VULKAN_VULKAN_TYPES_COMMANDPOOL_H

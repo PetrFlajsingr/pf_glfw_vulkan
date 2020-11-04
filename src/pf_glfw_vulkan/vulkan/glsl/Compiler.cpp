@@ -10,7 +10,7 @@ Compiler::Compiler(std::string srcName, std::string src, shaderc_shader_kind typ
                    const MacroDefs &macros, const ReplaceMacroDefs &replaceMacros)
     : name(std::move(srcName)), source(std::move(src)), kind(type) {
   for (const auto &macro : macros) { options.AddMacroDefinition(macro); }
-  for (const auto &[macro, value] : replaceMacros) { options.AddMacroDefinition(macro, value);}
+  for (const auto &[macro, value] : replaceMacros) { options.AddMacroDefinition(macro, value); }
   options.SetTargetSpirv(shaderc_spirv_version_1_4);
 }
 

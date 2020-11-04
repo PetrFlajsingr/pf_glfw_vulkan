@@ -2,19 +2,19 @@
 // Created by petr on 9/24/20.
 //
 
-#ifndef VOXEL_RENDER_GLFWWINDOW_H
-#define VOXEL_RENDER_GLFWWINDOW_H
+#ifndef PF_GLFW_VULKAN_UI_GLFWWINDOW_H
+#define PF_GLFW_VULKAN_UI_GLFWWINDOW_H
 
 #include "../concepts/Window.h"
-#include <pf_common/coroutines/Sequence.h>
 #include "events/EventDispatchImpl.h"
-#include <pf_common/Subscription.h>
 #include "events/common.h"
 #include <GLFW/glfw3.h>
 #include <array>
 #include <concepts>
-#include <unordered_map>
+#include <pf_common/Subscription.h>
+#include <pf_common/coroutines/Sequence.h>
 #include <pf_glfw_vulkan/_export.h>
+#include <unordered_map>
 
 namespace pf::ui {
 class PF_GLFW_VULKAN_EXPORT GlfwWindow final : public WindowData, public events::EventDispatchImpl {
@@ -50,4 +50,4 @@ std::optional<events::KeyEventType> glfwKeyEventToEvents(int key_event);
 std::ostream &operator<<(std::ostream &os, const GlfwWindow &window);
 static_assert(Window<GlfwWindow>);
 }// namespace pf::ui
-#endif//VOXEL_RENDER_GLFWWINDOW_H
+#endif//PF_GLFW_VULKAN_UI_GLFWWINDOW_H

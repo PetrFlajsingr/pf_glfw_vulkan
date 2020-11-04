@@ -3,14 +3,14 @@
 //
 
 #include "SwapChain.h"
-#include <pf_common/coroutines/Sequence.h>
-#include <pf_common/algorithms.h>
 #include "../VulkanException.h"
 #include "FrameBuffer.h"
 #include "Image.h"
 #include "ImageView.h"
 #include "PhysicalDevice.h"
 #include "Surface.h"
+#include <pf_common/algorithms.h>
+#include <pf_common/coroutines/Sequence.h>
 #include <range/v3/view.hpp>
 
 namespace pf::vulkan {
@@ -243,7 +243,8 @@ void SwapChain::swap() {
   checkRebuild();
   imageFences[frameIdx]->wait();
   imageIdx = logicalDevice->getVkLogicalDevice().acquireNextImageKHR(
-      *vkSwapChain, std::numeric_limits<uint64_t>::max(), **imageSemaphores[frameIdx], nullptr).value;
+                                                    *vkSwapChain, std::numeric_limits<uint64_t>::max(), **imageSemaphores[frameIdx], nullptr)
+                 .value;
   if (usedImageFences[imageIdx] != nullptr) { usedImageFences[imageIdx]->wait(); }
   usedImageFences[imageIdx] = imageFences[frameIdx];
 }

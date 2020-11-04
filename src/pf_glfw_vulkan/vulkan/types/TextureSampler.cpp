@@ -5,7 +5,6 @@
 #include "TextureSampler.h"
 #include "LogicalDevice.h"
 
-
 namespace pf::vulkan {
 
 std::string TextureSampler::info() const { return "Texture sampler"; }
@@ -43,4 +42,4 @@ vk::Sampler const *TextureSampler::operator->() {
   return &*vkSampler;
 }
 
-}
+}// namespace pf::vulkan

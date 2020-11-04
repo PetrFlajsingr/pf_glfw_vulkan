@@ -2,18 +2,18 @@
 // Created by petr on 9/26/20.
 //
 
-#ifndef VOXEL_RENDER_SWAPCHAIN_H
-#define VOXEL_RENDER_SWAPCHAIN_H
+#ifndef PF_GLFW_VULKAN_VULKAN_TYPES_SWAPCHAIN_H
+#define PF_GLFW_VULKAN_VULKAN_TYPES_SWAPCHAIN_H
 
-#include <pf_common/concepts/PtrConstructible.h>
-#include "../../concepts/Window.h"
 #include "VulkanObject.h"
 #include "fwd.h"
+#include <pf_common/concepts/PtrConstructible.h>
+#include <pf_glfw_vulkan/_export.h>
+#include <pf_glfw_vulkan/concepts/Window.h>
 #include <set>
 #include <unordered_set>
 #include <vector>
 #include <vulkan/vulkan.hpp>
-#include <pf_glfw_vulkan/_export.h>
 
 namespace pf::vulkan {
 
@@ -35,8 +35,8 @@ struct PF_GLFW_VULKAN_EXPORT PresentConfig {
 };
 
 class PF_GLFW_VULKAN_EXPORT SwapChain : public VulkanObject,
-                  public PtrConstructible<SwapChain>,
-                  public std::enable_shared_from_this<SwapChain> {
+                                        public PtrConstructible<SwapChain>,
+                                        public std::enable_shared_from_this<SwapChain> {
  public:
   explicit SwapChain(std::shared_ptr<Surface> surf, std::shared_ptr<LogicalDevice> device,
                      pf::vulkan::SwapChainConfig &&config);
@@ -71,7 +71,6 @@ class PF_GLFW_VULKAN_EXPORT SwapChain : public VulkanObject,
   void checkRebuild();
 
   void present(PresentConfig &&config) const;
-
 
   void addRebuildListener(std::invocable auto &&f) {
     rebuildListeners.emplace_back(f);
@@ -131,8 +130,8 @@ class PF_GLFW_VULKAN_EXPORT SwapChain : public VulkanObject,
 
   std::vector<std::function<void()>> rebuildListeners;
 
-  std::size_t frameIdx = 0;
-  std::size_t imageIdx;
+  std::size_t frameIdx{};
+  std::size_t imageIdx{};
 };
 }// namespace pf::vulkan
-#endif//VOXEL_RENDER_SWAPCHAIN_H
+#endif//PF_GLFW_VULKAN_VULKAN_TYPES_SWAPCHAIN_H

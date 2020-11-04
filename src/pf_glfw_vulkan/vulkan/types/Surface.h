@@ -2,15 +2,15 @@
 // Created by petr on 9/27/20.
 //
 
-#ifndef VOXEL_RENDER_SURFACE_H
-#define VOXEL_RENDER_SURFACE_H
+#ifndef PF_GLFW_VULKAN_VULKAN_TYPES_SURFACE_H
+#define PF_GLFW_VULKAN_VULKAN_TYPES_SURFACE_H
 
-#include <pf_common/concepts/PtrConstructible.h>
-#include <pf_glfw_vulkan/concepts/Window.h>
 #include "Instance.h"
 #include "VulkanObject.h"
 #include "fwd.h"
+#include <pf_common/concepts/PtrConstructible.h>
 #include <pf_glfw_vulkan/_export.h>
+#include <pf_glfw_vulkan/concepts/Window.h>
 
 namespace pf::vulkan {
 
@@ -43,4 +43,4 @@ class PF_GLFW_VULKAN_EXPORT Surface : public VulkanObject, public PtrConstructib
 
 }// namespace pf::vulkan
 
-#endif//VOXEL_RENDER_SURFACE_H
+#endif//PF_GLFW_VULKAN_VULKAN_TYPES_SURFACE_H

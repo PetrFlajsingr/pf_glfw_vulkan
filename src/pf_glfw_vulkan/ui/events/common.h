@@ -2,8 +2,8 @@
 // Created by petr on 9/24/20.
 //
 
-#ifndef VOXEL_RENDER_COMMON_H
-#define VOXEL_RENDER_COMMON_H
+#ifndef PF_GLFW_VULKAN_UI_EVENTS_COMMON_H
+#define PF_GLFW_VULKAN_UI_EVENTS_COMMON_H
 
 #include <functional>
 #include <magic_enum.hpp>
@@ -68,4 +68,4 @@ concept TextEventListener =
 
 }// namespace pf::events
 
-#endif//VOXEL_RENDER_COMMON_H
+#endif//PF_GLFW_VULKAN_UI_EVENTS_COMMON_H

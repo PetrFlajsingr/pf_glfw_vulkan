@@ -2,11 +2,9 @@
 // Created by petr on 10/18/20.
 //
 
-#ifndef VOXEL_RENDER_LOGICALDEVICE_H
-#define VOXEL_RENDER_LOGICALDEVICE_H
+#ifndef PF_GLFW_VULKAN_VULKAN_TYPES_LOGICALDEVICE_H
+#define PF_GLFW_VULKAN_VULKAN_TYPES_LOGICALDEVICE_H
 
-#include <pf_common/concepts/OneOf.h>
-#include <pf_common/concepts/PtrConstructible.h>
 #include "../../concepts/Window.h"
 #include "Buffer.h"
 #include "CommandPool.h"
@@ -19,12 +17,12 @@
 #include "SwapChain.h"
 #include "VulkanObject.h"
 #include "fwd.h"
-#include <range/v3/action.hpp>
-#include <range/v3/view.hpp>
+#include <pf_common/concepts/OneOf.h>
+#include <pf_common/concepts/PtrConstructible.h>
+#include <pf_glfw_vulkan/_export.h>
 #include <string>
 #include <unordered_set>
 #include <vulkan/vulkan.hpp>
-#include <pf_glfw_vulkan/_export.h>
 
 namespace pf::vulkan {
 using LogicalDeviceId = std::string;
@@ -40,8 +38,8 @@ struct PF_GLFW_VULKAN_EXPORT LogicalDeviceConfig {
 };
 
 class PF_GLFW_VULKAN_EXPORT LogicalDevice : public VulkanObject,
-                      public PtrConstructible<LogicalDevice>,
-                      public std::enable_shared_from_this<LogicalDevice> {
+                                            public PtrConstructible<LogicalDevice>,
+                                            public std::enable_shared_from_this<LogicalDevice> {
  public:
   LogicalDevice(const std::shared_ptr<PhysicalDevice> &device, vk::UniqueDevice &&vkLogicalDevice,
                 std::unordered_map<vk::QueueFlagBits, uint32_t> queueIndices,
@@ -88,4 +86,4 @@ class PF_GLFW_VULKAN_EXPORT LogicalDevice : public VulkanObject,
   std::optional<uint32_t> presentQueueIndex;
 };
 }// namespace pf::vulkan
-#endif//VOXEL_RENDER_LOGICALDEVICE_H
+#endif//PF_GLFW_VULKAN_VULKAN_TYPES_LOGICALDEVICE_H

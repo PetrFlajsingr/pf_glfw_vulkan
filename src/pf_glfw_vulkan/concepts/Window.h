@@ -2,20 +2,20 @@
 // Created by petr on 9/24/20.
 //
 
-#ifndef VOXEL_RENDER_WINDOW_H
-#define VOXEL_RENDER_WINDOW_H
+#ifndef PF_GLFW_VULKAN_WINDOW_H
+#define PF_GLFW_VULKAN_WINDOW_H
 
-#include <pf_common/Subscription.h>
 #include "../ui/events/common.h"
-#include <pf_common/concepts/StreamConcepts.h>
-#include <fmt/format.h>
 #include <concepts>
+#include <fmt/format.h>
 #include <fmt/ostream.h>
 #include <functional>
+#include <pf_common/Subscription.h>
+#include <pf_common/concepts/StreamConcepts.h>
+#include <pf_glfw_vulkan/_export.h>
 #include <string>
 #include <unordered_set>
 #include <vulkan/vulkan.hpp>
-#include <pf_glfw_vulkan/_export.h>
 
 namespace pf::ui {
 struct PF_GLFW_VULKAN_EXPORT Resolution {
@@ -25,7 +25,10 @@ struct PF_GLFW_VULKAN_EXPORT Resolution {
 };
 std::ostream &operator<<(std::ostream &os, const Resolution &res);
 
-enum class Mode { Windowed, Borderless, Fullscreen, FullscreenBorderless };
+enum class Mode { Windowed,
+                  Borderless,
+                  Fullscreen,
+                  FullscreenBorderless };
 
 struct PF_GLFW_VULKAN_EXPORT WindowSettings {
   Resolution resolution;
@@ -85,4 +88,4 @@ concept Window = std::constructible_from<T, WindowSettings> &&requires(
 
 }// namespace pf::ui
 
-#endif//VOXEL_RENDER_WINDOW_H
+#endif//PF_GLFW_VULKAN_WINDOW_H

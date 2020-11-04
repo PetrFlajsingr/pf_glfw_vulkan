@@ -6,6 +6,8 @@
 #include "../GraphicsPipeline.h"
 #include "../LogicalDevice.h"
 #include "../RenderPass.h"
+#include "../DescriptorSetLayout.h"
+#include "../Shader.h"
 
 namespace pf::vulkan {
 GraphicsPipelineBuilder &GraphicsPipelineBuilder::vertexInBindDescription(

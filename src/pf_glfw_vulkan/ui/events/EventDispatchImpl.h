@@ -2,20 +2,20 @@
 // Created by petr on 9/24/20.
 //
 
-#ifndef VOXEL_RENDER_EVENTDISPATCHIMPL_H
-#define VOXEL_RENDER_EVENTDISPATCHIMPL_H
+#ifndef PF_GLFW_VULKAN_UI_EVENTS_EVENTDISPATCHIMPL_H
+#define PF_GLFW_VULKAN_UI_EVENTS_EVENTDISPATCHIMPL_H
 
-#include <pf_common/coroutines/Sequence.h>
-#include <pf_common/Subscription.h>
 #include "common.h"
 #include <array>
 #include <chrono>
+#include <concepts>
 #include <iostream>
+#include <pf_common/Subscription.h>
+#include <pf_common/coroutines/Sequence.h>
+#include <pf_glfw_vulkan/_export.h>
 #include <queue>
 #include <unordered_map>
 #include <utility>
-#include <concepts>
-#include <pf_glfw_vulkan/_export.h>
 
 namespace pf::events {
 class PF_GLFW_VULKAN_EXPORT EventDispatchImpl {
@@ -71,4 +71,4 @@ class PF_GLFW_VULKAN_EXPORT EventDispatchImpl {
 };
 }// namespace pf::events
 
-#endif//VOXEL_RENDER_EVENTDISPATCHIMPL_H
+#endif//PF_GLFW_VULKAN_UI_EVENTS_EVENTDISPATCHIMPL_H

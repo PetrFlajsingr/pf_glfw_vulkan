@@ -2,14 +2,13 @@
 // Created by petr on 9/28/20.
 //
 
-#ifndef VOXEL_RENDER_GRAPHICSPIPELINEBUILDER_H
-#define VOXEL_RENDER_GRAPHICSPIPELINEBUILDER_H
+#ifndef PF_GLFW_VULKAN_VULKAN_TYPES_BUILDERS_GRAPHICSPIPELINEBUILDER_H
+#define PF_GLFW_VULKAN_VULKAN_TYPES_BUILDERS_GRAPHICSPIPELINEBUILDER_H
 
-#include <pf_glfw_vulkan/enums.h>
-#include "../DescriptorSetLayout.h"
-#include "../Shader.h"
-#include <vulkan/vulkan.hpp>
+#include "../fwd.h"
 #include <pf_glfw_vulkan/_export.h>
+#include <pf_glfw_vulkan/enums.h>
+#include <vulkan/vulkan.hpp>
 
 namespace pf::vulkan {
 
@@ -122,4 +121,4 @@ class PF_GLFW_VULKAN_EXPORT GraphicsPipelineBuilder {
 };
 
 }// namespace pf::vulkan
-#endif//VOXEL_RENDER_GRAPHICSPIPELINEBUILDER_H
+#endif//PF_GLFW_VULKAN_VULKAN_TYPES_BUILDERS_GRAPHICSPIPELINEBUILDER_H

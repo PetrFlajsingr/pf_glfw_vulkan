@@ -2,14 +2,14 @@
 // Created by petr on 9/28/20.
 //
 
-#ifndef VOXEL_RENDER_RENDERPASS_H
-#define VOXEL_RENDER_RENDERPASS_H
+#ifndef PF_GLFW_VULKAN_VULKAN_TYPES_RENDERPASS_H
+#define PF_GLFW_VULKAN_VULKAN_TYPES_RENDERPASS_H
 
-#include <pf_common/concepts/PtrConstructible.h>
 #include "VulkanObject.h"
 #include "fwd.h"
-#include <vulkan/vulkan.hpp>
+#include <pf_common/concepts/PtrConstructible.h>
 #include <pf_glfw_vulkan/_export.h>
+#include <vulkan/vulkan.hpp>
 
 namespace pf::vulkan {
 class RenderPassBuilder;
@@ -37,4 +37,4 @@ class PF_GLFW_VULKAN_EXPORT RenderPass : public VulkanObject, public PtrConstruc
 
 }// namespace pf::vulkan
 
-#endif//VOXEL_RENDER_RENDERPASS_H
+#endif//PF_GLFW_VULKAN_VULKAN_TYPES_RENDERPASS_H

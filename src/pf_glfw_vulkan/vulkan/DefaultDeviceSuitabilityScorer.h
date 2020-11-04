@@ -2,13 +2,13 @@
 // Created by petr on 9/25/20.
 //
 
-#ifndef VOXEL_RENDER_DEFAULTDEVICESUITABILITYSCORER_H
-#define VOXEL_RENDER_DEFAULTDEVICESUITABILITYSCORER_H
+#ifndef PF_GLFW_VULKAN_DEFAULTDEVICESUITABILITYSCORER_H
+#define PF_GLFW_VULKAN_DEFAULTDEVICESUITABILITYSCORER_H
 
 #include <functional>
+#include <pf_glfw_vulkan/_export.h>
 #include <unordered_set>
 #include <vulkan/vulkan.hpp>
-#include <pf_glfw_vulkan/_export.h>
 
 namespace pf::vulkan {
 using DeviceSuitabilityScore = std::size_t;
@@ -39,4 +39,4 @@ struct PF_GLFW_VULKAN_EXPORT DefaultDeviceSuitabilityScorer {
 static_assert(DeviceSuitabilityScorer<DefaultDeviceSuitabilityScorer>);
 }// namespace pf::vulkan
 
-#endif//VOXEL_RENDER_DEFAULTDEVICESUITABILITYSCORER_H
+#endif//PF_GLFW_VULKAN_DEFAULTDEVICESUITABILITYSCORER_H

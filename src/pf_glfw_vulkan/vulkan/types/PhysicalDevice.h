@@ -2,22 +2,22 @@
 // Created by petr on 9/26/20.
 //
 
-#ifndef VOXEL_RENDER_PHYSICALDEVICE_H
-#define VOXEL_RENDER_PHYSICALDEVICE_H
+#ifndef PF_GLFW_VULKAN_VULKAN_TYPES_PHYSICALDEVICE_H
+#define PF_GLFW_VULKAN_VULKAN_TYPES_PHYSICALDEVICE_H
 
-#include <pf_common/concepts/PtrConstructible.h>
-#include "../../concepts/Window.h"
-#include <pf_glfw_vulkan/logging.h>
 #include "../DefaultDeviceSuitabilityScorer.h"
 #include "../VulkanException.h"
 #include "LogicalDevice.h"
 #include "VulkanObject.h"
 #include "fwd.h"
+#include <pf_common/concepts/PtrConstructible.h>
+#include <pf_glfw_vulkan/_export.h>
+#include <pf_glfw_vulkan/concepts/Window.h>
+#include <pf_glfw_vulkan/logging.h>
 #include <range/v3/action.hpp>
 #include <range/v3/view.hpp>
 #include <unordered_set>
 #include <vulkan/vulkan.hpp>
-#include <pf_glfw_vulkan/_export.h>
 
 namespace pf::vulkan {
 
@@ -35,8 +35,8 @@ buildQueueCreateInfo(const std::unordered_set<uint32_t> &queueIndices,
 }// namespace details
 
 class PF_GLFW_VULKAN_EXPORT PhysicalDevice : public VulkanObject,
-                       public PtrConstructible<PhysicalDevice>,
-                       public std::enable_shared_from_this<PhysicalDevice> {
+                                             public PtrConstructible<PhysicalDevice>,
+                                             public std::enable_shared_from_this<PhysicalDevice> {
  public:
   template<DeviceSuitabilityScorer DeviceScorer>
   explicit PhysicalDevice(std::shared_ptr<Instance> instance, DeviceScorer &&scorer)
@@ -100,4 +100,4 @@ PhysicalDevice::selectPhysicalDevice(const std::vector<vk::PhysicalDevice> &phys
 
 }// namespace pf::vulkan
 
-#endif//VOXEL_RENDER_PHYSICALDEVICE_H
+#endif//PF_GLFW_VULKAN_VULKAN_TYPES_PHYSICALDEVICE_H

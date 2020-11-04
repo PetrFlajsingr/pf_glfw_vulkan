@@ -28,4 +28,4 @@ vk::DescriptorPool *DescriptorPool::operator->() {
 LogicalDevice &DescriptorPool::getDevice() {
   return *logicalDevice;
 }
-}
+}// namespace pf::vulkan

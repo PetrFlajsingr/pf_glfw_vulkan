@@ -3,9 +3,11 @@
 //
 
 #include "Texture.h"
-#include <pf_common/RAII.h>
 #include "../VulkanException.h"
 #include "LogicalDevice.h"
+#include <magic_enum.hpp>
+#include <pf_common/RAII.h>
+#include <pf_common/exceptions/StackTraceException.h>
 #include <stb/stb_image.h>
 #include <vulkan/vulkan.hpp>
 
@@ -77,4 +79,15 @@ std::string Texture::info() const { return "Vulkan texture"; }
 LogicalDevice &Texture::getLogicalDevice() const { return *logicalDevice; }
 Image &Texture::getImage() const { return *image; }
 
+vk::Format TextureChannelsToVkFormat(TextureChannels channels) {
+  switch (channels) {
+    case TextureChannels::grey: return vk::Format::eR8Srgb;
+    case TextureChannels::grey_alpha: return vk::Format::eR8G8Srgb;
+    case TextureChannels::rgb: return vk::Format::eR8G8B8Srgb;
+    case TextureChannels::rgb_alpha: return vk::Format::eR8G8B8A8Srgb;
+    default:
+      throw StackTraceException::fmt("Value not handled in switch: {}",
+                                     magic_enum::enum_name(channels));
+  }
+}
 }// namespace pf::vulkan

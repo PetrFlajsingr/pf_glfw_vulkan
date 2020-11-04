@@ -2,13 +2,13 @@
 // Created by petr on 11/1/20.
 //
 
-#ifndef REALISTIC_VOXEL_RENDERING_VULKAN_TYPES_TEXTURESAMPLER_H
-#define REALISTIC_VOXEL_RENDERING_VULKAN_TYPES_TEXTURESAMPLER_H
+#ifndef PF_GLFW_VULKAN_VULKAN_TYPES_TEXTURESAMPLER_H
+#define PF_GLFW_VULKAN_VULKAN_TYPES_TEXTURESAMPLER_H
 
 #include "VulkanObject.h"
 #include "fwd.h"
-#include <vulkan/vulkan.hpp>
 #include <pf_glfw_vulkan/_export.h>
+#include <vulkan/vulkan.hpp>
 
 namespace pf::vulkan {
 
@@ -19,7 +19,7 @@ struct PF_GLFW_VULKAN_EXPORT TextureSamplerConfig {
     vk::SamplerAddressMode u;
     vk::SamplerAddressMode v;
     vk::SamplerAddressMode w;
-  }addresssMode;
+  } addresssMode;
   std::optional<float> maxAnisotropy;
   vk::BorderColor borderColor;
   bool unnormalizedCoordinates;
@@ -29,7 +29,7 @@ struct PF_GLFW_VULKAN_EXPORT TextureSamplerConfig {
     float lodBias;
     float minLod;
     float maxLod;
-  }mip;
+  } mip;
 };
 
 class PF_GLFW_VULKAN_EXPORT TextureSampler : public VulkanObject {
@@ -48,4 +48,4 @@ class PF_GLFW_VULKAN_EXPORT TextureSampler : public VulkanObject {
   vk::UniqueSampler vkSampler;
 };
 }// namespace pf::vulkan
-#endif//REALISTIC_VOXEL_RENDERING_VULKAN_TYPES_TEXTURESAMPLER_H
+#endif//PF_GLFW_VULKAN_VULKAN_TYPES_TEXTURESAMPLER_H

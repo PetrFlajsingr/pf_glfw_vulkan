@@ -2,8 +2,8 @@
 // Created by petr on 11/3/20.
 //
 
-#ifndef PF_GLFW_VULKAN_SRC_PF_GLFW_VULKAN_LOGGING_H
-#define PF_GLFW_VULKAN_SRC_PF_GLFW_VULKAN_LOGGING_H
+#ifndef PF_GLFW_VULKAN_LOGGING_H
+#define PF_GLFW_VULKAN_LOGGING_H
 
 #include "lib_config.h"
 
@@ -36,30 +36,29 @@ inline void loge(std::string_view tag, std::string_view msg) {
   log(LogLevel::Err, tag, msg);
 }
 
-
 void logFmt(LogLevel level, std::string_view tag, std::string_view msg,
             const auto &... args) {
   details::globalLogger->logFmt(level, tag, msg, args...);
 }
 
-void logtFmt(std::string_view tag, std::string_view msg, const auto &...args) {
+void logtFmt(std::string_view tag, std::string_view msg, const auto &... args) {
   logFmt(LogLevel::Trace, tag, msg, args...);
 }
-void logiFmt(std::string_view tag, std::string_view msg, const auto &...args) {
+void logiFmt(std::string_view tag, std::string_view msg, const auto &... args) {
   logFmt(LogLevel::Info, tag, msg, args...);
 }
-void logdFmt(std::string_view tag, std::string_view msg, const auto &...args) {
+void logdFmt(std::string_view tag, std::string_view msg, const auto &... args) {
   logFmt(LogLevel::Debug, tag, msg, args...);
 }
-void logwFmt(std::string_view tag, std::string_view msg, const auto &...args) {
+void logwFmt(std::string_view tag, std::string_view msg, const auto &... args) {
   logFmt(LogLevel::Warn, tag, msg, args...);
 }
-void logcFmt(std::string_view tag, std::string_view msg, const auto &...args) {
+void logcFmt(std::string_view tag, std::string_view msg, const auto &... args) {
   logFmt(LogLevel::Critical, tag, msg, args...);
 }
-void logeFmt(std::string_view tag, std::string_view msg, const auto &...args) {
+void logeFmt(std::string_view tag, std::string_view msg, const auto &... args) {
   logFmt(LogLevel::Err, tag, msg, args...);
 }
-}
+}// namespace pf::vulkan
 
-#endif//PF_GLFW_VULKAN_SRC_PF_GLFW_VULKAN_LOGGING_H
+#endif//PF_GLFW_VULKAN_LOGGING_H

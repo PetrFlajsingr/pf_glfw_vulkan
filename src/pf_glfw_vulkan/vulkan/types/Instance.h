@@ -2,17 +2,17 @@
 // Created by petr on 9/26/20.
 //
 
-#ifndef VOXEL_RENDER_INSTANCE_H
-#define VOXEL_RENDER_INSTANCE_H
+#ifndef PF_GLFW_VULKAN_VULKAN_TYPES_INSTANCE_H
+#define PF_GLFW_VULKAN_VULKAN_TYPES_INSTANCE_H
 
-#include <pf_common/concepts/PtrConstructible.h>
 #include "../DefaultDeviceSuitabilityScorer.h"
 #include "PhysicalDevice.h"
 #include "VulkanCommon.h"
 #include "VulkanObject.h"
+#include <pf_common/concepts/PtrConstructible.h>
+#include <pf_glfw_vulkan/_export.h>
 #include <unordered_set>
 #include <vulkan/vulkan.hpp>
-#include <pf_glfw_vulkan/_export.h>
 
 namespace pf::vulkan {
 struct PF_GLFW_VULKAN_EXPORT InstanceConfig {
@@ -27,8 +27,8 @@ struct PF_GLFW_VULKAN_EXPORT InstanceConfig {
 };
 
 class PF_GLFW_VULKAN_EXPORT Instance : public VulkanObject,
-                 public PtrConstructible<Instance>,
-                 public std::enable_shared_from_this<Instance> {
+                                       public PtrConstructible<Instance>,
+                                       public std::enable_shared_from_this<Instance> {
  public:
   explicit Instance(InstanceConfig config);
 
@@ -69,4 +69,4 @@ std::shared_ptr<PhysicalDevice> Instance::selectDevice(DeviceScorer &&scorer) {
 }
 
 }// namespace pf::vulkan
-#endif//VOXEL_RENDER_INSTANCE_H
+#endif//PF_GLFW_VULKAN_VULKAN_TYPES_INSTANCE_H

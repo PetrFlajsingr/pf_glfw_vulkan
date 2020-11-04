@@ -4,8 +4,8 @@
 
 #include "lib_config.h"
 
-#include <utility>
 #include "logging.h"
+#include <utility>
 
 void pf::vulkan::setGlobalLoggerInstance(std::shared_ptr<ILogger> logger) {
   details::globalLogger = std::move(logger);

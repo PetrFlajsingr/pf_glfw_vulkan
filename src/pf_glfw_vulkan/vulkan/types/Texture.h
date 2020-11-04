@@ -2,31 +2,22 @@
 // Created by petr on 11/1/20.
 //
 
-#ifndef REALISTIC_VOXEL_RENDERING_VULKAN_TYPES_TEXTURE_H
-#define REALISTIC_VOXEL_RENDERING_VULKAN_TYPES_TEXTURE_H
+#ifndef PF_GLFW_VULKAN_VULKAN_TYPES_TEXTURE_H
+#define PF_GLFW_VULKAN_VULKAN_TYPES_TEXTURE_H
 
-#include <pf_common/exceptions/StackTraceException.h>
 #include "VulkanObject.h"
 #include "fwd.h"
 #include <filesystem>
-#include <magic_enum.hpp>
-#include <vulkan/vulkan.hpp>
 #include <pf_glfw_vulkan/_export.h>
+#include <vulkan/vulkan.hpp>
 
 namespace pf::vulkan {
-enum class TextureChannels { grey = 1, grey_alpha = 2, rgb = 3, rgb_alpha = 4 };
+enum class TextureChannels { grey = 1,
+                             grey_alpha = 2,
+                             rgb = 3,
+                             rgb_alpha = 4 };
 
-inline PF_GLFW_VULKAN_EXPORT vk::Format TextureChannelsToVkFormat(TextureChannels channels) {
-  switch (channels) {
-    case TextureChannels::grey: return vk::Format::eR8Srgb;
-    case TextureChannels::grey_alpha: return vk::Format::eR8G8Srgb;
-    case TextureChannels::rgb: return vk::Format::eR8G8B8Srgb;
-    case TextureChannels::rgb_alpha: return vk::Format::eR8G8B8A8Srgb;
-    default:
-      throw StackTraceException::fmt("Value not handled in switch: {}",
-                                     magic_enum::enum_name(channels));
-  }
-}
+PF_GLFW_VULKAN_EXPORT vk::Format TextureChannelsToVkFormat(TextureChannels channels);
 
 struct PF_GLFW_VULKAN_EXPORT FileTextureConfig {
   std::filesystem::path path;
@@ -51,4 +42,4 @@ class PF_GLFW_VULKAN_EXPORT Texture : public VulkanObject {
 
 }// namespace pf::vulkan
 
-#endif//REALISTIC_VOXEL_RENDERING_VULKAN_TYPES_TEXTURE_H
+#endif//PF_GLFW_VULKAN_VULKAN_TYPES_TEXTURE_H

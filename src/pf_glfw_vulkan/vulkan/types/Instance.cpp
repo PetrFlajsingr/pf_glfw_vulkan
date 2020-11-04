@@ -97,5 +97,4 @@ const vk::Instance &Instance::operator*() const { return *vkInstance; }
 
 vk::Instance const *Instance::operator->() const { return &*vkInstance; }
 
-
 }// namespace pf::vulkan

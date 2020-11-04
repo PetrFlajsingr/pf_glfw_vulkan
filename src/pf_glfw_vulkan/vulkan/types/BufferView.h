@@ -2,14 +2,14 @@
 // Created by petr on 10/19/20.
 //
 
-#ifndef VOXEL_RENDER_BUFFERVIEW_H
-#define VOXEL_RENDER_BUFFERVIEW_H
+#ifndef PF_GLFW_VULKAN_VULKAN_TYPES_BUFFERVIEW_H
+#define PF_GLFW_VULKAN_VULKAN_TYPES_BUFFERVIEW_H
 
-#include <pf_common/concepts/PtrConstructible.h>
 #include "VulkanObject.h"
 #include "fwd.h"
-#include <vulkan/vulkan.hpp>
+#include <pf_common/concepts/PtrConstructible.h>
 #include <pf_glfw_vulkan/_export.h>
+#include <vulkan/vulkan.hpp>
 
 namespace pf::vulkan {
 
@@ -41,4 +41,4 @@ class PF_GLFW_VULKAN_EXPORT BufferView : public VulkanObject, public PtrConstruc
   vk::UniqueBufferView vkBufferView;
 };
 }// namespace pf::vulkan
-#endif//VOXEL_RENDER_BUFFERVIEW_H
+#endif//PF_GLFW_VULKAN_VULKAN_TYPES_BUFFERVIEW_H

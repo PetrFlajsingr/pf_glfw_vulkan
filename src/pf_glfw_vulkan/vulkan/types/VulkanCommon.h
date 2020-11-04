@@ -2,15 +2,15 @@
 // Created by petr on 9/27/20.
 //
 
-#ifndef PF_VULKAN_TYPES_COMMON_H
-#define PF_VULKAN_TYPES_COMMON_H
+#ifndef PF_GLFW_VULKAN_VULKAN_TYPES_COMMON_H
+#define PF_GLFW_VULKAN_VULKAN_TYPES_COMMON_H
 
 #include <fmt/format.h>
 #include <fmt/ostream.h>
 #include <functional>
+#include <pf_glfw_vulkan/_export.h>
 #include <string>
 #include <vulkan/vulkan.hpp>
-#include <pf_glfw_vulkan/_export.h>
 
 namespace pf::vulkan {
 
@@ -57,4 +57,4 @@ struct PF_GLFW_VULKAN_EXPORT EngineInfo {
 
 }// namespace pf::vulkan
 
-#endif//PF_VULKAN_TYPES_COMMON_H
+#endif//PF_GLFW_VULKAN_VULKAN_TYPES_COMMON_H
