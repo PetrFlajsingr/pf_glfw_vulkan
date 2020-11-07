@@ -17,6 +17,7 @@
 #include "types/ImageView.h"
 #include "types/Instance.h"
 #include "types/PhysicalDevice.h"
+#include "types/LogicalDevice.h"
 #include "types/RenderPass.h"
 #include "types/Semaphore.h"
 #include "types/Shader.h"
