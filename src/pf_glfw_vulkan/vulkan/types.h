@@ -10,6 +10,7 @@
 #include "types/CommandBuffer.h"
 #include "types/CommandPool.h"
 #include "types/DescriptorSetLayout.h"
+#include "types/DescriptorPool.h"
 #include "types/Fence.h"
 #include "types/FrameBuffer.h"
 #include "types/GraphicsPipeline.h"
