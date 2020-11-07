@@ -3,7 +3,6 @@
 //
 
 #include "VulkanException.h"
-#include <fmt/format.h>
 
 namespace pf::vulkan {
 VulkanException::VulkanException(const std::string_view &message) : StackTraceException(message) {}

@@ -9,28 +9,9 @@
 #include "fwd.h"
 #include <pf_glfw_vulkan/_export.h>
 #include <vulkan/vulkan.hpp>
+#include "configs/TextureSamplerConfig.h"
 
 namespace pf::vulkan {
-
-struct PF_GLFW_VULKAN_EXPORT TextureSamplerConfig {
-  vk::Filter magFilter;
-  vk::Filter minFilter;
-  struct {
-    vk::SamplerAddressMode u;
-    vk::SamplerAddressMode v;
-    vk::SamplerAddressMode w;
-  } addresssMode;
-  std::optional<float> maxAnisotropy;
-  vk::BorderColor borderColor;
-  bool unnormalizedCoordinates;
-  std::optional<vk::CompareOp> compareOp;
-  struct {
-    vk::SamplerMipmapMode mode;
-    float lodBias;
-    float minLod;
-    float maxLod;
-  } mip;
-};
 
 class PF_GLFW_VULKAN_EXPORT TextureSampler : public VulkanObject {
  public:

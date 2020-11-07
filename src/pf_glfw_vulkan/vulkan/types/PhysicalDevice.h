@@ -7,15 +7,16 @@
 
 #include "../DefaultDeviceSuitabilityScorer.h"
 #include "../VulkanException.h"
-#include "LogicalDevice.h"
 #include "VulkanObject.h"
+#include "configs/LogicalDeviceConfig.h"
 #include "fwd.h"
 #include <pf_common/concepts/PtrConstructible.h>
 #include <pf_glfw_vulkan/_export.h>
 #include <pf_glfw_vulkan/concepts/Window.h>
 #include <pf_glfw_vulkan/logging.h>
-#include <range/v3/action.hpp>
-#include <range/v3/view.hpp>
+#include <range/v3/action/sort.hpp>
+#include <range/v3/view/filter.hpp>
+#include <range/v3/view/transform.hpp>
 #include <unordered_set>
 #include <vulkan/vulkan.hpp>
 
@@ -51,7 +52,7 @@ class PF_GLFW_VULKAN_EXPORT PhysicalDevice : public VulkanObject,
   const vk::PhysicalDevice &operator*() const;
   vk::PhysicalDevice const *operator->() const;
 
-  [[nodiscard]] LogicalDevice &getLogicalDevice(const LogicalDeviceId &id);
+  [[nodiscard]] LogicalDevice &getLogicalDevice(const std::string &id);
 
   std::string info() const override;
 
@@ -69,7 +70,7 @@ class PF_GLFW_VULKAN_EXPORT PhysicalDevice : public VulkanObject,
 
   std::shared_ptr<Instance> instance;
   vk::PhysicalDevice vkDevice;
-  std::unordered_map<LogicalDeviceId, std::shared_ptr<LogicalDevice>> logicalDevices;
+  std::unordered_map<std::string, std::shared_ptr<LogicalDevice>> logicalDevices;
 };
 
 template<DeviceSuitabilityScorer DeviceScorer>

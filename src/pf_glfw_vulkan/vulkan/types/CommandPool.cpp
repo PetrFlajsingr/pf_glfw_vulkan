@@ -6,6 +6,8 @@
 #include "Fence.h"
 #include "PhysicalDevice.h"
 #include "Semaphore.h"
+#include "CommandBuffer.h"
+#include "LogicalDevice.h"
 
 namespace pf::vulkan {
 CommandPool::CommandPool(std::shared_ptr<LogicalDevice> device, CommandPoolConfig &&config)

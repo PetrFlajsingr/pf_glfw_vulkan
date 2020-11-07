@@ -3,8 +3,12 @@
 //
 
 #include "VulkanCommon.h"
+#include <range/v3/core.hpp>
 #include <range/v3/numeric/accumulate.hpp>
-#include <range/v3/view.hpp>
+#include <range/v3/view/c_str.hpp>
+#include <range/v3/view/reverse.hpp>
+#include <range/v3/view/split.hpp>
+#include <range/v3/view/transform.hpp>
 #include <regex>
 
 using namespace ranges::views;

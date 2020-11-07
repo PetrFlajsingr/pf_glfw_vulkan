@@ -3,6 +3,15 @@
 //
 
 #include "LogicalDevice.h"
+#include "Image.h"
+#include "Shader.h"
+#include "SwapChain.h"
+#include "CommandPool.h"
+#include "DescriptorSetLayout.h"
+#include "DescriptorPool.h"
+#include "Fence.h"
+#include "Semaphore.h"
+#include "Buffer.h"
 
 namespace pf::vulkan {
 
@@ -74,6 +83,18 @@ vk::Queue LogicalDevice::getPresentQueue() {
 std::shared_ptr<Buffer> LogicalDevice::createBuffer(BufferConfig &&config,
                                                     bool allocateImmediately) {
   return std::make_shared<Buffer>(shared_from_this(), std::move(config), allocateImmediately);
+}
+std::shared_ptr<Shader> LogicalDevice::createShader(ShaderConfigFile &&config) {
+  return Shader::CreateShared(shared_from_this(), std::move(config));
+}
+std::shared_ptr<Shader> LogicalDevice::createShader(ShaderConfigSrc &&config) {
+  return Shader::CreateShared(shared_from_this(), std::move(config));
+}
+std::shared_ptr<Shader> LogicalDevice::createShader(ShaderConfigGlslSrc &&config) {
+  return Shader::CreateShared(shared_from_this(), std::move(config));
+}
+std::shared_ptr<Shader> LogicalDevice::createShader(ShaderConfigGlslFile &&config) {
+  return Shader::CreateShared(shared_from_this(), std::move(config));
 }
 
 }// namespace pf::vulkan

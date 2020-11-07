@@ -6,25 +6,12 @@
 #define PF_GLFW_VULKAN_VULKAN_TYPES_TEXTURE_H
 
 #include "VulkanObject.h"
+#include "configs/TextureConfigs.h"
 #include "fwd.h"
-#include <filesystem>
 #include <pf_glfw_vulkan/_export.h>
 #include <vulkan/vulkan.hpp>
 
 namespace pf::vulkan {
-enum class TextureChannels { grey = 1,
-                             grey_alpha = 2,
-                             rgb = 3,
-                             rgb_alpha = 4 };
-
-PF_GLFW_VULKAN_EXPORT vk::Format TextureChannelsToVkFormat(TextureChannels channels);
-
-struct PF_GLFW_VULKAN_EXPORT FileTextureConfig {
-  std::filesystem::path path;
-  TextureChannels channels;
-  uint32_t mipLevels;
-  vk::ImageUsageFlags usage;
-};
 
 class PF_GLFW_VULKAN_EXPORT Texture : public VulkanObject {
  public:

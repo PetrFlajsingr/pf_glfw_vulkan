@@ -5,12 +5,13 @@
 #ifndef PF_GLFW_VULKAN_VULKAN_TYPES_COMMANDPOOL_H
 #define PF_GLFW_VULKAN_VULKAN_TYPES_COMMANDPOOL_H
 
-#include "CommandBuffer.h"
 #include "VulkanObject.h"
 #include "fwd.h"
 #include <pf_common/concepts/PtrConstructible.h>
 #include <pf_glfw_vulkan/_export.h>
 #include <vulkan/vulkan.hpp>
+#include "configs/CommandPoolConfig.h"
+#include "configs/CommandBufferConfig.h"
 
 namespace pf::vulkan {
 
@@ -23,10 +24,6 @@ struct PF_GLFW_VULKAN_EXPORT MultiCommandSubmitConfig {
   bool wait;
 };
 
-struct PF_GLFW_VULKAN_EXPORT CommandPoolConfig {
-  vk::QueueFlagBits queueFamily;
-  vk::CommandPoolCreateFlagBits flags;
-};
 
 class PF_GLFW_VULKAN_EXPORT CommandPool : public VulkanObject,
                                           public PtrConstructible<CommandPool>,

@@ -4,6 +4,7 @@
 
 #include "DescriptorSetLayout.h"
 #include "PhysicalDevice.h"
+#include "LogicalDevice.h"
 
 namespace pf::vulkan {
 DescriptorSetLayout::DescriptorSetLayout(std::shared_ptr<LogicalDevice> device,

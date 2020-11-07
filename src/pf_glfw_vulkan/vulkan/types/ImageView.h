@@ -6,21 +6,13 @@
 #define PF_GLFW_VULKAN_VULKAN_TYPES_IMAGEVIEW_H
 
 #include "VulkanObject.h"
+#include "configs/ImageViewConfig.h"
 #include "fwd.h"
 #include <pf_common/concepts/PtrConstructible.h>
 #include <pf_glfw_vulkan/_export.h>
 #include <vulkan/vulkan.hpp>
 
 namespace pf::vulkan {
-
-class SwapChain;
-
-struct PF_GLFW_VULKAN_EXPORT ImageViewConfig {
-  vk::Format format;
-  vk::ColorSpaceKHR colorSpace;
-  vk::ImageViewType viewType;
-  vk::ImageSubresourceRange subResourceRange;
-};
 
 class PF_GLFW_VULKAN_EXPORT ImageView : public VulkanObject, public PtrConstructible<ImageView> {
  public:

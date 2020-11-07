@@ -8,13 +8,14 @@
 #include "LogicalDevice.h"
 #include "Surface.h"
 #include "SwapChain.h"
+#include <range/v3/view/map.hpp>
 #include <utility>
 
 namespace pf::vulkan {
 
 const vk::PhysicalDevice &PhysicalDevice::getPhysicalDevice() { return vkDevice; }
 
-LogicalDevice &PhysicalDevice::getLogicalDevice(const LogicalDeviceId &id) {
+LogicalDevice &PhysicalDevice::getLogicalDevice(const std::string &id) {
   return *logicalDevices[id].get();
 }
 

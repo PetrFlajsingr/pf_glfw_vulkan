@@ -6,16 +6,13 @@
 #define PF_GLFW_VULKAN_VULKAN_TYPES_FENCE_H
 
 #include "VulkanObject.h"
+#include "configs/FenceConfig.h"
 #include "fwd.h"
 #include <pf_common/concepts/PtrConstructible.h>
 #include <pf_glfw_vulkan/_export.h>
 #include <vulkan/vulkan.hpp>
 
 namespace pf::vulkan {
-
-struct PF_GLFW_VULKAN_EXPORT FenceConfig {
-  vk::FenceCreateFlags flags;
-};
 
 class PF_GLFW_VULKAN_EXPORT Fence : public VulkanObject, public PtrConstructible<Fence> {
  public:

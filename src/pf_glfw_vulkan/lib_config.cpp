@@ -3,7 +3,6 @@
 //
 
 #include "lib_config.h"
-
 #include "logging.h"
 #include <utility>
 

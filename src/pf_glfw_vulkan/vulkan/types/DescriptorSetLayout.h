@@ -6,23 +6,13 @@
 #define PF_GLFW_VULKAN_VULKAN_TYPES_DESCRIPTORSETLAYOUT_H
 
 #include "VulkanObject.h"
+#include "configs/DescriptorSetLayoutConfig.h"
 #include "fwd.h"
 #include <pf_common/concepts/PtrConstructible.h>
 #include <pf_glfw_vulkan/_export.h>
 #include <vulkan/vulkan.hpp>
 
 namespace pf::vulkan {
-
-struct PF_GLFW_VULKAN_EXPORT DescriptorSetLayoutBindingConfig {
-  uint32_t binding;
-  vk::DescriptorType type;
-  uint32_t count;
-  vk::ShaderStageFlags stageFlags;
-};
-
-struct PF_GLFW_VULKAN_EXPORT DescriptorSetLayoutConfig {
-  std::vector<DescriptorSetLayoutBindingConfig> bindings;
-};
 
 class PF_GLFW_VULKAN_EXPORT DescriptorSetLayout : public VulkanObject, public PtrConstructible<DescriptorSetLayout> {
  public:

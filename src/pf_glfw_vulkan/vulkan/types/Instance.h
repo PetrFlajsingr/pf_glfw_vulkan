@@ -9,22 +9,13 @@
 #include "PhysicalDevice.h"
 #include "VulkanCommon.h"
 #include "VulkanObject.h"
+#include "configs/InstanceConfig.h"
 #include <pf_common/concepts/PtrConstructible.h>
 #include <pf_glfw_vulkan/_export.h>
 #include <unordered_set>
 #include <vulkan/vulkan.hpp>
 
 namespace pf::vulkan {
-struct PF_GLFW_VULKAN_EXPORT InstanceConfig {
-  std::string appName;
-  Version appVersion;
-  Version vkVersion;
-  EngineInfo engineInfo;
-  std::unordered_set<std::string> requiredWindowExtensions;
-  std::unordered_set<std::string> validationLayers;
-
-  std::optional<VulkanDebugCallback> callback;
-};
 
 class PF_GLFW_VULKAN_EXPORT Instance : public VulkanObject,
                                        public PtrConstructible<Instance>,

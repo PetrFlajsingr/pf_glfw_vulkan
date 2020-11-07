@@ -9,7 +9,6 @@
 #include <array>
 #include <chrono>
 #include <concepts>
-#include <iostream>
 #include <pf_common/Subscription.h>
 #include <pf_common/coroutines/Sequence.h>
 #include <pf_glfw_vulkan/_export.h>

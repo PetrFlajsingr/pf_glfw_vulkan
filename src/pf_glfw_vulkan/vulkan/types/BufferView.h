@@ -10,15 +10,9 @@
 #include <pf_common/concepts/PtrConstructible.h>
 #include <pf_glfw_vulkan/_export.h>
 #include <vulkan/vulkan.hpp>
+#include "configs/BufferViewConfig.h"
 
 namespace pf::vulkan {
-
-struct PF_GLFW_VULKAN_EXPORT BufferViewConfig {
-  vk::BufferViewCreateFlags createFlags;
-  vk::Format format;
-  vk::DeviceSize offset;
-  vk::DeviceSize range;
-};
 
 class PF_GLFW_VULKAN_EXPORT BufferView : public VulkanObject, public PtrConstructible<BufferView> {
  public:

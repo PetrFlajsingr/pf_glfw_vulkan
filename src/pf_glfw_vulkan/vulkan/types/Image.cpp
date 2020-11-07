@@ -5,6 +5,9 @@
 #include "Image.h"
 #include "ImageView.h"
 #include "PhysicalDevice.h"
+#include "LogicalDevice.h"
+#include "CommandPool.h"
+#include "CommandBuffer.h"
 
 namespace pf::vulkan {
 Image::Image(std::shared_ptr<LogicalDevice> device, ImageConfig &&config)

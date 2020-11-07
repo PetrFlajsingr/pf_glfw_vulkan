@@ -6,6 +6,7 @@
 #define PF_GLFW_VULKAN_VULKAN_TYPES_IMAGE_H
 
 #include "VulkanObject.h"
+#include "configs/ImageConfig.h"
 #include "fwd.h"
 #include <pf_common/concepts/PtrConstructible.h>
 #include <pf_glfw_vulkan/_export.h>
@@ -13,19 +14,6 @@
 #include <vulkan/vulkan.hpp>
 
 namespace pf::vulkan {
-class ImageView;
-struct PF_GLFW_VULKAN_EXPORT ImageConfig {
-  vk::ImageType imageType;
-  vk::Format format;
-  vk::Extent3D extent;
-  uint32_t mipLevels;
-  uint32_t arrayLayers;
-  vk::SampleCountFlagBits sampleCount;
-  vk::ImageTiling tiling;
-  vk::ImageUsageFlags usage;
-  std::unordered_set<uint32_t> sharingQueues;
-  vk::ImageLayout layout;
-};
 
 class PF_GLFW_VULKAN_EXPORT Image : public VulkanObject, public std::enable_shared_from_this<Image> {
  public:

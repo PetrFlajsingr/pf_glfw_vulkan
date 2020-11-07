@@ -12,7 +12,6 @@
 #include <vulkan/vulkan.hpp>
 
 namespace pf::vulkan {
-class RenderPassBuilder;
 class PF_GLFW_VULKAN_EXPORT RenderPass : public VulkanObject, public PtrConstructible<RenderPass> {
  public:
   friend class RenderPassBuilder;

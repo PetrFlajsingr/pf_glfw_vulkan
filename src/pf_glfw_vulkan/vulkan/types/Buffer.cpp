@@ -3,6 +3,7 @@
 //
 
 #include "Buffer.h"
+#include "BufferView.h"
 #include "LogicalDevice.h"
 #include "PhysicalDevice.h"
 

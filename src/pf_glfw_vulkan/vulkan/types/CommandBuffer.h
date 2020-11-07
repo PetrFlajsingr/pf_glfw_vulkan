@@ -6,17 +6,13 @@
 #define PF_GLFW_VULKAN_VULKAN_TYPES_COMMANDBUFFER_H
 
 #include "VulkanObject.h"
+#include "configs/CommandBufferConfig.h"
 #include "fwd.h"
 #include <pf_common/concepts/PtrConstructible.h>
 #include <pf_glfw_vulkan/_export.h>
 #include <vulkan/vulkan.hpp>
 
 namespace pf::vulkan {
-
-struct PF_GLFW_VULKAN_EXPORT CommandBufferConfig {
-  vk::CommandBufferLevel level;
-  uint32_t count;
-};
 
 struct PF_GLFW_VULKAN_EXPORT ClearFrameBuffersCommand {
   RenderPass &renderPass;

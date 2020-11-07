@@ -7,10 +7,9 @@
 #include "LogicalDevice.h"
 #include "RenderPass.h"
 #include "SwapChain.h"
-#include <range/v3/view.hpp>
+
 
 namespace pf::vulkan {
-using namespace ranges;
 
 const vk::Framebuffer &details::FrameBufferInstance::getFrameBuffer() const {
   return vkFrameBuffer.get();

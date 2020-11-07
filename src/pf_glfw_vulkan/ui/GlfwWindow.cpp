@@ -4,6 +4,7 @@
 
 #include "GlfwWindow.h"
 #include <fmt/format.h>
+#include <fmt/ostream.h>
 #include <magic_enum.hpp>
 #include <pf_common/exceptions/StackTraceException.h>
 

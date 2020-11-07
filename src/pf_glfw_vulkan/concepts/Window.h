@@ -7,8 +7,6 @@
 
 #include "../ui/events/common.h"
 #include <concepts>
-#include <fmt/format.h>
-#include <fmt/ostream.h>
 #include <functional>
 #include <pf_common/Subscription.h>
 #include <pf_common/concepts/StreamConcepts.h>

@@ -6,7 +6,10 @@
 #include "../../VulkanException.h"
 #include "../PhysicalDevice.h"
 #include "../RenderPass.h"
-#include <range/v3/view.hpp>
+#include "../LogicalDevice.h"
+#include <range/v3/view/enumerate.hpp>
+#include <range/v3/view/map.hpp>
+#include <range/v3/view/transform.hpp>
 
 namespace pf::vulkan {
 

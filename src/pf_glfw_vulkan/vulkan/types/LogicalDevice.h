@@ -6,18 +6,17 @@
 #define PF_GLFW_VULKAN_VULKAN_TYPES_LOGICALDEVICE_H
 
 #include "../../concepts/Window.h"
-#include "Buffer.h"
-#include "CommandPool.h"
-#include "DescriptorPool.h"
-#include "DescriptorSetLayout.h"
-#include "Fence.h"
-#include "Image.h"
-#include "Semaphore.h"
-#include "Shader.h"
-#include "SwapChain.h"
 #include "VulkanObject.h"
+#include "configs/BufferConfig.h"
+#include "configs/CommandPoolConfig.h"
+#include "configs/DescriptorPoolConfig.h"
+#include "configs/DescriptorSetLayoutConfig.h"
+#include "configs/FenceConfig.h"
+#include "configs/ImageConfig.h"
+#include "configs/LogicalDeviceConfig.h"
+#include "configs/ShaderConfigs.h"
+#include "configs/SwapChainConfig.h"
 #include "fwd.h"
-#include <pf_common/concepts/OneOf.h>
 #include <pf_common/concepts/PtrConstructible.h>
 #include <pf_glfw_vulkan/_export.h>
 #include <string>
@@ -25,17 +24,6 @@
 #include <vulkan/vulkan.hpp>
 
 namespace pf::vulkan {
-using LogicalDeviceId = std::string;
-
-struct PF_GLFW_VULKAN_EXPORT LogicalDeviceConfig {
-  LogicalDeviceId id;
-  vk::PhysicalDeviceFeatures deviceFeatures;
-  std::unordered_set<vk::QueueFlagBits> queueTypes;
-  bool presentQueueEnabled{};
-  std::unordered_set<std::string> requiredDeviceExtensions;
-  std::unordered_set<std::string> validationLayers;
-  Surface &surface;
-};
 
 class PF_GLFW_VULKAN_EXPORT LogicalDevice : public VulkanObject,
                                             public PtrConstructible<LogicalDevice>,
@@ -63,10 +51,12 @@ class PF_GLFW_VULKAN_EXPORT LogicalDevice : public VulkanObject,
   [[nodiscard]] std::shared_ptr<CommandPool> createCommandPool(CommandPoolConfig &&config);
   [[nodiscard]] std::shared_ptr<DescriptorSetLayout>
   createDescriptorSetLayout(DescriptorSetLayoutConfig &&config);
-  template<OneOf<ShaderConfigFile, ShaderConfigSrc, ShaderConfigGlslSrc, ShaderConfigGlslFile> T>
-  [[nodiscard]] std::shared_ptr<Shader> createShader(T &&config) {
-    return Shader::CreateShared(shared_from_this(), std::move(config));
-  }
+
+  [[nodiscard]] std::shared_ptr<Shader> createShader(ShaderConfigFile &&config);
+  [[nodiscard]] std::shared_ptr<Shader> createShader(ShaderConfigSrc &&config);
+  [[nodiscard]] std::shared_ptr<Shader> createShader(ShaderConfigGlslSrc &&config);
+  [[nodiscard]] std::shared_ptr<Shader> createShader(ShaderConfigGlslFile &&config);
+
   [[nodiscard]] std::shared_ptr<DescriptorPool> createDescriptorPool(DescriptorPoolConfig &&config);
   [[nodiscard]] std::shared_ptr<Fence> createFence(FenceConfig &&config);
   [[nodiscard]] std::shared_ptr<Semaphore> createSemaphore();

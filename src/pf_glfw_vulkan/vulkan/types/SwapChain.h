@@ -6,6 +6,7 @@
 #define PF_GLFW_VULKAN_VULKAN_TYPES_SWAPCHAIN_H
 
 #include "VulkanObject.h"
+#include "configs/SwapChainConfig.h"
 #include "fwd.h"
 #include <pf_common/concepts/PtrConstructible.h>
 #include <pf_glfw_vulkan/_export.h>
@@ -16,18 +17,6 @@
 #include <vulkan/vulkan.hpp>
 
 namespace pf::vulkan {
-
-struct PF_GLFW_VULKAN_EXPORT SwapChainConfig {
-  std::set<vk::SurfaceFormatKHR> formats;
-  std::set<vk::PresentModeKHR> presentModes;
-  ui::Resolution resolution;
-  vk::ImageUsageFlags imageUsage;
-  std::unordered_set<uint32_t> sharingQueues;
-  uint32_t imageArrayLayers;
-  bool clipped;
-  std::optional<vk::SwapchainKHR> oldSwapChain;
-  vk::CompositeAlphaFlagBitsKHR compositeAlpha;
-};
 
 struct PF_GLFW_VULKAN_EXPORT PresentConfig {
   std::vector<std::reference_wrapper<Semaphore>> waitSemaphores;

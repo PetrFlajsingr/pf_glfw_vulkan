@@ -29,6 +29,9 @@ class Semaphore;
 class Fence;
 class Texture;
 class TextureSampler;
+
+class RenderPassBuilder;
+class GraphicsPipelineBuilder;
 }// namespace pf::vulkan
 
 #endif//PF_GLFW_VULKAN_VULKAN_TYPES_FWD_H

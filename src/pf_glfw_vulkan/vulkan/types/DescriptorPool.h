@@ -6,17 +6,14 @@
 #define PF_GLFW_VULKAN_VULKAN_TYPES_DESCRIPTORPOOL_H
 
 #include "fwd.h"
+#include "configs/DescriptorPoolConfig.h"
 #include <pf_common/concepts/PtrConstructible.h>
 #include <pf_glfw_vulkan/_export.h>
 #include <vulkan/vulkan.hpp>
 
 namespace pf::vulkan {
 
-struct PF_GLFW_VULKAN_EXPORT DescriptorPoolConfig {
-  vk::DescriptorPoolCreateFlags flags;
-  uint32_t maxSets;
-  std::vector<vk::DescriptorPoolSize> poolSizes;
-};
+
 
 class PF_GLFW_VULKAN_EXPORT DescriptorPool : public PtrConstructible<DescriptorPool> {
  public:

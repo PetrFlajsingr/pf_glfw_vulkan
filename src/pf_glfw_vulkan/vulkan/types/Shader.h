@@ -12,57 +12,11 @@
 #include <pf_glfw_vulkan/_export.h>
 #include <pf_glfw_vulkan/vulkan/glsl/Compiler.h>
 #include <vulkan/vulkan.hpp>
+#include "configs/ShaderConfigs.h"
 
 namespace pf::vulkan {
-// TODO: more shader types
-enum class ShaderType {
-  Vertex,
-  Fragment,
-  Compute,
-  Geometry,
-  TessControl,
-  TessEval,
-  RayGen,
-  AnyHit,
-  ClosestHit,
-  Miss,
-  Intersection,
-  Callable,
-  Task,
-  Mesg
-};
 
 shaderc_shader_kind toShaderc(ShaderType type);
-
-struct PF_GLFW_VULKAN_EXPORT ShaderConfigFile {
-  std::string name;
-  ShaderType type;
-  std::string path;
-};
-
-struct PF_GLFW_VULKAN_EXPORT ShaderConfigSrc {
-  std::string name;
-  ShaderType type;
-  std::vector<uint8_t> data;
-};
-
-struct PF_GLFW_VULKAN_EXPORT ShaderConfigGlslFile {
-  std::string name;
-  ShaderType type;
-  std::string path;
-  glsl::MacroDefs macros;
-  glsl::ReplaceMacroDefs replaceMacros = {};
-  glsl::Optimization optimization = {};
-};
-
-struct PF_GLFW_VULKAN_EXPORT ShaderConfigGlslSrc {
-  std::string name;
-  ShaderType type;
-  std::string src;
-  glsl::MacroDefs macros;
-  glsl::ReplaceMacroDefs replaceMacros = {};
-  glsl::Optimization optimization = {};
-};
 
 vk::ShaderStageFlagBits ShaderTypeToVk(ShaderType type);
 

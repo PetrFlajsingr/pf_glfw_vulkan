@@ -5,8 +5,9 @@
 #ifndef PF_GLFW_VULKAN_VULKAN_TYPES_BUFFER_H
 #define PF_GLFW_VULKAN_VULKAN_TYPES_BUFFER_H
 
-#include "BufferView.h"
 #include "VulkanObject.h"
+#include "configs/BufferConfig.h"
+#include "configs/BufferViewConfig.h"
 #include "fwd.h"
 #include <pf_common/concepts/PtrConstructible.h>
 #include <pf_glfw_vulkan/_export.h>
@@ -14,13 +15,6 @@
 #include <vulkan/vulkan.hpp>
 
 namespace pf::vulkan {
-
-struct PF_GLFW_VULKAN_EXPORT BufferConfig {
-  vk::DeviceSize size;
-  vk::BufferUsageFlags usageFlags;
-  vk::SharingMode sharingMode;
-  std::vector<uint32_t> queueFamilyIndices;
-};
 
 class PF_GLFW_VULKAN_EXPORT BufferMapping : public VulkanObject, public PtrConstructible<BufferMapping> {
  public:

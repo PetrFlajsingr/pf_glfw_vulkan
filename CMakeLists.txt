@@ -150,6 +150,7 @@ set(SOURCES
         src/pf_glfw_vulkan/vulkan/types/Texture.cpp
         src/pf_glfw_vulkan/vulkan/types/TextureSampler.cpp
         src/pf_glfw_vulkan/vulkan/types/VulkanCommon.cpp
+        src/pf_glfw_vulkan/vulkan/types/configs/TextureConfigs.cpp
         src/pf_glfw_vulkan/vulkan/types/builders/GraphicsPipelineBuilder.cpp
         src/pf_glfw_vulkan/vulkan/types/builders/RenderPassBuilder.cpp
         )
@@ -204,6 +205,10 @@ add_library(${PROJECT_NAME} ${SOURCES} ${INCLUDES} ${BACKWARD_ENABLE})
 add_library(${PROJECT_NAME}::${PROJECT_NAME} ALIAS ${PROJECT_NAME})
 add_backward(${PROJECT_NAME})
 target_compile_options(${PROJECT_NAME} PRIVATE ${flags})
+
+if (MEASURE_BUILD_TIME)
+    set_property(GLOBAL PROPERTY RULE_LAUNCH_COMPILE "${CMAKE_COMMAND} -E time")
+endif()
 
 include(GNUInstallDirs)
 

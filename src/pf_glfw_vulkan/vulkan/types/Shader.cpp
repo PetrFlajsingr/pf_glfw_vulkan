@@ -4,6 +4,7 @@
 
 #include "Shader.h"
 #include "PhysicalDevice.h"
+#include "LogicalDevice.h"
 #include <fmt/format.h>
 #include <fstream>
 #include <magic_enum.hpp>

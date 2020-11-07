@@ -7,11 +7,14 @@
 #include "FrameBuffer.h"
 #include "Image.h"
 #include "ImageView.h"
+#include "LogicalDevice.h"
 #include "PhysicalDevice.h"
+#include "Fence.h"
 #include "Surface.h"
+#include "Semaphore.h"
 #include <pf_common/algorithms.h>
 #include <pf_common/coroutines/Sequence.h>
-#include <range/v3/view.hpp>
+#include <range/v3/view/transform.hpp>
 
 namespace pf::vulkan {
 using namespace ranges;
