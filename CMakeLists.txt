@@ -3,8 +3,8 @@ cmake_minimum_required(VERSION 3.17)
 include("cmake/HunterGate.cmake")
 
 HunterGate(
-        URL "https://github.com/cpp-pm/hunter/archive/v0.23.269.tar.gz"
-        SHA1 "64024b7b95b4c86d50ae05b926814448c93a70a0"
+        URL "https://github.com/cpp-pm/hunter/archive/v0.23.283.tar.gz"
+        SHA1 "f445fbb4716e5485e83f6acf110b51d3b8916b2c"
 )
 
 
@@ -54,35 +54,18 @@ find_package(PkgConfig REQUIRED)
 pkg_search_module(GLFW REQUIRED glfw3)
 include_directories(${GLFW_INCLUDE_DIRS})
 
-set(RANGE_V3_TESTS OFF)
 set(SHADERC_SKIP_TESTS ON)
 set(SPIRV_CROSS_ENABLE_TESTS OFF)
 
-CPMAddPackage(
-        NAME backward_cpp
-        GITHUB_REPOSITORY bombela/backward-cpp
-        GIT_TAG v1.5
-)
 CPMAddPackage(
         NAME pf_common
         GITHUB_REPOSITORY PetrFlajsingr/pf_common
         GIT_TAG master
 )
 CPMAddPackage(
-        NAME cppcoro
-        GITHUB_REPOSITORY dutow/cppcoro
-        GIT_TAG 4b1951ff3c25fea78198a5c0aabb50589946b694
-)
-CPMAddPackage(
         NAME magic_enum
         GITHUB_REPOSITORY Neargye/magic_enum
         GIT_TAG v0.6.6
-)
-set(RANGE_V3_TESTS OFF)
-CPMAddPackage(
-        NAME range-v3
-        GITHUB_REPOSITORY ericniebler/range-v3
-        GIT_TAG 0.11.0
 )
 include_directories(${cppcoro_SOURCE_DIR}/include)
 
@@ -95,7 +78,7 @@ CPMAddPackage(
 CPMAddPackage(
         NAME spirvheaders
         GITHUB_REPOSITORY KhronosGroup/SPIRV-Headers
-        GIT_TAG 1.5.3.reservations1
+        GIT_TAG 1.5.4
 )
 CPMAddPackage(
         NAME spirvtools
@@ -111,8 +94,6 @@ CPMAddPackage(
         NAME shaderc
         GITHUB_REPOSITORY google/shaderc
         GIT_TAG v2020.3
-        OPTIONS
-        "SHADERC_SKIP_INSTALL ON"
 )
 
 
@@ -215,8 +196,8 @@ include(GNUInstallDirs)
 target_include_directories(${PROJECT_NAME} PUBLIC $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>)
 target_include_directories(${PROJECT_NAME} PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src>)
 
-target_link_libraries(${PROJECT_NAME} PRIVATE pf_common::pf_common fmt::fmt magic_enum range-v3 ${GLFW_STATIC_LIBRARIES} ${Vulkan_LIBRARIES})
-add_dependencies(${PROJECT_NAME} pf_common::pf_common fmt::fmt magic_enum range-v3 shaderc glslang)
+target_link_libraries(${PROJECT_NAME} PUBLIC pf_common::pf_common fmt::fmt magic_enum range-v3 ${GLFW_STATIC_LIBRARIES} ${Vulkan_LIBRARIES})
+
 
 
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
@@ -293,4 +274,3 @@ install(
         COMPONENT
         Devel
 )
-
