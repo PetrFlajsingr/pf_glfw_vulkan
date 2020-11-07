@@ -3,8 +3,8 @@ cmake_minimum_required(VERSION 3.17)
 include("cmake/HunterGate.cmake")
 
 HunterGate(
-        URL "https://github.com/cpp-pm/hunter/archive/v0.23.283.tar.gz"
-        SHA1 "f445fbb4716e5485e83f6acf110b51d3b8916b2c"
+        URL "https://github.com/cpp-pm/hunter/archive/v0.23.269.tar.gz"
+        SHA1 "64024b7b95b4c86d50ae05b926814448c93a70a0"
 )
 
 
@@ -78,7 +78,7 @@ CPMAddPackage(
 CPMAddPackage(
         NAME spirvheaders
         GITHUB_REPOSITORY KhronosGroup/SPIRV-Headers
-        GIT_TAG 1.5.4
+        GIT_TAG 1.5.3.reservations1
 )
 CPMAddPackage(
         NAME spirvtools
