@@ -4,14 +4,14 @@
 
 #include "SwapChain.h"
 #include "../VulkanException.h"
+#include "Fence.h"
 #include "FrameBuffer.h"
 #include "Image.h"
 #include "ImageView.h"
 #include "LogicalDevice.h"
 #include "PhysicalDevice.h"
-#include "Fence.h"
-#include "Surface.h"
 #include "Semaphore.h"
+#include "Surface.h"
 #include <pf_common/algorithms.h>
 #include <pf_common/coroutines/Sequence.h>
 #include <range/v3/view/transform.hpp>
@@ -49,8 +49,7 @@ SwapChain::SwapChain(std::shared_ptr<Surface> surf, std::shared_ptr<LogicalDevic
   logFmt(LogLevel::Info, VK_TAG, "Present mode: {}.", vk::to_string(selectedPresentMode));
   const auto surfaceCapabilities = physicalDevice->getSurfaceCapabilitiesKHR(surface->getSurface());
   const auto selectedExtent = selectExtent(config.resolution, surfaceCapabilities);
-  logFmt(LogLevel::Info, VK_TAG, "Extent: {}x{}.", selectedExtent.width,
-         selectedExtent.height);
+  logFmt(LogLevel::Info, VK_TAG, "Extent: {}x{}.", selectedExtent.width, selectedExtent.height);
   vkSwapChain = createSwapChainHandle(*surface, *logicalDevice, surfaceCapabilities, config,
                                       selectedSurfaceFormat, selectedExtent, selectedPresentMode);
   format = selectedSurfaceFormat.format;
@@ -193,8 +192,7 @@ void SwapChain::rebuildSwapChain(ui::Resolution resolution) {
   logFmt(LogLevel::Info, VK_TAG, "Present mode: {}.", vk::to_string(selectedPresentMode));
   const auto surfaceCapabilities = physicalDevice->getSurfaceCapabilitiesKHR(surface->getSurface());
   const auto selectedExtent = selectExtent(resolution, surfaceCapabilities);
-  logFmt(LogLevel::Info, VK_TAG, "Extent: {}x{}.", selectedExtent.width,
-         selectedExtent.height);
+  logFmt(LogLevel::Info, VK_TAG, "Extent: {}x{}.", selectedExtent.width, selectedExtent.height);
 
   auto config = SwapChainConfig{.formats = {},
                                 .presentModes = {},
@@ -245,20 +243,17 @@ const std::vector<std::shared_ptr<FrameBuffer>> &SwapChain::getFrameBuffers() co
 void SwapChain::swap() {
   checkRebuild();
   imageFences[frameIdx]->wait();
-  imageIdx = logicalDevice->getVkLogicalDevice().acquireNextImageKHR(
-                                                    *vkSwapChain, std::numeric_limits<uint64_t>::max(), **imageSemaphores[frameIdx], nullptr)
+  imageIdx = logicalDevice->getVkLogicalDevice()
+                 .acquireNextImageKHR(*vkSwapChain, std::numeric_limits<uint64_t>::max(),
+                                      **imageSemaphores[frameIdx], nullptr)
                  .value;
   if (usedImageFences[imageIdx] != nullptr) { usedImageFences[imageIdx]->wait(); }
   usedImageFences[imageIdx] = imageFences[frameIdx];
 }
 std::size_t SwapChain::getCurrentImageIndex() const { return imageIdx; }
 
-Semaphore &SwapChain::getCurrentSemaphore() const {
-  return *imageSemaphores[frameIdx];
-}
-void SwapChain::frameDone() {
-  frameIdx = (frameIdx + 1) % frameBuffers.size();
-}
+Semaphore &SwapChain::getCurrentSemaphore() const { return *imageSemaphores[frameIdx]; }
+void SwapChain::frameDone() { frameIdx = (frameIdx + 1) % frameBuffers.size(); }
 Fence &SwapChain::getCurrentFence() const { return *imageFences[frameIdx]; }
 
 void SwapChain::present(PresentConfig &&config) const {

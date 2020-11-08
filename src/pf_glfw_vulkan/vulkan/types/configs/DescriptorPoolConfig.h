@@ -10,10 +10,10 @@
 
 namespace pf::vulkan {
 struct PF_GLFW_VULKAN_EXPORT DescriptorPoolConfig {
-    vk::DescriptorPoolCreateFlags flags;
-    uint32_t maxSets;
-    std::vector<vk::DescriptorPoolSize> poolSizes;
+  vk::DescriptorPoolCreateFlags flags;
+  uint32_t maxSets;
+  std::vector<vk::DescriptorPoolSize> poolSizes;
 };
-}
+}// namespace pf::vulkan
 
 #endif//PF_GLFW_VULKAN_VULKAN_TYPES_CONFIGS_DESCRIPTORPOOLCONFIG_H

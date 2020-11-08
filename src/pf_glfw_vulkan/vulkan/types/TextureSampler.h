@@ -6,10 +6,10 @@
 #define PF_GLFW_VULKAN_VULKAN_TYPES_TEXTURESAMPLER_H
 
 #include "VulkanObject.h"
+#include "configs/TextureSamplerConfig.h"
 #include "fwd.h"
 #include <pf_glfw_vulkan/_export.h>
 #include <vulkan/vulkan.hpp>
-#include "configs/TextureSamplerConfig.h"
 
 namespace pf::vulkan {
 

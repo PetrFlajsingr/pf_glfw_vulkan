@@ -6,12 +6,12 @@
 #define PF_GLFW_VULKAN_VULKAN_TYPES_COMMANDPOOL_H
 
 #include "VulkanObject.h"
+#include "configs/CommandBufferConfig.h"
+#include "configs/CommandPoolConfig.h"
 #include "fwd.h"
 #include <pf_common/concepts/PtrConstructible.h>
 #include <pf_glfw_vulkan/_export.h>
 #include <vulkan/vulkan.hpp>
-#include "configs/CommandPoolConfig.h"
-#include "configs/CommandBufferConfig.h"
 
 namespace pf::vulkan {
 
@@ -23,7 +23,6 @@ struct PF_GLFW_VULKAN_EXPORT MultiCommandSubmitConfig {
   std::optional<std::reference_wrapper<Fence>> fence;
   bool wait;
 };
-
 
 class PF_GLFW_VULKAN_EXPORT CommandPool : public VulkanObject,
                                           public PtrConstructible<CommandPool>,

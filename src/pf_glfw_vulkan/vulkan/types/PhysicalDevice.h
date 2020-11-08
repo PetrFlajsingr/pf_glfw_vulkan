@@ -94,8 +94,7 @@ PhysicalDevice::selectPhysicalDevice(const std::vector<vk::PhysicalDevice> &phys
   const auto selectedDevice = suitableDevices.front().second;
   const auto deviceName = selectedDevice.getProperties().deviceName;
   const auto score = suitableDevices.front().first.value();
-  logFmt(LogLevel::Info, VK_TAG, "Selected device: Device name: {}, score: {}", deviceName,
-         score);
+  logFmt(LogLevel::Info, VK_TAG, "Selected device: Device name: {}, score: {}", deviceName, score);
   return selectedDevice;
 }
 

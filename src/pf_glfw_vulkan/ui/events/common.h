@@ -13,25 +13,14 @@
 
 namespace pf::events {
 
-enum class MouseButton { Left,
-                         Right,
-                         Middle,
-                         None };
+enum class MouseButton { Left, Right, Middle, None };
 constexpr unsigned int mouseButtonCount = 3;
-enum class MouseButtonState { Pressed,
-                              Released };
+enum class MouseButtonState { Pressed, Released };
 
-enum class MouseEventType { Down,
-                            Up,
-                            Click,
-                            DblClick,
-                            Move,
-                            Wheel };
+enum class MouseEventType { Down, Up, Click, DblClick, Move, Wheel };
 constexpr std::size_t MouseEventTypeCount = magic_enum::enum_count<MouseEventType>();
 
-enum class KeyEventType { Up,
-                          Pressed,
-                          Repeat };
+enum class KeyEventType { Up, Pressed, Repeat };
 constexpr std::size_t KeyboardEventTypeCount = magic_enum::enum_count<KeyEventType>();
 
 struct PF_GLFW_VULKAN_EXPORT KeyEvent {

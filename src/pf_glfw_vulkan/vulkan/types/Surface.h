@@ -5,8 +5,8 @@
 #ifndef PF_GLFW_VULKAN_VULKAN_TYPES_SURFACE_H
 #define PF_GLFW_VULKAN_VULKAN_TYPES_SURFACE_H
 
-#include "VulkanObject.h"
 #include "Instance.h"
+#include "VulkanObject.h"
 #include "fwd.h"
 #include <pf_common/concepts/PtrConstructible.h>
 #include <pf_glfw_vulkan/_export.h>

@@ -14,9 +14,11 @@
 
 namespace pf::vulkan {
 
-class PF_GLFW_VULKAN_EXPORT DescriptorSetLayout : public VulkanObject, public PtrConstructible<DescriptorSetLayout> {
+class PF_GLFW_VULKAN_EXPORT DescriptorSetLayout : public VulkanObject,
+                                                  public PtrConstructible<DescriptorSetLayout> {
  public:
-  explicit DescriptorSetLayout(std::shared_ptr<LogicalDevice> device, DescriptorSetLayoutConfig &&config);
+  explicit DescriptorSetLayout(std::shared_ptr<LogicalDevice> device,
+                               DescriptorSetLayoutConfig &&config);
 
   DescriptorSetLayout(const DescriptorSetLayout &other) = delete;
   DescriptorSetLayout &operator=(const DescriptorSetLayout &other) = delete;

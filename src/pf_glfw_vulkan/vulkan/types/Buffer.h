@@ -16,7 +16,8 @@
 
 namespace pf::vulkan {
 
-class PF_GLFW_VULKAN_EXPORT BufferMapping : public VulkanObject, public PtrConstructible<BufferMapping> {
+class PF_GLFW_VULKAN_EXPORT BufferMapping : public VulkanObject,
+                                            public PtrConstructible<BufferMapping> {
  public:
   BufferMapping(std::shared_ptr<Buffer> buff, vk::DeviceSize start, vk::DeviceSize count);
   ~BufferMapping() override;

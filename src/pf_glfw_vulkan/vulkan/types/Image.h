@@ -15,7 +15,8 @@
 
 namespace pf::vulkan {
 
-class PF_GLFW_VULKAN_EXPORT Image : public VulkanObject, public std::enable_shared_from_this<Image> {
+class PF_GLFW_VULKAN_EXPORT Image : public VulkanObject,
+                                    public std::enable_shared_from_this<Image> {
  public:
   explicit Image(std::shared_ptr<LogicalDevice> device, ImageConfig &&config);
   [[nodiscard]] virtual const vk::Image &getVkImage() const = 0;

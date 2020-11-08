@@ -3,10 +3,10 @@
 //
 
 #include "GraphicsPipelineBuilder.h"
+#include "../DescriptorSetLayout.h"
 #include "../GraphicsPipeline.h"
 #include "../LogicalDevice.h"
 #include "../RenderPass.h"
-#include "../DescriptorSetLayout.h"
 #include "../Shader.h"
 
 namespace pf::vulkan {
@@ -23,9 +23,7 @@ GraphicsPipelineBuilder &GraphicsPipelineBuilder::vertexInAttrDescription(
 }
 GraphicsPipelineBuilder &GraphicsPipelineBuilder::shader(Shader &sh, const std::string &name) {
   auto createInfo = vk::PipelineShaderStageCreateInfo();
-  createInfo.setStage(sh.getVkType())
-      .setModule(sh.getShaderModule())
-      .setPName(name.c_str());
+  createInfo.setStage(sh.getVkType()).setModule(sh.getShaderModule()).setPName(name.c_str());
   shaderStages.emplace_back(std::move(createInfo));
   return *this;
 }

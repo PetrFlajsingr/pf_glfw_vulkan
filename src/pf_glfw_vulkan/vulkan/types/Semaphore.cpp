@@ -18,8 +18,6 @@ vk::Semaphore const *Semaphore::operator->() const { return &*vkSemaphore; }
 
 const vk::Semaphore &Semaphore::getVkSemaphore() const { return *vkSemaphore; }
 
-LogicalDevice &Semaphore::getLogicalDevice() const {
-  return *logicalDevice;
-}
+LogicalDevice &Semaphore::getLogicalDevice() const { return *logicalDevice; }
 std::string Semaphore::info() const { return "Vulkan semaphore"; }
 }// namespace pf::vulkan

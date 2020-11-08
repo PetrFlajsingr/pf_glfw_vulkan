@@ -6,11 +6,11 @@
 #define PF_GLFW_VULKAN_VULKAN_TYPES_BUFFERVIEW_H
 
 #include "VulkanObject.h"
+#include "configs/BufferViewConfig.h"
 #include "fwd.h"
 #include <pf_common/concepts/PtrConstructible.h>
 #include <pf_glfw_vulkan/_export.h>
 #include <vulkan/vulkan.hpp>
-#include "configs/BufferViewConfig.h"
 
 namespace pf::vulkan {
 

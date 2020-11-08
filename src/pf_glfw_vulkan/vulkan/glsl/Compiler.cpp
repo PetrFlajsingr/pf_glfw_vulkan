@@ -64,9 +64,7 @@ BinaryData Compiler::toBinary(Optimization optimization) {
   return binaryData;
 }
 BinaryData Compiler::compile(Optimization optimization) {
-  if (currentStep == CompilationStep::None) {
-    preprocess();
-  }
+  if (currentStep == CompilationStep::None) { preprocess(); }
   if (currentStep == CompilationStep::Preprocessed) {
     return toBinary(optimization);
   } else if (currentStep != CompilationStep::Binary) {

@@ -4,8 +4,8 @@
 
 #include "ImageView.h"
 #include "Image.h"
-#include "PhysicalDevice.h"
 #include "LogicalDevice.h"
+#include "PhysicalDevice.h"
 
 namespace pf::vulkan {
 ImageView::ImageView(std::shared_ptr<Image> img, const ImageViewConfig &config)

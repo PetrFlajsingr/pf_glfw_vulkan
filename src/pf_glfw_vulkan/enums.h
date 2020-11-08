@@ -6,7 +6,6 @@
 #define PF_GLFW_VULKAN_ENUMS_H
 
 namespace pf {
-enum class Enabled { Yes,
-                     No };
+enum class Enabled { Yes, No };
 }
 #endif//PF_GLFW_VULKAN_ENUMS_H

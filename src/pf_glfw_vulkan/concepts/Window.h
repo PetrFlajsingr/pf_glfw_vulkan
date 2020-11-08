@@ -23,10 +23,7 @@ struct PF_GLFW_VULKAN_EXPORT Resolution {
 };
 std::ostream &operator<<(std::ostream &os, const Resolution &res);
 
-enum class Mode { Windowed,
-                  Borderless,
-                  Fullscreen,
-                  FullscreenBorderless };
+enum class Mode { Windowed, Borderless, Fullscreen, FullscreenBorderless };
 
 struct PF_GLFW_VULKAN_EXPORT WindowSettings {
   Resolution resolution;

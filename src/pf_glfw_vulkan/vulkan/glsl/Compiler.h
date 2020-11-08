@@ -16,23 +16,14 @@ namespace pf::glsl {
 using MacroDefs = std::vector<std::string>;
 using ReplaceMacroDefs = std::vector<std::pair<std::string, std::string>>;
 using BinaryData = std::vector<uint32_t>;
-enum class CompilationStep {
-  None,
-  Preprocessed,
-  Assembly,
-  Binary
-};
+enum class CompilationStep { None, Preprocessed, Assembly, Binary };
 
-enum class Optimization {
-  None,
-  Size,
-  Performance
-};
+enum class Optimization { None, Size, Performance };
 
 class PF_GLFW_VULKAN_EXPORT Compiler {
  public:
-  Compiler(std::string srcName, std::string src, shaderc_shader_kind type, const MacroDefs &macros = {},
-           const ReplaceMacroDefs &replaceMacros = {});
+  Compiler(std::string srcName, std::string src, shaderc_shader_kind type,
+           const MacroDefs &macros = {}, const ReplaceMacroDefs &replaceMacros = {});
 
   std::string preprocess();
   [[nodiscard]] std::string toAssembly(Optimization optimization = Optimization::None);

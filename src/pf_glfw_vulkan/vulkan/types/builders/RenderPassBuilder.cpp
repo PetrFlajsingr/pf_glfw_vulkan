@@ -4,9 +4,9 @@
 
 #include "RenderPassBuilder.h"
 #include "../../VulkanException.h"
+#include "../LogicalDevice.h"
 #include "../PhysicalDevice.h"
 #include "../RenderPass.h"
-#include "../LogicalDevice.h"
 #include <range/v3/view/enumerate.hpp>
 #include <range/v3/view/map.hpp>
 #include <range/v3/view/transform.hpp>

@@ -37,7 +37,8 @@ class FrameBufferInstance : public VulkanObject {
 };
 }// namespace details
 
-class PF_GLFW_VULKAN_EXPORT FrameBuffer : public VulkanObject, public PtrConstructible<FrameBuffer> {
+class PF_GLFW_VULKAN_EXPORT FrameBuffer : public VulkanObject,
+                                          public PtrConstructible<FrameBuffer> {
  public:
   explicit FrameBuffer(std::shared_ptr<SwapChain> swap, std::size_t imageIdx);
 

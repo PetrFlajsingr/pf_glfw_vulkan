@@ -3,11 +3,11 @@
 //
 
 #include "CommandPool.h"
+#include "CommandBuffer.h"
 #include "Fence.h"
+#include "LogicalDevice.h"
 #include "PhysicalDevice.h"
 #include "Semaphore.h"
-#include "CommandBuffer.h"
-#include "LogicalDevice.h"
 
 namespace pf::vulkan {
 CommandPool::CommandPool(std::shared_ptr<LogicalDevice> device, CommandPoolConfig &&config)

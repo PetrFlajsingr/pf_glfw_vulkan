@@ -8,7 +8,6 @@
 #include "RenderPass.h"
 #include "SwapChain.h"
 
-
 namespace pf::vulkan {
 
 const vk::Framebuffer &details::FrameBufferInstance::getFrameBuffer() const {

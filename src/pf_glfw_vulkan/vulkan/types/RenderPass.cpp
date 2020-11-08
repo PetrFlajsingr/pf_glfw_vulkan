@@ -21,8 +21,6 @@ std::string RenderPass::info() const { return "Vulkan render pass unique"; }
 const vk::RenderPass &RenderPass::operator*() const { return *vkRenderPass; }
 
 vk::RenderPass const *RenderPass::operator->() const { return &*vkRenderPass; }
-LogicalDevice &RenderPass::getLogicalDevice() const {
-  return *logicalDevice;
-}
+LogicalDevice &RenderPass::getLogicalDevice() const { return *logicalDevice; }
 
 }// namespace pf::vulkan

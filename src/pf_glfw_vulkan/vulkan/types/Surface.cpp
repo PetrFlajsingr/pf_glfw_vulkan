@@ -14,8 +14,6 @@ const vk::SurfaceKHR &Surface::operator*() const { return *vkSurface; }
 vk::SurfaceKHR const *Surface::operator->() const { return &*vkSurface; }
 
 Instance &Surface::getInstance() { return *instance; }
-ui::Resolution Surface::getWindowSize() const {
-  return windowSizeFnc();
-}
+ui::Resolution Surface::getWindowSize() const { return windowSizeFnc(); }
 
 }// namespace pf::vulkan

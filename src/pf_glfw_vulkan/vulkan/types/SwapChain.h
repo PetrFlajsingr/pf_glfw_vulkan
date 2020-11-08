@@ -61,9 +61,7 @@ class PF_GLFW_VULKAN_EXPORT SwapChain : public VulkanObject,
 
   void present(PresentConfig &&config) const;
 
-  void addRebuildListener(std::invocable auto &&f) {
-    rebuildListeners.emplace_back(f);
-  }
+  void addRebuildListener(std::invocable auto &&f) { rebuildListeners.emplace_back(f); }
 
   [[nodiscard]] std::size_t getCurrentImageIndex() const;
   [[nodiscard]] std::size_t getCurrentFrameIndex() const;

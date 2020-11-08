@@ -17,27 +17,14 @@ constexpr auto VK_TAG = "vulkan";
 inline void log(LogLevel level, std::string_view tag, std::string_view msg) {
   details::globalLogger->log(level, tag, msg);
 }
-inline void logt(std::string_view tag, std::string_view msg) {
-  log(LogLevel::Trace, tag, msg);
-}
-inline void logi(std::string_view tag, std::string_view msg) {
-  log(LogLevel::Info, tag, msg);
-}
-inline void logd(std::string_view tag, std::string_view msg) {
-  log(LogLevel::Debug, tag, msg);
-}
-inline void logw(std::string_view tag, std::string_view msg) {
-  log(LogLevel::Warn, tag, msg);
-}
-inline void logc(std::string_view tag, std::string_view msg) {
-  log(LogLevel::Critical, tag, msg);
-}
-inline void loge(std::string_view tag, std::string_view msg) {
-  log(LogLevel::Err, tag, msg);
-}
+inline void logt(std::string_view tag, std::string_view msg) { log(LogLevel::Trace, tag, msg); }
+inline void logi(std::string_view tag, std::string_view msg) { log(LogLevel::Info, tag, msg); }
+inline void logd(std::string_view tag, std::string_view msg) { log(LogLevel::Debug, tag, msg); }
+inline void logw(std::string_view tag, std::string_view msg) { log(LogLevel::Warn, tag, msg); }
+inline void logc(std::string_view tag, std::string_view msg) { log(LogLevel::Critical, tag, msg); }
+inline void loge(std::string_view tag, std::string_view msg) { log(LogLevel::Err, tag, msg); }
 
-void logFmt(LogLevel level, std::string_view tag, std::string_view msg,
-            const auto &... args) {
+void logFmt(LogLevel level, std::string_view tag, std::string_view msg, const auto &... args) {
   details::globalLogger->logFmt(level, tag, msg, args...);
 }
 

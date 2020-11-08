@@ -5,10 +5,10 @@
 #ifndef PF_GLFW_VULKAN_VULKAN_TYPES_CONFIGS_SWAPCHAINCONFIG_H
 #define PF_GLFW_VULKAN_VULKAN_TYPES_CONFIGS_SWAPCHAINCONFIG_H
 
-#include <pf_glfw_vulkan/_export.h>
-#include <vulkan/vulkan.hpp>
-#include <set>
 #include "../../../concepts/Window.h"
+#include <pf_glfw_vulkan/_export.h>
+#include <set>
+#include <vulkan/vulkan.hpp>
 
 namespace pf::vulkan {
 

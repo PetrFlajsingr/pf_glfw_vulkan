@@ -6,13 +6,13 @@
 #define PF_GLFW_VULKAN_VULKAN_TYPES_SHADER_H
 
 #include "VulkanObject.h"
+#include "configs/ShaderConfigs.h"
 #include "fwd.h"
 #include <istream>
 #include <pf_common/concepts/PtrConstructible.h>
 #include <pf_glfw_vulkan/_export.h>
 #include <pf_glfw_vulkan/vulkan/glsl/Compiler.h>
 #include <vulkan/vulkan.hpp>
-#include "configs/ShaderConfigs.h"
 
 namespace pf::vulkan {
 

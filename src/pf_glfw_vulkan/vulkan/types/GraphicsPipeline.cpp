@@ -7,8 +7,7 @@
 namespace pf::vulkan {
 GraphicsPipeline::GraphicsPipeline(vk::UniquePipeline &&pipeline, vk::UniquePipelineLayout &&layout,
                                    std::shared_ptr<RenderPass> pass)
-    : vkPipeline(std::move(pipeline)), vkLayout(std::move(layout)),
-      renderPass(std::move(pass)) {}
+    : vkPipeline(std::move(pipeline)), vkLayout(std::move(layout)), renderPass(std::move(pass)) {}
 
 std::string GraphicsPipeline::info() const { return "Vulkan graphics pipeline unique"; }
 

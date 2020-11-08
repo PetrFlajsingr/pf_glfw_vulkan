@@ -5,8 +5,8 @@
 #include "Texture.h"
 #include "../VulkanException.h"
 #include "Buffer.h"
-#include "CommandPool.h"
 #include "CommandBuffer.h"
+#include "CommandPool.h"
 #include "Image.h"
 #include "LogicalDevice.h"
 #include <magic_enum.hpp>

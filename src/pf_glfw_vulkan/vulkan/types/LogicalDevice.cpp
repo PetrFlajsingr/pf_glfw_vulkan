@@ -3,15 +3,15 @@
 //
 
 #include "LogicalDevice.h"
+#include "Buffer.h"
+#include "CommandPool.h"
+#include "DescriptorPool.h"
+#include "DescriptorSetLayout.h"
+#include "Fence.h"
 #include "Image.h"
+#include "Semaphore.h"
 #include "Shader.h"
 #include "SwapChain.h"
-#include "CommandPool.h"
-#include "DescriptorSetLayout.h"
-#include "DescriptorPool.h"
-#include "Fence.h"
-#include "Semaphore.h"
-#include "Buffer.h"
 
 namespace pf::vulkan {
 

@@ -8,8 +8,8 @@
 namespace pf::vulkan {
 
 std::string TextureSampler::info() const { return "Texture sampler"; }
-TextureSampler::TextureSampler(std::shared_ptr<LogicalDevice> device,
-                               TextureSamplerConfig &&config) : logicalDevice(std::move(device)) {
+TextureSampler::TextureSampler(std::shared_ptr<LogicalDevice> device, TextureSamplerConfig &&config)
+    : logicalDevice(std::move(device)) {
   auto createInfo = vk::SamplerCreateInfo();
   createInfo.magFilter = config.magFilter;
   createInfo.minFilter = config.minFilter;
@@ -29,17 +29,9 @@ TextureSampler::TextureSampler(std::shared_ptr<LogicalDevice> device,
 
   vkSampler = logicalDevice->getVkLogicalDevice().createSamplerUnique(createInfo);
 }
-LogicalDevice &TextureSampler::getLogicalDevice() const {
-  return *logicalDevice;
-}
-const vk::Sampler &TextureSampler::getVkSampler() const {
-  return *vkSampler;
-}
-const vk::Sampler &TextureSampler::operator*() {
-  return *vkSampler;
-}
-vk::Sampler const *TextureSampler::operator->() {
-  return &*vkSampler;
-}
+LogicalDevice &TextureSampler::getLogicalDevice() const { return *logicalDevice; }
+const vk::Sampler &TextureSampler::getVkSampler() const { return *vkSampler; }
+const vk::Sampler &TextureSampler::operator*() { return *vkSampler; }
+vk::Sampler const *TextureSampler::operator->() { return &*vkSampler; }
 
 }// namespace pf::vulkan
