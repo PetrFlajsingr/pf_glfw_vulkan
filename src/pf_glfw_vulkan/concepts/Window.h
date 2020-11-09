@@ -6,6 +6,7 @@
 #define PF_GLFW_VULKAN_WINDOW_H
 
 #include "../ui/events/common.h"
+#include <chrono>
 #include <concepts>
 #include <functional>
 #include <pf_common/Subscription.h>
@@ -65,6 +66,8 @@ concept Window = std::constructible_from<T, WindowSettings> &&requires(
   ->std::convertible_to<Mode>;
   { t.getTitle() }
   ->std::convertible_to<std::string>;
+  { t.isMouseDown() }
+  ->std::convertible_to<bool>;
 }
 &&requires(T t, events::MouseEventType m_type, events::KeyEventType k_type,
            events::details::MouseEventFnc m_fnc, events::details::KeyEventFnc k_fnc) {
@@ -78,6 +81,11 @@ concept Window = std::constructible_from<T, WindowSettings> &&requires(
   ->std::same_as<vk::UniqueSurfaceKHR>;
   { t.requiredVulkanExtensions() }
   ->std::same_as<std::unordered_set<std::string>>;
+}
+&&requires(T t, std::function<bool()> pred, std::function<void()> fnc,
+           std::chrono::milliseconds delay) {
+  {t.setInputIgnorePredicate(pred)};
+  {t.enqueue(fnc, delay)};
 }
 &&StreamInputable<T>;
 
