@@ -78,6 +78,7 @@ vk::PhysicalDevice
 PhysicalDevice::selectPhysicalDevice(const std::vector<vk::PhysicalDevice> &physicalDevices,
                                      DeviceScorer &&device_scorer) {
   using namespace ranges;
+  using namespace logging;
   log(LogLevel::Info, VK_TAG, "Selecting physical device.");
   const auto suitableDevices = physicalDevices | views::transform([&](const auto &device) {
                                  const auto deviceName = device.getProperties().deviceName;

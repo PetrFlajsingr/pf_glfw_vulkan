@@ -7,7 +7,7 @@
 
 #include "lib_config.h"
 
-namespace pf::vulkan {
+namespace pf::vulkan::logging {
 namespace details {
 inline std::shared_ptr<ILogger> globalLogger = std::make_shared<EmptyLogger>();
 }

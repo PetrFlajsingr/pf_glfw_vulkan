@@ -10,6 +10,7 @@
 namespace pf::vulkan {
 
 Instance::Instance(InstanceConfig config) {
+  using namespace logging;
   log(LogLevel::Info, VK_TAG, "Creating vulkan instance.");
   const auto appInfo = vk::ApplicationInfo(
       config.appName.c_str(), versionToUint32(config.appVersion), config.engineInfo.name.c_str(),

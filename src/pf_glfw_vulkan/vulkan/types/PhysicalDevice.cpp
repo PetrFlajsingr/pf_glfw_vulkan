@@ -30,10 +30,11 @@ std::vector<vk::PhysicalDevice> PhysicalDevice::getPhysicalDevices() {
 }
 
 std::shared_ptr<LogicalDevice> &PhysicalDevice::createLogicalDevice(LogicalDeviceConfig config) {
-  logFmt(LogLevel::Info, VK_TAG, "Creating logical device with id: {}.", config.id);
+  using namespace logging;
   using namespace ranges;
+  logFmt(LogLevel::Info, VK_TAG, "Creating logical device with id: {}.", config.id);
   const auto queueFamilyIndices =
-      details::getQueueFamilyIndices(vkDevice, std::move(config.queueTypes));
+      vulkan::details::getQueueFamilyIndices(vkDevice, std::move(config.queueTypes));
 
   auto queuePriorities = std::vector(queueFamilyIndices.size(), 1.0f);
 
@@ -42,12 +43,12 @@ std::shared_ptr<LogicalDevice> &PhysicalDevice::createLogicalDevice(LogicalDevic
   auto presentIndex = std::optional<uint32_t>(std::nullopt);
   if (config.presentQueueEnabled) {
     const auto presentIdx =
-        details::getPresentQueueFamilyIndex(vkDevice, config.surface.getSurface());
+        vulkan::details::getPresentQueueFamilyIndex(vkDevice, config.surface.getSurface());
     queueIndices.emplace(presentIdx);
     presentIndex = presentIdx;
   }
 
-  auto queueCreateInfos = details::buildQueueCreateInfo(queueIndices, queuePriorities);
+  auto queueCreateInfos = vulkan::details::buildQueueCreateInfo(queueIndices, queuePriorities);
 
   const auto requiredExtensionsCStr = config.requiredDeviceExtensions
       | views::transform([](auto &str) { return str.c_str(); }) | to_vector;
@@ -70,6 +71,7 @@ Instance &PhysicalDevice::getInstance() const { return *instance; }
 std::unordered_map<vk::QueueFlagBits, uint32_t>
 details::getQueueFamilyIndices(vk::PhysicalDevice &physicalDevice,
                                std::unordered_set<vk::QueueFlagBits> queueTypes) {
+  using namespace logging;
   log(LogLevel::Info, VK_TAG, "Getting queue family indices.");
   const auto queueFamilyPropertiesList = physicalDevice.getQueueFamilyProperties();
   auto result = std::unordered_map<vk::QueueFlagBits, uint32_t>{};

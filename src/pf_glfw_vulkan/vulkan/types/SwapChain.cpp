@@ -18,6 +18,7 @@
 
 namespace pf::vulkan {
 using namespace ranges;
+using namespace logging;
 
 vk::Format SwapChain::getFormat() const { return format; }
 

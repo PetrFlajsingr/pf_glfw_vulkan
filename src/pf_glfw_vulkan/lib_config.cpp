@@ -7,5 +7,5 @@
 #include <utility>
 
 void pf::vulkan::setGlobalLoggerInstance(std::shared_ptr<ILogger> logger) {
-  details::globalLogger = std::move(logger);
+  logging::details::globalLogger = std::move(logger);
 }
