@@ -5,17 +5,16 @@
 
 namespace pf::events {
 
-bool EventDispatchImpl::isMouseDown() const { return isMouseDown_; }
 void EventDispatchImpl::notifyMouse(MouseEventType type, MouseButton button,
                                     std::pair<double, double> location,
                                     std::pair<double, double> delta) {
   if (inputIgnorePredicate()) { return; }
   auto mouseClicked = false;
   if (type == MouseEventType::Down) {
-    isMouseDown_ = true;
+    buttonsDown.emplace(button);
   } else if (type == MouseEventType::Up) {
-    mouseClicked = isMouseDown_;
-    isMouseDown_ = false;
+    mouseClicked = buttonsDown.contains(button);
+    buttonsDown.erase(button);
   }
   const auto &listeners = mouseListeners[magic_enum::enum_integer(type)];
   const auto event =
@@ -68,6 +67,9 @@ bool EventDispatchImpl::isDblClick() {
   const auto currTime = std::chrono::steady_clock::now();
   const auto difference = currTime - lastClickTime;
   return difference < DBL_CLICK_LIMIT;
+}
+const std::unordered_set<MouseButton> &EventDispatchImpl::getMouseButtonsDown() const {
+  return buttonsDown;
 }
 bool EventDispatchImpl::DelayEvent::operator<(const EventDispatchImpl::DelayEvent &rhs) const {
   return execTime < rhs.execTime;

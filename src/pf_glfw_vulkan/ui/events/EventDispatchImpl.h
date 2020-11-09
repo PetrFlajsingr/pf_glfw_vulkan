@@ -14,6 +14,7 @@
 #include <pf_glfw_vulkan/_export.h>
 #include <queue>
 #include <unordered_map>
+#include <unordered_set>
 #include <utility>
 
 namespace pf::events {
@@ -39,7 +40,7 @@ class PF_GLFW_VULKAN_EXPORT EventDispatchImpl {
     return Subscription([id, this] { textListeners.erase(id); });
   }
 
-  [[nodiscard]] bool isMouseDown() const;
+  [[nodiscard]] const std::unordered_set<MouseButton> &getMouseButtonsDown() const;
 
   void enqueue(std::invocable auto &&fnc,
                std::chrono::milliseconds delay = std::chrono::milliseconds(0)) {
@@ -76,7 +77,7 @@ class PF_GLFW_VULKAN_EXPORT EventDispatchImpl {
       keyListeners;
   std::unordered_map<ListenerId, details::TextEventFnc> textListeners;
 
-  bool isMouseDown_ = false;
+  std::unordered_set<MouseButton> buttonsDown;
   std::chrono::steady_clock::time_point lastClickTime{};
   const std::chrono::milliseconds DBL_CLICK_LIMIT{1500};
 
