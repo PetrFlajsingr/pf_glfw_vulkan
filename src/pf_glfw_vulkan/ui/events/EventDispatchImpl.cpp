@@ -4,25 +4,6 @@
 #include "EventDispatchImpl.h"
 
 namespace pf::events {
-Subscription EventDispatchImpl::addMouseListener(MouseEventType type,
-                                                 MouseEventListener auto listener) {
-  const auto id = generateListenerId();
-  mouseListeners[magic_enum::enum_integer(type)][id] = listener;
-  return Subscription(
-      [id, type, this] { mouseListeners[magic_enum::enum_integer(type)].erase(id); });
-}
-
-Subscription EventDispatchImpl::addKeyListener(KeyEventType type, KeyEventListener auto listener) {
-  const auto id = generateListenerId();
-  keyListeners[magic_enum::enum_integer(type)][id] = listener;
-  return Subscription([id, type, this] { keyListeners[magic_enum::enum_integer(type)].erase(id); });
-}
-
-Subscription EventDispatchImpl::addTextListener(TextEventListener auto listener) {
-  const auto id = generateListenerId();
-  textListeners[id] = listener;
-  return Subscription([id, this] { textListeners.erase(id); });
-}
 
 bool EventDispatchImpl::isMouseDown() const { return isMouseDown_; }
 void EventDispatchImpl::notifyMouse(MouseEventType type, MouseButton button,
@@ -76,10 +57,6 @@ void EventDispatchImpl::onFrame() {
     eventQueue.top()();
     eventQueue.pop();
   }
-}
-void EventDispatchImpl::enqueue(std::invocable auto &&fnc, std::chrono::milliseconds delay) {
-  const auto execTime = std::chrono::steady_clock::now() + delay;
-  eventQueue.emplace(fnc, execTime);
 }
 EventDispatchImpl::ListenerId EventDispatchImpl::generateListenerId() {
   return getNext(idGenerator);

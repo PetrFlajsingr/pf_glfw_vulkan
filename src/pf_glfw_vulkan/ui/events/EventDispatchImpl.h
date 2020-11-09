@@ -19,13 +19,33 @@
 namespace pf::events {
 class PF_GLFW_VULKAN_EXPORT EventDispatchImpl {
  public:
-  Subscription addMouseListener(MouseEventType type, MouseEventListener auto listener);
+  Subscription addMouseListener(MouseEventType type, MouseEventListener auto listener) {
+    const auto id = generateListenerId();
+    mouseListeners[magic_enum::enum_integer(type)][id] = listener;
+    return Subscription(
+        [id, type, this] { mouseListeners[magic_enum::enum_integer(type)].erase(id); });
+  }
 
-  Subscription addKeyListener(KeyEventType type, KeyEventListener auto listener);
+  Subscription addKeyListener(KeyEventType type, KeyEventListener auto listener) {
+    const auto id = generateListenerId();
+    keyListeners[magic_enum::enum_integer(type)][id] = listener;
+    return Subscription(
+        [id, type, this] { keyListeners[magic_enum::enum_integer(type)].erase(id); });
+  }
 
-  Subscription addTextListener(TextEventListener auto listener);
+  Subscription addTextListener(TextEventListener auto listener) {
+    const auto id = generateListenerId();
+    textListeners[id] = listener;
+    return Subscription([id, this] { textListeners.erase(id); });
+  }
 
   [[nodiscard]] bool isMouseDown() const;
+
+  void enqueue(std::invocable auto &&fnc,
+               std::chrono::milliseconds delay = std::chrono::milliseconds(0)) {
+    const auto execTime = std::chrono::steady_clock::now() + delay;
+    eventQueue.emplace(fnc, execTime);
+  }
 
  protected:
   using ListenerId = uint32_t;
@@ -38,9 +58,6 @@ class PF_GLFW_VULKAN_EXPORT EventDispatchImpl {
   void notifyText(std::string text);
 
   void onFrame();
-
-  void enqueue(std::invocable auto &&fnc,
-               std::chrono::milliseconds delay = std::chrono::milliseconds(0));
 
  private:
   ListenerId generateListenerId();

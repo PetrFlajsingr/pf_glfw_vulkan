@@ -134,6 +134,7 @@ set(SOURCES
         src/pf_glfw_vulkan/vulkan/types/configs/TextureConfigs.cpp
         src/pf_glfw_vulkan/vulkan/types/builders/GraphicsPipelineBuilder.cpp
         src/pf_glfw_vulkan/vulkan/types/builders/RenderPassBuilder.cpp
+        src/pf_glfw_vulkan/lib_config.cpp
         )
 
 set(INCLUDES
@@ -171,7 +172,9 @@ set(INCLUDES
         src/pf_glfw_vulkan/vulkan/types/VulkanObject.h
         src/pf_glfw_vulkan/vulkan/types/builders/GraphicsPipelineBuilder.h
         src/pf_glfw_vulkan/vulkan/types/builders/RenderPassBuilder.h
-        src/pf_glfw_vulkan/lib_config.h src/pf_glfw_vulkan/logging.h src/pf_glfw_vulkan/lib_config.cpp src/pf_glfw_vulkan/enums.h)
+        src/pf_glfw_vulkan/lib_config.h
+        src/pf_glfw_vulkan/logging.h
+        src/pf_glfw_vulkan/enums.h)
 
 
 option(BUILD_SHARED_LIBS "build this library as shared")
