@@ -47,6 +47,8 @@ class PF_GLFW_VULKAN_EXPORT EventDispatchImpl {
     eventQueue.emplace(fnc, execTime);
   }
 
+  void setInputIgnorePredicate(InputIgnorePredicate auto pred) { inputIgnorePredicate = pred; }
+
  protected:
   using ListenerId = uint32_t;
 
@@ -65,6 +67,8 @@ class PF_GLFW_VULKAN_EXPORT EventDispatchImpl {
   bool isDblClick();
 
   cppcoro::generator<ListenerId> idGenerator = iota<ListenerId>();
+
+  std::function<bool()> inputIgnorePredicate = [] { return false; };
 
   std::array<std::unordered_map<ListenerId, details::MouseEventFnc>, MouseEventTypeCount>
       mouseListeners;

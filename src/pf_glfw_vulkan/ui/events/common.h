@@ -54,6 +54,8 @@ concept KeyEventListener =
 template<typename F>
 concept TextEventListener =
     std::invocable<F, TextEvent> &&std::same_as<std::invoke_result_t<F, TextEvent>, bool>;
+template<typename F>
+concept InputIgnorePredicate = std::invocable<F> &&std::same_as<std::invoke_result_t<F>, bool>;
 
 }// namespace pf::events
 

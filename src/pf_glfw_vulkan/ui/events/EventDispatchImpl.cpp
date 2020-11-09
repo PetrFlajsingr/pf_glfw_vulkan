@@ -9,6 +9,7 @@ bool EventDispatchImpl::isMouseDown() const { return isMouseDown_; }
 void EventDispatchImpl::notifyMouse(MouseEventType type, MouseButton button,
                                     std::pair<double, double> location,
                                     std::pair<double, double> delta) {
+  if (inputIgnorePredicate()) { return; }
   auto mouseClicked = false;
   if (type == MouseEventType::Down) {
     isMouseDown_ = true;
@@ -39,6 +40,7 @@ void EventDispatchImpl::notifyMouse(MouseEventType type, MouseButton button,
   }
 }
 void EventDispatchImpl::notifyKey(KeyEventType type, char key) {
+  if (inputIgnorePredicate()) { return; }
   const auto &listeners = keyListeners[magic_enum::enum_integer(type)];
   const auto event = KeyEvent{.type = type, .key = key};
   for (auto &[id, listener] : listeners) {
@@ -46,6 +48,7 @@ void EventDispatchImpl::notifyKey(KeyEventType type, char key) {
   }
 }
 void EventDispatchImpl::notifyText(std::string text) {
+  if (inputIgnorePredicate()) { return; }
   const auto event = TextEvent{.text = std::move(text)};
   for (auto &[id, listener] : textListeners) {
     if (listener(event)) { break; }
