@@ -83,7 +83,7 @@ vk::Queue LogicalDevice::getPresentQueue() {
 }
 std::shared_ptr<Buffer> LogicalDevice::createBuffer(BufferConfig &&config,
                                                     bool allocateImmediately) {
-  return std::make_shared<Buffer>(shared_from_this(), std::move(config), allocateImmediately);
+  return Buffer::CreateShared(shared_from_this(), std::move(config), allocateImmediately);
 }
 std::shared_ptr<Shader> LogicalDevice::createShader(ShaderConfigFile &&config) {
   return Shader::CreateShared(shared_from_this(), std::move(config));
