@@ -83,8 +83,10 @@ ImageUnique::ImageUnique(std::shared_ptr<LogicalDevice> device, ImageConfig &&co
 }
 
 uint32_t ImageUnique::findMemoryType(uint32_t memoryTypeBits) {
-  const auto properties =
-      vk::MemoryPropertyFlagBits::eHostVisible | vk::MemoryPropertyFlagBits::eHostCoherent;
+  // TODO: add as argument:
+  const auto properties = vk::MemoryPropertyFlagBits::eDeviceLocal;
+  //const auto properties =
+  //    vk::MemoryPropertyFlagBits::eHostVisible | vk::MemoryPropertyFlagBits::eHostCoherent;t;
   auto memoryProperties = logicalDevice->getPhysicalDevice()->getMemoryProperties();
   for (const auto &[idx, prop] : ranges::views::enumerate(memoryProperties.memoryTypes)) {
     if ((memoryTypeBits & (1u << idx)) && (prop.propertyFlags & properties) == properties) {
