@@ -8,12 +8,14 @@
 #include "VulkanObject.h"
 #include "configs/TextureSamplerConfig.h"
 #include "fwd.h"
+#include <pf_common/concepts/PtrConstructible.h>
 #include <pf_glfw_vulkan/_export.h>
 #include <vulkan/vulkan.hpp>
 
 namespace pf::vulkan {
 
-class PF_GLFW_VULKAN_EXPORT TextureSampler : public VulkanObject {
+class PF_GLFW_VULKAN_EXPORT TextureSampler : public VulkanObject,
+                                             public PtrConstructible<TextureSampler> {
  public:
   TextureSampler(std::shared_ptr<LogicalDevice> device, TextureSamplerConfig &&config);
 

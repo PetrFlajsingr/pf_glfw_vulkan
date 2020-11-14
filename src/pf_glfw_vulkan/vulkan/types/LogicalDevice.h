@@ -16,6 +16,7 @@
 #include "configs/LogicalDeviceConfig.h"
 #include "configs/ShaderConfigs.h"
 #include "configs/SwapChainConfig.h"
+#include "configs/TextureConfigs.h"
 #include "fwd.h"
 #include <pf_common/concepts/PtrConstructible.h>
 #include <pf_glfw_vulkan/_export.h>
@@ -62,6 +63,8 @@ class PF_GLFW_VULKAN_EXPORT LogicalDevice : public VulkanObject,
   [[nodiscard]] std::shared_ptr<Semaphore> createSemaphore();
   [[nodiscard]] std::shared_ptr<Buffer> createBuffer(BufferConfig &&config,
                                                      bool allocateImmediately = true);
+  [[nodiscard]] std::shared_ptr<Texture> createTexture(FileTextureConfig &&config,
+                                                       CommandPool &commandPool);
 
   [[nodiscard]] PhysicalDevice &getPhysicalDevice() const;
 

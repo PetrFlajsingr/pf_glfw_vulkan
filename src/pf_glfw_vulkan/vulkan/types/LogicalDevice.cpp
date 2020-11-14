@@ -12,6 +12,7 @@
 #include "Semaphore.h"
 #include "Shader.h"
 #include "SwapChain.h"
+#include "Texture.h"
 
 namespace pf::vulkan {
 
@@ -95,6 +96,10 @@ std::shared_ptr<Shader> LogicalDevice::createShader(ShaderConfigGlslSrc &&config
 }
 std::shared_ptr<Shader> LogicalDevice::createShader(ShaderConfigGlslFile &&config) {
   return Shader::CreateShared(shared_from_this(), std::move(config));
+}
+std::shared_ptr<Texture> LogicalDevice::createTexture(FileTextureConfig &&config,
+                                                      CommandPool &commandPool) {
+  return Texture::CreateShared(shared_from_this(), commandPool, std::move(config));
 }
 
 }// namespace pf::vulkan

@@ -9,6 +9,7 @@
 #include "CommandPool.h"
 #include "Image.h"
 #include "LogicalDevice.h"
+#include "TextureSampler.h"
 #include <magic_enum.hpp>
 #include <pf_common/RAII.h>
 #include <pf_common/exceptions/StackTraceException.h>
@@ -80,6 +81,12 @@ Texture::Texture(std::shared_ptr<LogicalDevice> device, CommandPool &pool,
 }
 
 std::string Texture::info() const { return "Vulkan texture"; }
+
 LogicalDevice &Texture::getLogicalDevice() const { return *logicalDevice; }
+
 Image &Texture::getImage() const { return *image; }
+
+std::shared_ptr<TextureSampler> Texture::createSampler(TextureSamplerConfig &&config) {
+  return TextureSampler::CreateShared(logicalDevice, std::move(config));
+}
 }// namespace pf::vulkan
