@@ -13,9 +13,9 @@ TextureSampler::TextureSampler(std::shared_ptr<LogicalDevice> device, TextureSam
   auto createInfo = vk::SamplerCreateInfo();
   createInfo.magFilter = config.magFilter;
   createInfo.minFilter = config.minFilter;
-  createInfo.addressModeU = config.addresssMode.u;
-  createInfo.addressModeV = config.addresssMode.v;
-  createInfo.addressModeW = config.addresssMode.w;
+  createInfo.addressModeU = config.addressMode.u;
+  createInfo.addressModeV = config.addressMode.v;
+  createInfo.addressModeW = config.addressMode.w;
   createInfo.anisotropyEnable = config.maxAnisotropy.has_value();
   createInfo.maxAnisotropy = config.maxAnisotropy.value_or(0.f);
   createInfo.borderColor = config.borderColor;

@@ -17,7 +17,7 @@ struct PF_GLFW_VULKAN_EXPORT TextureSamplerConfig {
     vk::SamplerAddressMode u;
     vk::SamplerAddressMode v;
     vk::SamplerAddressMode w;
-  } addresssMode;
+  } addressMode;
   std::optional<float> maxAnisotropy;
   vk::BorderColor borderColor;
   bool unnormalizedCoordinates;
