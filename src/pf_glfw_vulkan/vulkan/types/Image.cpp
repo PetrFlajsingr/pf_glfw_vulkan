@@ -143,9 +143,13 @@ void Image::transitionLayout(CommandPool &cmdPool, vk::ImageLayout newLayout,
 }
 vk::ImageMemoryBarrier Image::createImageBarrier(vk::ImageSubresourceRange &&subresourceRange,
                                                  const vk::AccessFlags &srcAccessMask,
-                                                 const vk::AccessFlags &dstAccessMask) const {
+                                                 const vk::AccessFlags &dstAccessMask,
+                                                 vk::ImageLayout oldLayout,
+                                                 vk::ImageLayout newLayout) const {
   return vk::ImageMemoryBarrier{.srcAccessMask = srcAccessMask,
                                 .dstAccessMask = dstAccessMask,
+                                .oldLayout = oldLayout,
+                                .newLayout = newLayout,
                                 .image = **this,
                                 .subresourceRange = subresourceRange};
 }

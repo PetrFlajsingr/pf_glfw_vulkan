@@ -40,8 +40,8 @@ class PF_GLFW_VULKAN_EXPORT Image : public VulkanObject,
 
   [[nodiscard]] vk::ImageMemoryBarrier
   createImageBarrier(vk::ImageSubresourceRange &&subresourceRange,
-                     const vk::AccessFlags &srcAccessMask,
-                     const vk::AccessFlags &dstAccessMask) const;
+                     const vk::AccessFlags &srcAccessMask, const vk::AccessFlags &dstAccessMask,
+                     vk::ImageLayout oldLayout, vk::ImageLayout newLayout) const;
 
   void transitionLayout(CommandPool &cmdPool, vk::ImageLayout newLayout,
                         const vk::ImageSubresourceRange &subresourceRange);
