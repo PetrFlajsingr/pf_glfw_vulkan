@@ -106,6 +106,14 @@ CommandBufferRecording::pipelineBarrier(vk::PipelineStageFlagBits srcStage,
   owner.get()->pipelineBarrier(srcStage, dstStage, {}, memoryBarrier, bufferBarrier, imageBarrier);
   return *this;
 }
+CommandBufferRecording &CommandBufferRecording::copyImage(ImageCopyCommand &&cmd) {
+  const auto copy = std::vector<vk::ImageCopy>{{.srcSubresource = cmd.srcLayers,
+                                                .srcOffset = cmd.srcOffset,
+                                                .dstSubresource = cmd.dstLayers,
+                                                .dstOffset = cmd.dstOffset,
+                                                .extent = cmd.src.getExtent()}};
+  owner.get()->copyImage(*cmd.src, cmd.srcLayout, *cmd.dst, cmd.dstLayout, copy)
+}
 
 CommandBuffer::CommandBuffer(std::shared_ptr<CommandPool> pool, vk::UniqueCommandBuffer &&buffer)
     : vkBuffer(std::move(buffer)), commandPool(std::move(pool)) {}

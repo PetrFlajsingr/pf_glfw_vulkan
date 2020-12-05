@@ -29,6 +29,17 @@ struct PF_GLFW_VULKAN_EXPORT DrawCommand {
   uint32_t instanceOffset;
 };
 
+struct PF_GLFW_VULKAN_EXPORT ImageCopyCommand {
+  Image &src;
+  Image &dst;
+  vk::ImageLayout srcLayout;
+  vk::ImageLayout dstLayout;
+  vk::ImageSubresourceLayers srcLayers;
+  vk::ImageSubresourceLayers dstLayers;
+  vk::Offset3D srcOffset;
+  vk::Offset3D dstOffset;
+};
+
 class PF_GLFW_VULKAN_EXPORT CommandBufferRecording {
  public:
   explicit CommandBufferRecording(CommandBuffer &buffer);
@@ -44,6 +55,8 @@ class PF_GLFW_VULKAN_EXPORT CommandBufferRecording {
 
   CommandBufferRecording &bindPipeline(vk::PipelineBindPoint bindPoint, Pipeline &pipeline);
   CommandBufferRecording &draw(DrawCommand &&cmd);
+
+  CommandBufferRecording &copyImage(ImageCopyCommand &&cmd);
 
   CommandBufferRecording &dispatch(uint32_t x, uint32_t y, uint32_t z);
 
