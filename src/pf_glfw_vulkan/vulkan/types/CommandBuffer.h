@@ -45,6 +45,8 @@ class PF_GLFW_VULKAN_EXPORT CommandBufferRecording {
   CommandBufferRecording &bindPipeline(vk::PipelineBindPoint bindPoint, Pipeline &pipeline);
   CommandBufferRecording &draw(DrawCommand &&cmd);
 
+  CommandBufferRecording &dispatch(uint32_t x, uint32_t y, uint32_t z);
+
   CommandBufferRecording &copyBuffer(Buffer &src, Buffer &dst, vk::DeviceSize srcOffset,
                                      vk::DeviceSize dstOffset, vk::DeviceSize range);
   CommandBufferRecording &

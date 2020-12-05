@@ -54,6 +54,11 @@ CommandBufferRecording &CommandBufferRecording::draw(DrawCommand &&cmd) {
   owner.get()->draw(cmd.vertexCount, cmd.instanceCount, cmd.vertexOffset, cmd.instanceOffset);
   return *this;
 }
+
+CommandBufferRecording &CommandBufferRecording::dispatch(uint32_t x, uint32_t y, uint32_t z) {
+  owner.get()->dispatch(x, y, z);
+}
+
 CommandBuffer &CommandBufferRecording::getCommandBuffer() { return owner.get(); }
 CommandBufferRecording::CommandBufferRecording(CommandBufferRecording &&other) noexcept
     : owner(other.owner) {
