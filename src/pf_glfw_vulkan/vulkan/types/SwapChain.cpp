@@ -73,7 +73,7 @@ vk::Extent2D SwapChain::selectExtent(const ui::Resolution &resolution,
   if (surfaceCapabilities.currentExtent.width != std::numeric_limits<uint32_t>::max()) {
     return surfaceCapabilities.currentExtent;
   } else {
-    auto extent = VkExtent2D{static_cast<uint32_t>(resolution.width),
+    auto extent = vk::Extent2D{static_cast<uint32_t>(resolution.width),
                              static_cast<uint32_t>(resolution.height)};
     extent.width = std::clamp(extent.width, surfaceCapabilities.minImageExtent.width,
                               surfaceCapabilities.maxImageExtent.width);

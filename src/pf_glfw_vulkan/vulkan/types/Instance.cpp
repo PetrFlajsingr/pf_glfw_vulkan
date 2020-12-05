@@ -12,9 +12,12 @@ namespace pf::vulkan {
 Instance::Instance(InstanceConfig config) {
   using namespace logging;
   log(LogLevel::Info, VK_TAG, "Creating vulkan instance.");
-  const auto appInfo = vk::ApplicationInfo(
-      config.appName.c_str(), versionToUint32(config.appVersion), config.engineInfo.name.c_str(),
-      versionToUint32(config.engineInfo.engineVersion), versionToUint32(config.vkVersion));
+  const auto appInfo =
+      vk::ApplicationInfo{.pApplicationName = config.appName.c_str(),
+                          .applicationVersion = versionToUint32(config.appVersion),
+                          .pEngineName = config.engineInfo.name.c_str(),
+                          .engineVersion = versionToUint32(config.engineInfo.engineVersion),
+                          .apiVersion = versionToUint32(config.vkVersion)};
   logFmt(LogLevel::Info, VK_TAG,
          "App name: {}\nversion: {}\nengine name: {}\nengine version: {}\nvulkan version: {}.",
          config.appName, config.appVersion, config.engineInfo.name, config.engineInfo.engineVersion,
@@ -27,8 +30,12 @@ Instance::Instance(InstanceConfig config) {
   const auto messageTypeFlags = vk::DebugUtilsMessageTypeFlagBitsEXT::eGeneral
       | vk::DebugUtilsMessageTypeFlagBitsEXT::ePerformance
       | vk::DebugUtilsMessageTypeFlagBitsEXT::eValidation;
-  const auto debugCreateInfo = vk::DebugUtilsMessengerCreateInfoEXT(
-      {}, messageSeverityFlags, messageTypeFlags, cVulkanDebugCallback, this);
+  const auto debugCreateInfo =
+      vk::DebugUtilsMessengerCreateInfoEXT{.flags = {},
+                                           .messageSeverity = messageSeverityFlags,
+                                           .messageType = messageTypeFlags,
+                                           .pfnUserCallback = cVulkanDebugCallback,
+                                           .pUserData = this};
   using namespace ranges;
 
   const auto validationLayersEnabled =
