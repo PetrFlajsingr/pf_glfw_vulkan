@@ -17,7 +17,7 @@ Compiler::Compiler(std::string srcName, std::string src, shaderc_shader_kind typ
 std::string Compiler::preprocess() {
   if (currentStep == CompilationStep::None) {
     const auto result = compiler.PreprocessGlsl(source, kind, name.c_str(), options);
-
+    checkCompilationResult(result);
     if (result.GetCompilationStatus() != shaderc_compilation_status_success) {
       throw CompilationException(result.GetErrorMessage());
     }
@@ -39,6 +39,7 @@ std::string Compiler::toAssembly(Optimization optimization) {
         break;
     }
     auto result = compiler.CompileGlslToSpvAssembly(source, kind, name.c_str(), options);
+    checkCompilationResult(result);
     source = {result.cbegin(), result.cend()};
     currentStep = CompilationStep::Assembly;
   } else if (currentStep != CompilationStep::Assembly) {
@@ -56,6 +57,7 @@ BinaryData Compiler::toBinary(Optimization optimization) {
         break;
     }
     auto result = compiler.CompileGlslToSpv(source, kind, name.c_str(), options);
+    checkCompilationResult(result);
     binaryData = {result.cbegin(), result.cend()};
     currentStep = CompilationStep::Binary;
   } else if (currentStep != CompilationStep::Binary) {
@@ -75,4 +77,7 @@ BinaryData Compiler::compile(Optimization optimization) {
 
 CompilationException::CompilationException(const std::string_view &message)
     : StackTraceException(message) {}
+CompilationException CompilationException::fmt(std::string_view fmt, auto &&...args) {
+  return CompilationException(fmt::format(fmt, args...));
+}
 }// namespace pf::glsl

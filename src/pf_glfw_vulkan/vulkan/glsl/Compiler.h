@@ -7,6 +7,7 @@
 
 #include <pf_common/exceptions/StackTraceException.h>
 #include <pf_glfw_vulkan/_export.h>
+#include <pf_glfw_vulkan/logging.h>
 #include <shaderc/shaderc.hpp>
 #include <string>
 #include <utility>
@@ -20,6 +21,13 @@ enum class CompilationStep { None, Preprocessed, Assembly, Binary };
 
 enum class Optimization { None, Size, Performance };
 
+class CompilationException : public StackTraceException {
+ public:
+  explicit CompilationException(const std::string_view &message);
+
+  static CompilationException fmt(std::string_view fmt, auto &&...args);
+};
+
 class PF_GLFW_VULKAN_EXPORT Compiler {
  public:
   Compiler(std::string srcName, std::string src, shaderc_shader_kind type,
@@ -31,6 +39,21 @@ class PF_GLFW_VULKAN_EXPORT Compiler {
   [[nodiscard]] BinaryData compile(Optimization optimization = Optimization::None);
 
  private:
+  template<typename T>
+  void checkCompilationResult(const shaderc::CompilationResult<T> &compilationResult) {
+    constexpr auto LOG_TAG = "GLSL_COMPILE";
+    if (compilationResult.GetNumErrors() > 0) {
+      const auto message = fmt::format("Shader '{}' failed to compile due following errors:\n{}",
+                                       compilationResult.GetErrorMessage());
+      vulkan::logging::loge(LOG_TAG, message);
+      throw CompilationException(message);
+    } else if (compilationResult.GetNumWarnings() > 0) {
+      const auto message = fmt::format("Shader '{}' compiled with following warnings:\n{}",
+                                       compilationResult.GetErrorMessage());
+      vulkan::logging::logw(LOG_TAG, message);
+    }
+  }
+
   shaderc::Compiler compiler;
   shaderc::CompileOptions options;
   std::string name;
@@ -39,11 +62,6 @@ class PF_GLFW_VULKAN_EXPORT Compiler {
   MacroDefs macros;
   CompilationStep currentStep = CompilationStep::None;
   BinaryData binaryData;
-};
-
-class CompilationException : public StackTraceException {
- public:
-  explicit CompilationException(const std::string_view &message);
 };
 
 }// namespace pf::glsl
