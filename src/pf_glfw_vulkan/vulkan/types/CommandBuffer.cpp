@@ -112,7 +112,7 @@ CommandBufferRecording &CommandBufferRecording::copyImage(ImageCopyCommand &&cmd
                                                 .dstSubresource = cmd.dstLayers,
                                                 .dstOffset = cmd.dstOffset,
                                                 .extent = cmd.src.getExtent()}};
-  owner.get()->copyImage(*cmd.src, cmd.srcLayout, *cmd.dst, cmd.dstLayout, copy)
+  owner.get()->copyImage(*cmd.src, cmd.srcLayout, *cmd.dst, cmd.dstLayout, copy);
 }
 
 CommandBuffer::CommandBuffer(std::shared_ptr<CommandPool> pool, vk::UniqueCommandBuffer &&buffer)
