@@ -141,5 +141,13 @@ void Image::transitionLayout(CommandPool &cmdPool, vk::ImageLayout newLayout,
                      .wait = true});
   layout = newLayout;
 }
+vk::ImageMemoryBarrier Image::createImageBarrier(vk::ImageSubresourceRange &&subresourceRange,
+                                                 const vk::AccessFlags &srcAccessMask,
+                                                 const vk::AccessFlags &dstAccessMask) const {
+  return vk::ImageMemoryBarrier{.srcAccessMask = srcAccessMask,
+                                .dstAccessMask = dstAccessMask,
+                                .image = **this,
+                                .subresourceRange = subresourceRange};
+}
 
 }// namespace pf::vulkan
