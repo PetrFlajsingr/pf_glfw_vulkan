@@ -5,6 +5,7 @@
 #ifndef PF_GLFW_VULKAN_VULKAN_TYPES_COMMANDBUFFER_H
 #define PF_GLFW_VULKAN_VULKAN_TYPES_COMMANDBUFFER_H
 
+#include "Pipeline.h"
 #include "VulkanObject.h"
 #include "configs/CommandBufferConfig.h"
 #include "fwd.h"
@@ -41,7 +42,7 @@ class PF_GLFW_VULKAN_EXPORT CommandBufferRecording {
   CommandBufferRecording &endRenderPass();
   [[nodiscard]] CommandBuffer &getCommandBuffer();
 
-  CommandBufferRecording &bindPipeline(vk::PipelineBindPoint bindPoint, GraphicsPipeline &pipeline);
+  CommandBufferRecording &bindPipeline(vk::PipelineBindPoint bindPoint, Pipeline &pipeline);
   CommandBufferRecording &draw(DrawCommand &&cmd);
 
   CommandBufferRecording &copyBuffer(Buffer &src, Buffer &dst, vk::DeviceSize srcOffset,

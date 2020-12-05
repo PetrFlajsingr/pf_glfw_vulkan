@@ -46,7 +46,7 @@ CommandBufferRecording &CommandBufferRecording::endRenderPass() {
 }
 
 CommandBufferRecording &CommandBufferRecording::bindPipeline(vk::PipelineBindPoint bindPoint,
-                                                             GraphicsPipeline &pipeline) {
+                                                             Pipeline &pipeline) {
   owner.get()->bindPipeline(bindPoint, *pipeline);
   return *this;
 }

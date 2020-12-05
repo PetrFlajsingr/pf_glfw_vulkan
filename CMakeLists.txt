@@ -118,7 +118,9 @@ set(SOURCES
         src/pf_glfw_vulkan/vulkan/types/DescriptorSetLayout.cpp
         src/pf_glfw_vulkan/vulkan/types/Fence.cpp
         src/pf_glfw_vulkan/vulkan/types/FrameBuffer.cpp
+        src/pf_glfw_vulkan/vulkan/types/Pipeline.cpp
         src/pf_glfw_vulkan/vulkan/types/GraphicsPipeline.cpp
+        src/pf_glfw_vulkan/vulkan/types/ComputePipeline.cpp
         src/pf_glfw_vulkan/vulkan/types/Image.cpp
         src/pf_glfw_vulkan/vulkan/types/ImageView.cpp
         src/pf_glfw_vulkan/vulkan/types/Instance.cpp
@@ -155,7 +157,9 @@ set(INCLUDES
         src/pf_glfw_vulkan/vulkan/types/Fence.h
         src/pf_glfw_vulkan/vulkan/types/FrameBuffer.h
         src/pf_glfw_vulkan/vulkan/types/fwd.h
+        src/pf_glfw_vulkan/vulkan/types/Pipeline.h
         src/pf_glfw_vulkan/vulkan/types/GraphicsPipeline.h
+        src/pf_glfw_vulkan/vulkan/types/ComputePipeline.h
         src/pf_glfw_vulkan/vulkan/types/Image.h
         src/pf_glfw_vulkan/vulkan/types/ImageView.h
         src/pf_glfw_vulkan/vulkan/types/Instance.h

@@ -5,15 +5,12 @@
 #ifndef PF_GLFW_VULKAN_VULKAN_TYPES_GRAPHICSPIPELINE_H
 #define PF_GLFW_VULKAN_VULKAN_TYPES_GRAPHICSPIPELINE_H
 
-#include "VulkanObject.h"
-#include "fwd.h"
+#include "Pipeline.h"
 #include <pf_common/concepts/PtrConstructible.h>
-#include <pf_glfw_vulkan/_export.h>
-#include <vulkan/vulkan.hpp>
 
 namespace pf::vulkan {
 
-class PF_GLFW_VULKAN_EXPORT GraphicsPipeline : public VulkanObject,
+class PF_GLFW_VULKAN_EXPORT GraphicsPipeline : public Pipeline,
                                                public PtrConstructible<GraphicsPipeline> {
  public:
   // TODO: builder only
@@ -22,19 +19,11 @@ class PF_GLFW_VULKAN_EXPORT GraphicsPipeline : public VulkanObject,
 
   GraphicsPipeline(const GraphicsPipeline &other) = delete;
   GraphicsPipeline &operator=(const GraphicsPipeline &other) = delete;
-
-  [[nodiscard]] const vk::Pipeline &getVkPipeline() const;
-  [[nodiscard]] const vk::PipelineLayout &getVkPipelineLayout() const;
   [[nodiscard]] RenderPass &getRenderPass() const;
-
-  const vk::Pipeline &operator*() const;
-  vk::Pipeline const *operator->() const;
 
   [[nodiscard]] std::string info() const override;
 
  private:
-  vk::UniquePipeline vkPipeline;
-  vk::UniquePipelineLayout vkLayout;
   std::shared_ptr<RenderPass> renderPass;
 };
 

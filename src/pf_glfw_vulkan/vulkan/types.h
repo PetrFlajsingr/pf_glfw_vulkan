@@ -14,6 +14,7 @@
 #include "types/Fence.h"
 #include "types/FrameBuffer.h"
 #include "types/GraphicsPipeline.h"
+#include "types/ComputePipeline.h"
 #include "types/Image.h"
 #include "types/ImageView.h"
 #include "types/Instance.h"
