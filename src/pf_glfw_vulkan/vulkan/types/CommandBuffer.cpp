@@ -57,6 +57,7 @@ CommandBufferRecording &CommandBufferRecording::draw(DrawCommand &&cmd) {
 
 CommandBufferRecording &CommandBufferRecording::dispatch(uint32_t x, uint32_t y, uint32_t z) {
   owner.get()->dispatch(x, y, z);
+  return *this;
 }
 
 CommandBuffer &CommandBufferRecording::getCommandBuffer() { return owner.get(); }
@@ -113,6 +114,7 @@ CommandBufferRecording &CommandBufferRecording::copyImage(ImageCopyCommand &&cmd
                                                 .dstOffset = cmd.dstOffset,
                                                 .extent = cmd.src.getExtent()}};
   owner.get()->copyImage(*cmd.src, cmd.srcLayout, *cmd.dst, cmd.dstLayout, copy);
+  return *this;
 }
 
 CommandBuffer::CommandBuffer(std::shared_ptr<CommandPool> pool, vk::UniqueCommandBuffer &&buffer)
