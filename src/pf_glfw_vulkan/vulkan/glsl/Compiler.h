@@ -44,11 +44,11 @@ class PF_GLFW_VULKAN_EXPORT Compiler {
     constexpr auto LOG_TAG = "GLSL_COMPILE";
     if (compilationResult.GetNumErrors() > 0) {
       const auto message = fmt::format("Shader '{}' failed to compile due following errors:\n{}",
-                                       compilationResult.GetErrorMessage());
+                                       name, compilationResult.GetErrorMessage());
       vulkan::logging::loge(LOG_TAG, message);
       throw CompilationException(message);
     } else if (compilationResult.GetNumWarnings() > 0) {
-      const auto message = fmt::format("Shader '{}' compiled with following warnings:\n{}",
+      const auto message = fmt::format("Shader '{}' compiled with following warnings:\n{}", name,
                                        compilationResult.GetErrorMessage());
       vulkan::logging::logw(LOG_TAG, message);
     }
