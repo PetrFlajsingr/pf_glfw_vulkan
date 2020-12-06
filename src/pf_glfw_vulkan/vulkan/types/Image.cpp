@@ -150,11 +150,14 @@ vk::ImageMemoryBarrier Image::createImageBarrier(vk::ImageSubresourceRange &&sub
                                                  const vk::AccessFlags &srcAccessMask,
                                                  const vk::AccessFlags &dstAccessMask,
                                                  vk::ImageLayout oldLayout,
-                                                 vk::ImageLayout newLayout) const {
+                                                 vk::ImageLayout newLayout, uint32_t srcQueue,
+                                                 uint32_t dstQueue) const {
   return vk::ImageMemoryBarrier{.srcAccessMask = srcAccessMask,
                                 .dstAccessMask = dstAccessMask,
                                 .oldLayout = oldLayout,
                                 .newLayout = newLayout,
+                                .srcQueueFamilyIndex = srcQueue,
+                                .dstQueueFamilyIndex = dstQueue,
                                 .image = **this,
                                 .subresourceRange = subresourceRange};
 }

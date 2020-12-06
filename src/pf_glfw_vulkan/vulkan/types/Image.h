@@ -41,7 +41,9 @@ class PF_GLFW_VULKAN_EXPORT Image : public VulkanObject,
   [[nodiscard]] vk::ImageMemoryBarrier
   createImageBarrier(vk::ImageSubresourceRange &&subresourceRange,
                      const vk::AccessFlags &srcAccessMask, const vk::AccessFlags &dstAccessMask,
-                     vk::ImageLayout oldLayout, vk::ImageLayout newLayout) const;
+                     vk::ImageLayout oldLayout, vk::ImageLayout newLayout,
+                     uint32_t srcQueue = VK_QUEUE_FAMILY_IGNORED,
+                     uint32_t dstQueue = VK_QUEUE_FAMILY_IGNORED) const;
 
   void transitionLayout(CommandPool &cmdPool, vk::ImageLayout newLayout,
                         const vk::ImageSubresourceRange &subresourceRange);
