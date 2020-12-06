@@ -128,6 +128,11 @@ void Image::transitionLayout(CommandPool &cmdPool, vk::ImageLayout newLayout,
     barrier.dstAccessMask = vk::AccessFlagBits::eShaderRead;
     srcStage = vk::PipelineStageFlagBits::eTransfer;
     dstStage = vk::PipelineStageFlagBits::eFragmentShader;
+  } else if (layout == vk::ImageLayout::eUndefined && newLayout == vk::ImageLayout::eGeneral) {
+    barrier.srcAccessMask = {};
+    barrier.dstAccessMask = vk::AccessFlagBits::eTransferWrite;
+    srcStage = vk::PipelineStageFlagBits::eTopOfPipe;
+    dstStage = vk::PipelineStageFlagBits::eTransfer;
   } else {
     throw VulkanException::fmt("Unsupported layout transition: {}",
                                magic_enum::enum_name(newLayout));
