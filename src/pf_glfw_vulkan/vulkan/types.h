@@ -29,5 +29,6 @@
 #include "types/TextureSampler.h"
 #include "types/builders/GraphicsPipelineBuilder.h"
 #include "types/builders/RenderPassBuilder.h"
+#include "types/VulkanCommon.h"
 
 #endif//PF_GLFW_VULKAN_TYPES_H
