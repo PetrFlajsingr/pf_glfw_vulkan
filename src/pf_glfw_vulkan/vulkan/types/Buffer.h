@@ -45,7 +45,7 @@ class PF_GLFW_VULKAN_EXPORT BufferMapping : public VulkanObject,
   void set(const T &container) {
     using ValueType = typename T::value_type;
     const auto typedSize = getTypedSize<ValueType>();
-    assert(typedSize <= container.size());
+    assert(container.size() < typedSize);
     std::memcpy(dataPtr, container.data(), container.size() * sizeof(ValueType));
   }
 
