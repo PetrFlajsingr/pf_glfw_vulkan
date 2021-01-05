@@ -37,13 +37,38 @@ class PF_GLFW_VULKAN_EXPORT BufferMapping : public VulkanObject,
     return std::span(reinterpret_cast<T *>(dataPtr) + start, count);
   }
 
+  template<typename T>
+  std::span<T> dataRawOffset(vk::DeviceSize start) {
+    const auto count = getTypedSize<T>() - start;
+    return data<T>(start, count);
+  }
+  template<typename T>
+  std::span<T> dataRawOffset(vk::DeviceSize start, vk::DeviceSize count) {
+    const auto size = getSize();
+    assert(start < size);
+    assert(start + count < size);
+    return std::span(reinterpret_cast<T *>(reinterpret_cast<std::byte *>(dataPtr) + start),
+                     count / sizeof(T));
+  }
+
   template<std::ranges::contiguous_range T>
   void set(const T &container, vk::DeviceSize start = 0) {
     using ValueType = typename T::value_type;
     const auto typedSize = getTypedSize<ValueType>();
     assert(start < typedSize);
     assert(start + container.size() <= typedSize);
-    std::ranges::copy(container, reinterpret_cast<ValueType*>(dataPtr) + start);
+    std::ranges::copy(container, reinterpret_cast<ValueType *>(dataPtr) + start);
+    std::memcpy(dataPtr, container.data(), container.size() * sizeof(ValueType));
+  }
+
+  template<std::ranges::contiguous_range T>
+  void setRawOffset(const T &container, vk::DeviceSize start) {
+    using ValueType = typename T::value_type;
+    const auto size = getSize();
+    assert(start < size);
+    assert(start + container.size() * sizeof(ValueType) <= size);
+    std::ranges::copy(
+        container, reinterpret_cast<ValueType *>(reinterpret_cast<std::byte *>(dataPtr) + start));
     std::memcpy(dataPtr, container.data(), container.size() * sizeof(ValueType));
   }
 
