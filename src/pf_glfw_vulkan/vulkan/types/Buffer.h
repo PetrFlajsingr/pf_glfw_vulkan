@@ -33,7 +33,7 @@ class PF_GLFW_VULKAN_EXPORT BufferMapping : public VulkanObject,
   std::span<T> data(vk::DeviceSize start, vk::DeviceSize count) {
     const auto typedSize = getTypedSize<T>();
     assert(start < typedSize);
-    assert(start + count < typedSize);
+    assert(start + count <= typedSize);
     return std::span(reinterpret_cast<T *>(dataPtr) + start, count);
   }
 
@@ -46,7 +46,7 @@ class PF_GLFW_VULKAN_EXPORT BufferMapping : public VulkanObject,
   std::span<T> dataRawOffset(vk::DeviceSize start, vk::DeviceSize count) {
     const auto size = getSize();
     assert(start < size);
-    assert(start + count < size);
+    assert(start + count <= size);
     return std::span(reinterpret_cast<T *>(reinterpret_cast<std::byte *>(dataPtr) + start),
                      count / sizeof(T));
   }
