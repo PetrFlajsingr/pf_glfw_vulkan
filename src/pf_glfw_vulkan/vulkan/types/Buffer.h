@@ -25,11 +25,7 @@ class PF_GLFW_VULKAN_EXPORT BufferMapping : public VulkanObject,
   [[nodiscard]] void *rawData();
 
   template<typename T>
-  std::span<T> data() {
-    return data<T>(0);
-  }
-  template<typename T>
-  std::span<T> data(vk::DeviceSize start) {
+  std::span<T> data(vk::DeviceSize start = 0) {
     const auto count = getTypedSize<T>() - start;
     return data<T>(start, count);
   }
@@ -42,10 +38,12 @@ class PF_GLFW_VULKAN_EXPORT BufferMapping : public VulkanObject,
   }
 
   template<std::ranges::contiguous_range T>
-  void set(const T &container) {
+  void set(const T &container, vk::DeviceSize start = 0) {
     using ValueType = typename T::value_type;
     const auto typedSize = getTypedSize<ValueType>();
-    assert(container.size() <= typedSize);
+    assert(start < typedSize);
+    assert(start + container.size() <= typedSize);
+    std::ranges::copy(container, reinterpret_cast<ValueType*>(dataPtr) + start);
     std::memcpy(dataPtr, container.data(), container.size() * sizeof(ValueType));
   }
 
