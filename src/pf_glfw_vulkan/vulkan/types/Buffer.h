@@ -58,7 +58,6 @@ class PF_GLFW_VULKAN_EXPORT BufferMapping : public VulkanObject,
     assert(start < typedSize);
     assert(start + container.size() <= typedSize);
     std::ranges::copy(container, reinterpret_cast<ValueType *>(dataPtr) + start);
-    std::memcpy(dataPtr, container.data(), container.size() * sizeof(ValueType));
   }
 
   template<std::ranges::contiguous_range T>
@@ -69,7 +68,6 @@ class PF_GLFW_VULKAN_EXPORT BufferMapping : public VulkanObject,
     assert(start + container.size() * sizeof(ValueType) <= size);
     std::ranges::copy(
         container, reinterpret_cast<ValueType *>(reinterpret_cast<std::byte *>(dataPtr) + start));
-    std::memcpy(dataPtr, container.data(), container.size() * sizeof(ValueType));
   }
 
   [[nodiscard]] vk::DeviceSize getSize() const;
