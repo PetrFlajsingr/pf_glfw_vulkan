@@ -22,6 +22,10 @@ class PF_GLFW_VULKAN_EXPORT BufferMapping : public VulkanObject,
   BufferMapping(std::shared_ptr<Buffer> buff, vk::DeviceSize start, vk::DeviceSize count);
   ~BufferMapping() override;
 
+
+  BufferMapping subMapping(vk::DeviceSize start);
+  BufferMapping subMapping(vk::DeviceSize start, vk::DeviceSize count);
+
   [[nodiscard]] void *rawData();
 
   template<typename T>

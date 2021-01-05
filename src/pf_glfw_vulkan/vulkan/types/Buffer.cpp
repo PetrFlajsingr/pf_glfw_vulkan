@@ -21,7 +21,18 @@ std::string BufferMapping::info() const {
                      range);
 }
 vk::DeviceSize BufferMapping::getSize() const { return range - offset; }
+
 void *BufferMapping::rawData() { return dataPtr; }
+
+BufferMapping BufferMapping::subMapping(vk::DeviceSize start) {
+  return subMapping(start, getSize() - start);
+}
+
+BufferMapping BufferMapping::subMapping(vk::DeviceSize start, vk::DeviceSize count) {
+  assert(start < range);
+  assert(start + count < getSize());
+  return BufferMapping(buffer, start, count);
+}
 
 Buffer::Buffer(std::shared_ptr<LogicalDevice> device, BufferConfig &&config,
                bool allocateImmediately)
