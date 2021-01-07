@@ -15,13 +15,9 @@ std::ostream &pf::ui::operator<<(std::ostream &os, const pf::ui::Resolution &res
 pf::ui::WindowData::WindowData(const pf::ui::WindowSettings &settings)
     : resolution(settings.resolution), title(settings.title), mode(settings.mode) {}
 
-const pf::ui::Resolution &pf::ui::WindowData::getResolution() const {
-  return WindowData::resolution;
-}
+const pf::ui::Resolution &pf::ui::WindowData::getResolution() const { return WindowData::resolution; }
 
-void pf::ui::WindowData::setResolution(const pf::ui::Resolution &res) {
-  WindowData::resolution = res;
-}
+void pf::ui::WindowData::setResolution(const pf::ui::Resolution &res) { WindowData::resolution = res; }
 
 const std::string &pf::ui::WindowData::getTitle() const { return title; }
 

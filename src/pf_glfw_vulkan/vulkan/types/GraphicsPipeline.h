@@ -10,8 +10,7 @@
 
 namespace pf::vulkan {
 
-class PF_GLFW_VULKAN_EXPORT GraphicsPipeline : public Pipeline,
-                                               public PtrConstructible<GraphicsPipeline> {
+class PF_GLFW_VULKAN_EXPORT GraphicsPipeline : public Pipeline, public PtrConstructible<GraphicsPipeline> {
  public:
   // TODO: builder only
   explicit GraphicsPipeline(vk::UniquePipeline &&pipeline, vk::UniquePipelineLayout &&layout,

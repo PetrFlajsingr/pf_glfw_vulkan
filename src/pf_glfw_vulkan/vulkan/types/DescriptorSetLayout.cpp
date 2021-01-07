@@ -7,8 +7,7 @@
 #include "PhysicalDevice.h"
 
 namespace pf::vulkan {
-DescriptorSetLayout::DescriptorSetLayout(std::shared_ptr<LogicalDevice> device,
-                                         DescriptorSetLayoutConfig &&config)
+DescriptorSetLayout::DescriptorSetLayout(std::shared_ptr<LogicalDevice> device, DescriptorSetLayoutConfig &&config)
     : logicalDevice(std::move(device)) {
   auto bindings = std::vector<vk::DescriptorSetLayoutBinding>();
   for (const auto &bindingConfig : config.bindings) {

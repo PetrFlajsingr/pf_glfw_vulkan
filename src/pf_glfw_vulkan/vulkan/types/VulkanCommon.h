@@ -23,11 +23,9 @@ struct PF_GLFW_VULKAN_EXPORT DebugCallbackData {
 };
 
 using VulkanDebugCallback =
-    std::function<bool(DebugCallbackData, vk::DebugUtilsMessageSeverityFlagBitsEXT,
-                       vk::DebugUtilsMessageTypeFlagsEXT)>;
+    std::function<bool(DebugCallbackData, vk::DebugUtilsMessageSeverityFlagBitsEXT, vk::DebugUtilsMessageTypeFlagsEXT)>;
 
-using DynamicUniqueDebugUtilsMessengerEXT =
-    vk::UniqueHandle<vk::DebugUtilsMessengerEXT, vk::DispatchLoaderDynamic>;
+using DynamicUniqueDebugUtilsMessengerEXT = vk::UniqueHandle<vk::DebugUtilsMessengerEXT, vk::DispatchLoaderDynamic>;
 
 struct PF_GLFW_VULKAN_EXPORT Version {
   uint32_t major;

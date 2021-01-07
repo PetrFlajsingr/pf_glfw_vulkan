@@ -20,10 +20,8 @@ class PF_GLFW_VULKAN_EXPORT GraphicsPipelineBuilder {
  public:
   explicit GraphicsPipelineBuilder() = default;
 
-  GraphicsPipelineBuilder &
-  vertexInBindDescription(const vk::VertexInputBindingDescription &description);
-  GraphicsPipelineBuilder &
-  vertexInAttrDescription(const vk::VertexInputAttributeDescription &description);
+  GraphicsPipelineBuilder &vertexInBindDescription(const vk::VertexInputBindingDescription &description);
+  GraphicsPipelineBuilder &vertexInAttrDescription(const vk::VertexInputAttributeDescription &description);
   GraphicsPipelineBuilder &shader(Shader &sh, const std::string &name);
   GraphicsPipelineBuilder &topology(vk::PrimitiveTopology top);
   GraphicsPipelineBuilder &primitiveRestart(Enabled enabled);

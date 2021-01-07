@@ -15,9 +15,7 @@ namespace pf::vulkan {
 
 const vk::PhysicalDevice &PhysicalDevice::getPhysicalDevice() { return vkDevice; }
 
-LogicalDevice &PhysicalDevice::getLogicalDevice(const std::string &id) {
-  return *logicalDevices[id].get();
-}
+LogicalDevice &PhysicalDevice::getLogicalDevice(const std::string &id) { return *logicalDevices[id].get(); }
 
 std::string PhysicalDevice::info() const { return "Vulkan physical device unique"; }
 
@@ -33,8 +31,7 @@ std::shared_ptr<LogicalDevice> &PhysicalDevice::createLogicalDevice(LogicalDevic
   using namespace logging;
   using namespace ranges;
   logFmt(LogLevel::Info, VK_TAG, "Creating logical device with id: {}.", config.id);
-  const auto queueFamilyIndices =
-      vulkan::details::getQueueFamilyIndices(vkDevice, std::move(config.queueTypes));
+  const auto queueFamilyIndices = vulkan::details::getQueueFamilyIndices(vkDevice, std::move(config.queueTypes));
 
   auto queuePriorities = std::vector(queueFamilyIndices.size(), 1.0f);
 
@@ -42,16 +39,15 @@ std::shared_ptr<LogicalDevice> &PhysicalDevice::createLogicalDevice(LogicalDevic
   auto queueIndices = std::unordered_set(queueIndicesView.begin(), queueIndicesView.end());
   auto presentIndex = std::optional<uint32_t>(std::nullopt);
   if (config.presentQueueEnabled) {
-    const auto presentIdx =
-        vulkan::details::getPresentQueueFamilyIndex(vkDevice, config.surface.getSurface());
+    const auto presentIdx = vulkan::details::getPresentQueueFamilyIndex(vkDevice, config.surface.getSurface());
     queueIndices.emplace(presentIdx);
     presentIndex = presentIdx;
   }
 
   auto queueCreateInfos = vulkan::details::buildQueueCreateInfo(queueIndices, queuePriorities);
 
-  const auto requiredExtensionsCStr = config.requiredDeviceExtensions
-      | views::transform([](auto &str) { return str.c_str(); }) | to_vector;
+  const auto requiredExtensionsCStr =
+      config.requiredDeviceExtensions | views::transform([](auto &str) { return str.c_str(); }) | to_vector;
   const auto validationLayersCStr =
       config.validationLayers | views::transform([](auto &str) { return str.c_str(); }) | to_vector;
 
@@ -61,22 +57,19 @@ std::shared_ptr<LogicalDevice> &PhysicalDevice::createLogicalDevice(LogicalDevic
       .setPEnabledExtensionNames(requiredExtensionsCStr)
       .setPEnabledLayerNames(validationLayersCStr);
 
-  logicalDevices[config.id] =
-      LogicalDevice::CreateShared(shared_from_this(), vkDevice.createDeviceUnique(createInfo),
-                                  queueFamilyIndices, presentIndex);
+  logicalDevices[config.id] = LogicalDevice::CreateShared(shared_from_this(), vkDevice.createDeviceUnique(createInfo),
+                                                          queueFamilyIndices, presentIndex);
   return logicalDevices[config.id];
 }
 Instance &PhysicalDevice::getInstance() const { return *instance; }
 
 std::unordered_map<vk::QueueFlagBits, uint32_t>
-details::getQueueFamilyIndices(vk::PhysicalDevice &physicalDevice,
-                               std::unordered_set<vk::QueueFlagBits> queueTypes) {
+details::getQueueFamilyIndices(vk::PhysicalDevice &physicalDevice, std::unordered_set<vk::QueueFlagBits> queueTypes) {
   using namespace logging;
   log(LogLevel::Info, VK_TAG, "Getting queue family indices.");
   const auto queueFamilyPropertiesList = physicalDevice.getQueueFamilyProperties();
   auto result = std::unordered_map<vk::QueueFlagBits, uint32_t>{};
-  for (const auto &[idx, queueFamilyProperties] :
-       ranges::views::enumerate(queueFamilyPropertiesList)) {
+  for (const auto &[idx, queueFamilyProperties] : ranges::views::enumerate(queueFamilyPropertiesList)) {
 
     const auto iter = std::ranges::find_if(queueTypes, [&](auto flag) {
       return (queueFamilyProperties.queueCount > 0 && (queueFamilyProperties.queueFlags & flag));
@@ -86,14 +79,11 @@ details::getQueueFamilyIndices(vk::PhysicalDevice &physicalDevice,
       queueTypes.erase(iter);
     }
   }
-  if (!queueTypes.empty()) {
-    throw VulkanException("get_queue_family_indices not all queue types found.");
-  }
+  if (!queueTypes.empty()) { throw VulkanException("get_queue_family_indices not all queue types found."); }
   return result;
 }
 
-uint32_t details::getPresentQueueFamilyIndex(vk::PhysicalDevice &physicalDevice,
-                                             const vk::SurfaceKHR &surface) {
+uint32_t details::getPresentQueueFamilyIndex(vk::PhysicalDevice &physicalDevice, const vk::SurfaceKHR &surface) {
   using namespace ranges;
   const auto queueFamilyPropertiesList = physicalDevice.getQueueFamilyProperties();
   for (const auto &[idx, queueFamilyProperties] : views::enumerate(queueFamilyPropertiesList)) {
@@ -102,9 +92,8 @@ uint32_t details::getPresentQueueFamilyIndex(vk::PhysicalDevice &physicalDevice,
   throw VulkanException("get_present_queue_family_index present queue not found.");
 }
 
-std::vector<vk::DeviceQueueCreateInfo>
-details::buildQueueCreateInfo(const std::unordered_set<uint32_t> &queueIndices,
-                              std::vector<float> &queuePriorities) {
+std::vector<vk::DeviceQueueCreateInfo> details::buildQueueCreateInfo(const std::unordered_set<uint32_t> &queueIndices,
+                                                                     std::vector<float> &queuePriorities) {
   if (queueIndices.size() != queuePriorities.size()) {
     throw VulkanException("build_queue_create_info priorities size doesn't match queues.");
   }

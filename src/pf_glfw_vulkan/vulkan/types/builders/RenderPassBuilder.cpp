@@ -13,21 +13,17 @@
 
 namespace pf::vulkan {
 
-details::AttachmentDescriptionBuilder::AttachmentDescriptionBuilder(std::string name,
-                                                                    RenderPassBuilder &parent)
+details::AttachmentDescriptionBuilder::AttachmentDescriptionBuilder(std::string name, RenderPassBuilder &parent)
     : parent(parent), name(std::move(name)) {}
-details::AttachmentDescriptionBuilder &
-details::AttachmentDescriptionBuilder::format(vk::Format format) {
+details::AttachmentDescriptionBuilder &details::AttachmentDescriptionBuilder::format(vk::Format format) {
   description.setFormat(format);
   return *this;
 }
-details::AttachmentDescriptionBuilder &
-details::AttachmentDescriptionBuilder::initialLayout(vk::ImageLayout layout) {
+details::AttachmentDescriptionBuilder &details::AttachmentDescriptionBuilder::initialLayout(vk::ImageLayout layout) {
   description.setInitialLayout(layout);
   return *this;
 }
-details::AttachmentDescriptionBuilder &
-details::AttachmentDescriptionBuilder::finalLayout(vk::ImageLayout layout) {
+details::AttachmentDescriptionBuilder &details::AttachmentDescriptionBuilder::finalLayout(vk::ImageLayout layout) {
   description.setFinalLayout(layout);
   return *this;
 }
@@ -36,8 +32,7 @@ details::AttachmentDescriptionBuilder::samples(vk::SampleCountFlagBits sampleCou
   description.setSamples(sampleCount);
   return *this;
 }
-details::AttachmentDescriptionBuilder &
-details::AttachmentDescriptionBuilder::loadOp(vk::AttachmentLoadOp attLoadOp) {
+details::AttachmentDescriptionBuilder &details::AttachmentDescriptionBuilder::loadOp(vk::AttachmentLoadOp attLoadOp) {
   description.setLoadOp(attLoadOp);
   return *this;
 }
@@ -79,8 +74,7 @@ details::SubPassBuilder &details::SubPassBuilder::inputAttachment(std::string at
   data.inputAttachmentNames.emplace_back(std::move(attachmentName));
   return *this;
 }
-details::SubPassBuilder &
-details::SubPassBuilder::depthStencilAttachment(std::string attachmentName) {
+details::SubPassBuilder &details::SubPassBuilder::depthStencilAttachment(std::string attachmentName) {
   data.depthStencilAttachmentName = std::move(attachmentName);
   return *this;
 }
@@ -92,8 +86,7 @@ details::SubPassBuilder &details::SubPassBuilder::preserveAttachment(std::string
   data.preserveAttachmentNames.emplace_back(std::move(attachmentName));
   return *this;
 }
-details::SubPassBuilder &
-details::SubPassBuilder::pipelineBindPoint(vk::PipelineBindPoint bindPoint) {
+details::SubPassBuilder &details::SubPassBuilder::pipelineBindPoint(vk::PipelineBindPoint bindPoint) {
   data.description.setPipelineBindPoint(bindPoint);
   return *this;
 }
@@ -101,9 +94,7 @@ RenderPassBuilder &details::SubPassBuilder::subpassDone() {
   parent.subpasses[name] = std::move(data);
   return parent;
 }
-details::SubPassDependencyBuilder details::SubPassBuilder::dependency() {
-  return SubPassDependencyBuilder(*this);
-}
+details::SubPassDependencyBuilder details::SubPassBuilder::dependency() { return SubPassDependencyBuilder(*this); }
 details::SubPassDependencyBuilder &details::SubPassDependencyBuilder::srcSubpass(std::string name) {
   data.srcSubpassName = std::move(name);
   return *this;
@@ -136,18 +127,15 @@ details::SubPassBuilder &details::SubPassDependencyBuilder::dependencyDone() {
   parent.data.dependencies.emplace_back(std::move(data));
   return parent;
 }
-details::SubPassDependencyBuilder::SubPassDependencyBuilder(details::SubPassBuilder &parent)
-    : parent(parent) {}
+details::SubPassDependencyBuilder::SubPassDependencyBuilder(details::SubPassBuilder &parent) : parent(parent) {}
 
-RenderPassBuilder::RenderPassBuilder(std::shared_ptr<LogicalDevice> device)
-    : logicalDevice(std::move(device)) {}
+RenderPassBuilder::RenderPassBuilder(std::shared_ptr<LogicalDevice> device) : logicalDevice(std::move(device)) {}
 
 details::AttachmentDescriptionBuilder RenderPassBuilder::attachment(std::string name) {
   return details::AttachmentDescriptionBuilder(std::move(name), *this);
 }
 
-std::pair<std::vector<std::string>, vk::UniqueRenderPass>
-RenderPassBuilder::build(LogicalDevice &device) {
+std::pair<std::vector<std::string>, vk::UniqueRenderPass> RenderPassBuilder::build(LogicalDevice &device) {
   using namespace ranges;
 
   auto attachmentRefs = std::map<std::string, vk::AttachmentReference>();
@@ -157,15 +145,11 @@ RenderPassBuilder::build(LogicalDevice &device) {
     attachmentRefs[pair.first] = attachmentRef;
   }
 
-  auto colorAttachmentNames =
-      std::unordered_map<std::string, std::vector<vk::AttachmentReference>>();
-  auto inputAttachmentNames =
-      std::unordered_map<std::string, std::vector<vk::AttachmentReference>>();
-  auto resolveAttachmentNames =
-      std::unordered_map<std::string, std::vector<vk::AttachmentReference>>();
+  auto colorAttachmentNames = std::unordered_map<std::string, std::vector<vk::AttachmentReference>>();
+  auto inputAttachmentNames = std::unordered_map<std::string, std::vector<vk::AttachmentReference>>();
+  auto resolveAttachmentNames = std::unordered_map<std::string, std::vector<vk::AttachmentReference>>();
   auto preserveAttachmentNames = std::unordered_map<std::string, std::vector<uint32_t>>();
-  auto depthStencilAttachmentName =
-      std::unordered_map<std::string, std::optional<vk::AttachmentReference>>();
+  auto depthStencilAttachmentName = std::unordered_map<std::string, std::optional<vk::AttachmentReference>>();
   auto subpassDependencies = std::vector<vk::SubpassDependency>();
   for (auto &[name, spDescr] : subpasses) {
     for (const auto &colorAtt : spDescr.colorAttachmentNames) {
@@ -216,16 +200,13 @@ RenderPassBuilder::build(LogicalDevice &device) {
     }
   }
   const auto attachDescrVec = attachDescriptions | views::values | to_vector;
-  const auto subpassDecrVec = subpasses | views::values
-      | views::transform([](const auto &subpass) { return subpass.description; }) | to_vector;
+  const auto subpassDecrVec =
+      subpasses | views::values | views::transform([](const auto &subpass) { return subpass.description; }) | to_vector;
   const auto subpassNames = subpasses | views::keys | to_vector;
   auto createInfo = vk::RenderPassCreateInfo();
-  createInfo.setSubpasses(subpassDecrVec)
-      .setAttachments(attachDescrVec)
-      .setDependencies(subpassDependencies);
+  createInfo.setSubpasses(subpassDecrVec).setAttachments(attachDescrVec).setDependencies(subpassDependencies);
 
-  return std::make_pair(subpassNames,
-                        device.getVkLogicalDevice().createRenderPassUnique(createInfo));
+  return std::make_pair(subpassNames, device.getVkLogicalDevice().createRenderPassUnique(createInfo));
 }
 
 std::shared_ptr<RenderPass> RenderPassBuilder::build() {

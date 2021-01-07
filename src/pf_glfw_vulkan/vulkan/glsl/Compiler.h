@@ -30,8 +30,8 @@ class CompilationException : public StackTraceException {
 
 class PF_GLFW_VULKAN_EXPORT Compiler {
  public:
-  Compiler(std::string srcName, std::string src, shaderc_shader_kind type,
-           const MacroDefs &macros = {}, const ReplaceMacroDefs &replaceMacros = {});
+  Compiler(std::string srcName, std::string src, shaderc_shader_kind type, const MacroDefs &macros = {},
+           const ReplaceMacroDefs &replaceMacros = {});
 
   std::string preprocess();
   [[nodiscard]] std::string toAssembly(Optimization optimization = Optimization::None);
@@ -43,13 +43,13 @@ class PF_GLFW_VULKAN_EXPORT Compiler {
   void checkCompilationResult(const shaderc::CompilationResult<T> &compilationResult) {
     constexpr auto LOG_TAG = "GLSL_COMPILE";
     if (compilationResult.GetNumErrors() > 0) {
-      const auto message = fmt::format("Shader '{}' failed to compile due following errors:\n{}",
-                                       name, compilationResult.GetErrorMessage());
+      const auto message = fmt::format("Shader '{}' failed to compile due following errors:\n{}", name,
+                                       compilationResult.GetErrorMessage());
       vulkan::logging::loge(LOG_TAG, message);
       throw CompilationException(message);
     } else if (compilationResult.GetNumWarnings() > 0) {
-      const auto message = fmt::format("Shader '{}' compiled with following warnings:\n{}", name,
-                                       compilationResult.GetErrorMessage());
+      const auto message =
+          fmt::format("Shader '{}' compiled with following warnings:\n{}", name, compilationResult.GetErrorMessage());
       vulkan::logging::logw(LOG_TAG, message);
     }
   }

@@ -12,15 +12,12 @@ DefaultDeviceSuitabilityScorer::DefaultDeviceSuitabilityScorer(
     : reqExtensions(std::move(requiredExtensions)), optExtensions(std::move(optionalExtensions)),
       featureCheck(std::move(featureChecker)) {}
 
-DeviceSuitabilityScoreResult
-DefaultDeviceSuitabilityScorer::operator()(const vk::PhysicalDevice &device) {
+DeviceSuitabilityScoreResult DefaultDeviceSuitabilityScorer::operator()(const vk::PhysicalDevice &device) {
   auto notFoundRequiredExt = reqExtensions;
   auto score = std::size_t(0);
   for (const auto &extension : device.enumerateDeviceExtensionProperties()) {
     notFoundRequiredExt.erase(extension.extensionName);
-    if (optExtensions.contains(extension.extensionName)) {
-      score += optExtensions[extension.extensionName];
-    }
+    if (optExtensions.contains(extension.extensionName)) { score += optExtensions[extension.extensionName]; }
   }
   if (!notFoundRequiredExt.empty()) { return std::nullopt; }
   if (const auto featureScore = featureCheck(device.getFeatures()); featureScore.has_value()) {

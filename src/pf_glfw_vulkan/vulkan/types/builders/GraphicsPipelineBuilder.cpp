@@ -10,14 +10,14 @@
 #include "../Shader.h"
 
 namespace pf::vulkan {
-GraphicsPipelineBuilder &GraphicsPipelineBuilder::vertexInBindDescription(
-    const vk::VertexInputBindingDescription &description) {
+GraphicsPipelineBuilder &
+GraphicsPipelineBuilder::vertexInBindDescription(const vk::VertexInputBindingDescription &description) {
   bindingDescriptions.emplace_back(description);
   return *this;
 }
 
-GraphicsPipelineBuilder &GraphicsPipelineBuilder::vertexInAttrDescription(
-    const vk::VertexInputAttributeDescription &description) {
+GraphicsPipelineBuilder &
+GraphicsPipelineBuilder::vertexInAttrDescription(const vk::VertexInputAttributeDescription &description) {
   inputAttributeDescriptions.emplace_back(description);
   return *this;
 }
@@ -108,8 +108,7 @@ GraphicsPipelineBuilder &GraphicsPipelineBuilder::blend(Enabled enabled) {
   blendEnabled = enabled == Enabled::Yes;
   return *this;
 }
-GraphicsPipelineBuilder &
-GraphicsPipelineBuilder::blendColorMask(const vk::ColorComponentFlags &components) {
+GraphicsPipelineBuilder &GraphicsPipelineBuilder::blendColorMask(const vk::ColorComponentFlags &components) {
   blendColorMask_ = components;
   return *this;
 }
@@ -145,8 +144,7 @@ GraphicsPipelineBuilder &GraphicsPipelineBuilder::blendLogicOp(vk::LogicOp op) {
   blendLogicOp_ = op;
   return *this;
 }
-GraphicsPipelineBuilder &
-GraphicsPipelineBuilder::blendConstants(const std::array<float, 4> &constants) {
+GraphicsPipelineBuilder &GraphicsPipelineBuilder::blendConstants(const std::array<float, 4> &constants) {
   blendConstants_ = constants;
   return *this;
 }
@@ -174,34 +172,29 @@ GraphicsPipelineBuilder &GraphicsPipelineBuilder::depthMax(float max) {
   depthMax_ = max;
   return *this;
 }
-GraphicsPipelineBuilder &
-GraphicsPipelineBuilder::depthFront(const std::vector<vk::StencilOpState> &states) {
+GraphicsPipelineBuilder &GraphicsPipelineBuilder::depthFront(const std::vector<vk::StencilOpState> &states) {
   depthFrontStates = states;
   return *this;
 }
-GraphicsPipelineBuilder &
-GraphicsPipelineBuilder::depthBack(const std::vector<vk::StencilOpState> &states) {
+GraphicsPipelineBuilder &GraphicsPipelineBuilder::depthBack(const std::vector<vk::StencilOpState> &states) {
   depthBackStates = states;
   return *this;
 }
-GraphicsPipelineBuilder &GraphicsPipelineBuilder::descriptorSetLayouts(
-    const std::vector<std::reference_wrapper<DescriptorSetLayout>> &layouts) {
+GraphicsPipelineBuilder &
+GraphicsPipelineBuilder::descriptorSetLayouts(const std::vector<std::reference_wrapper<DescriptorSetLayout>> &layouts) {
   descriptorSetLayouts_ = layouts;
   return *this;
 }
 
-GraphicsPipelineBuilder &
-GraphicsPipelineBuilder::pushConstRange(const std::vector<vk::PushConstantRange> &range) {
+GraphicsPipelineBuilder &GraphicsPipelineBuilder::pushConstRange(const std::vector<vk::PushConstantRange> &range) {
   pushConstRange_ = range;
   return *this;
 }
-GraphicsPipelineBuilder &
-GraphicsPipelineBuilder::rasterizationSamples(vk::SampleCountFlagBits samples) {
+GraphicsPipelineBuilder &GraphicsPipelineBuilder::rasterizationSamples(vk::SampleCountFlagBits samples) {
   rasterizationSamples_ = samples;
   return *this;
 }
-std::shared_ptr<GraphicsPipeline>
-GraphicsPipelineBuilder::build(std::shared_ptr<RenderPass> renderPass) {
+std::shared_ptr<GraphicsPipeline> GraphicsPipelineBuilder::build(std::shared_ptr<RenderPass> renderPass) {
   auto vertexInputStateCreateInfo = vk::PipelineVertexInputStateCreateInfo();
   vertexInputStateCreateInfo.setVertexAttributeDescriptions(inputAttributeDescriptions);
   vertexInputStateCreateInfo.setVertexBindingDescriptions(bindingDescriptions);
@@ -254,8 +247,7 @@ GraphicsPipelineBuilder::build(std::shared_ptr<RenderPass> renderPass) {
   pipelineLayoutCreateInfo.setSetLayouts({});
   pipelineLayoutCreateInfo.setPushConstantRanges({});
 
-  auto pipelineLayout =
-      renderPass->getLogicalDevice()->createPipelineLayoutUnique(pipelineLayoutCreateInfo);
+  auto pipelineLayout = renderPass->getLogicalDevice()->createPipelineLayoutUnique(pipelineLayoutCreateInfo);
 
   auto graphicsPipelineCreateInfo = vk::GraphicsPipelineCreateInfo();
   graphicsPipelineCreateInfo.setStages(shaderStages);
@@ -272,10 +264,9 @@ GraphicsPipelineBuilder::build(std::shared_ptr<RenderPass> renderPass) {
   // TODO: cache
   //auto pipelineCacheCreateInfo = vk::PipelineCacheCreateInfo();
   //auto cache = renderPass->getLogicalDevice()->createPipelineCacheUnique(pipelineCacheCreateInfo);
-  auto graphicsPipeline = renderPass->getLogicalDevice()->createGraphicsPipelineUnique(
-      nullptr, graphicsPipelineCreateInfo);
-  return GraphicsPipeline::CreateShared(std::move(graphicsPipeline), std::move(pipelineLayout),
-                                        std::move(renderPass));
+  auto graphicsPipeline =
+      renderPass->getLogicalDevice()->createGraphicsPipelineUnique(nullptr, graphicsPipelineCreateInfo);
+  return GraphicsPipeline::CreateShared(std::move(graphicsPipeline), std::move(pipelineLayout), std::move(renderPass));
 }
 
 }// namespace pf::vulkan

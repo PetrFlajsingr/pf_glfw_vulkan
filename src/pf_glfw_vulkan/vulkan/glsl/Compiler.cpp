@@ -6,8 +6,8 @@
 
 namespace pf::glsl {
 
-Compiler::Compiler(std::string srcName, std::string src, shaderc_shader_kind type,
-                   const MacroDefs &macros, const ReplaceMacroDefs &replaceMacros)
+Compiler::Compiler(std::string srcName, std::string src, shaderc_shader_kind type, const MacroDefs &macros,
+                   const ReplaceMacroDefs &replaceMacros)
     : name(std::move(srcName)), source(std::move(src)), kind(type) {
   for (const auto &macro : macros) { options.AddMacroDefinition(macro); }
   for (const auto &[macro, value] : replaceMacros) { options.AddMacroDefinition(macro, value); }
@@ -34,9 +34,7 @@ std::string Compiler::toAssembly(Optimization optimization) {
     switch (optimization) {
       case Optimization::None: options.SetOptimizationLevel(shaderc_optimization_level_zero); break;
       case Optimization::Size: options.SetOptimizationLevel(shaderc_optimization_level_size); break;
-      case Optimization::Performance:
-        options.SetOptimizationLevel(shaderc_optimization_level_performance);
-        break;
+      case Optimization::Performance: options.SetOptimizationLevel(shaderc_optimization_level_performance); break;
     }
     auto result = compiler.CompileGlslToSpvAssembly(source, kind, name.c_str(), options);
     checkCompilationResult(result);
@@ -52,9 +50,7 @@ BinaryData Compiler::toBinary(Optimization optimization) {
     switch (optimization) {
       case Optimization::None: options.SetOptimizationLevel(shaderc_optimization_level_zero); break;
       case Optimization::Size: options.SetOptimizationLevel(shaderc_optimization_level_size); break;
-      case Optimization::Performance:
-        options.SetOptimizationLevel(shaderc_optimization_level_performance);
-        break;
+      case Optimization::Performance: options.SetOptimizationLevel(shaderc_optimization_level_performance); break;
     }
     auto result = compiler.CompileGlslToSpv(source, kind, name.c_str(), options);
     checkCompilationResult(result);
@@ -75,8 +71,7 @@ BinaryData Compiler::compile(Optimization optimization) {
   return binaryData;
 }
 
-CompilationException::CompilationException(const std::string_view &message)
-    : StackTraceException(message) {}
+CompilationException::CompilationException(const std::string_view &message) : StackTraceException(message) {}
 CompilationException CompilationException::fmt(std::string_view fmt, auto &&...args) {
   return CompilationException(fmt::format(fmt, args...));
 }

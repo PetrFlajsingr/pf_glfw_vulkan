@@ -13,9 +13,7 @@ vk::Format pf::vulkan::TextureChannelsToVkFormat(pf::vulkan::TextureChannels cha
       case TextureChannels::grey_alpha: return vk::Format::eR8G8Srgb;
       case TextureChannels::rgb: return vk::Format::eR8G8B8Srgb;
       case TextureChannels::rgb_alpha: return vk::Format::eR8G8B8A8Srgb;
-      default:
-        throw StackTraceException::fmt("Value not handled in switch: {}",
-                                       magic_enum::enum_name(channels));
+      default: throw StackTraceException::fmt("Value not handled in switch: {}", magic_enum::enum_name(channels));
     }
   }
 }

@@ -15,8 +15,7 @@
 
 namespace pf::vulkan {
 
-class PF_GLFW_VULKAN_EXPORT Image : public VulkanObject,
-                                    public std::enable_shared_from_this<Image> {
+class PF_GLFW_VULKAN_EXPORT Image : public VulkanObject, public std::enable_shared_from_this<Image> {
  public:
   explicit Image(std::shared_ptr<LogicalDevice> device, ImageConfig &&config);
   [[nodiscard]] virtual const vk::Image &getVkImage() const = 0;
@@ -24,9 +23,8 @@ class PF_GLFW_VULKAN_EXPORT Image : public VulkanObject,
   const vk::Image &operator*() const;
   vk::Image const *operator->() const;
 
-  [[nodiscard]] std::shared_ptr<ImageView>
-  createImageView(vk::ColorSpaceKHR colorSpace, vk::ImageViewType viewType,
-                  const vk::ImageSubresourceRange &subResourceRange);
+  [[nodiscard]] std::shared_ptr<ImageView> createImageView(vk::ColorSpaceKHR colorSpace, vk::ImageViewType viewType,
+                                                           const vk::ImageSubresourceRange &subResourceRange);
   [[nodiscard]] vk::ImageType getImageType() const;
   [[nodiscard]] vk::Format getFormat() const;
   [[nodiscard]] const vk::Extent3D &getExtent() const;
@@ -39,11 +37,9 @@ class PF_GLFW_VULKAN_EXPORT Image : public VulkanObject,
   [[nodiscard]] LogicalDevice &getLogicalDevice();
 
   [[nodiscard]] vk::ImageMemoryBarrier
-  createImageBarrier(vk::ImageSubresourceRange &&subresourceRange,
-                     const vk::AccessFlags &srcAccessMask, const vk::AccessFlags &dstAccessMask,
-                     vk::ImageLayout oldLayout, vk::ImageLayout newLayout,
-                     uint32_t srcQueue = VK_QUEUE_FAMILY_IGNORED,
-                     uint32_t dstQueue = VK_QUEUE_FAMILY_IGNORED) const;
+  createImageBarrier(vk::ImageSubresourceRange &&subresourceRange, const vk::AccessFlags &srcAccessMask,
+                     const vk::AccessFlags &dstAccessMask, vk::ImageLayout oldLayout, vk::ImageLayout newLayout,
+                     uint32_t srcQueue = VK_QUEUE_FAMILY_IGNORED, uint32_t dstQueue = VK_QUEUE_FAMILY_IGNORED) const;
 
   void transitionLayout(CommandPool &cmdPool, vk::ImageLayout newLayout,
                         const vk::ImageSubresourceRange &subresourceRange);

@@ -60,15 +60,13 @@ class PF_GLFW_VULKAN_EXPORT CommandBufferRecording {
 
   CommandBufferRecording &dispatch(uint32_t x, uint32_t y, uint32_t z);
 
-  CommandBufferRecording &copyBuffer(Buffer &src, Buffer &dst, vk::DeviceSize srcOffset,
-                                     vk::DeviceSize dstOffset, vk::DeviceSize range);
-  CommandBufferRecording &
-  copyBufferToImage(Buffer &src, Image &dst, vk::DeviceSize srcOffset, uint32_t srcRowLength,
-                    uint32_t srcHeight, vk::Offset3D dstOffset,
-                    const vk::ImageSubresourceLayers &imageSubresourceLayers);
+  CommandBufferRecording &copyBuffer(Buffer &src, Buffer &dst, vk::DeviceSize srcOffset, vk::DeviceSize dstOffset,
+                                     vk::DeviceSize range);
+  CommandBufferRecording &copyBufferToImage(Buffer &src, Image &dst, vk::DeviceSize srcOffset, uint32_t srcRowLength,
+                                            uint32_t srcHeight, vk::Offset3D dstOffset,
+                                            const vk::ImageSubresourceLayers &imageSubresourceLayers);
 
-  CommandBufferRecording &pipelineBarrier(vk::PipelineStageFlagBits srcStage,
-                                          vk::PipelineStageFlagBits dstStage,
+  CommandBufferRecording &pipelineBarrier(vk::PipelineStageFlagBits srcStage, vk::PipelineStageFlagBits dstStage,
                                           const std::vector<vk::MemoryBarrier> &memoryBarrier,
                                           const std::vector<vk::BufferMemoryBarrier> &bufferBarrier,
                                           const std::vector<vk::ImageMemoryBarrier> &imageBarrier);
@@ -88,8 +86,7 @@ struct PF_GLFW_VULKAN_EXPORT CommandSubmitConfig {
   bool wait;
 };
 
-class PF_GLFW_VULKAN_EXPORT CommandBuffer : public VulkanObject,
-                                            public PtrConstructible<CommandBuffer> {
+class PF_GLFW_VULKAN_EXPORT CommandBuffer : public VulkanObject, public PtrConstructible<CommandBuffer> {
  public:
   friend class CommandBufferRecording;
   explicit CommandBuffer(std::shared_ptr<CommandPool> pool, vk::UniqueCommandBuffer &&buffer);

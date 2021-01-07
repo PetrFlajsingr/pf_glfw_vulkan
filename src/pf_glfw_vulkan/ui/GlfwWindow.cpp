@@ -34,8 +34,8 @@ void GlfwWindow::mainLoop() {
 }
 
 std::ostream &operator<<(std::ostream &os, const GlfwWindow &window) {
-  os << fmt::format("GLFW window\n\ttitle: {}\n\tresolution: {}\n\tmode: {}", window.getTitle(),
-                    window.getResolution(), magic_enum::enum_name(window.getMode()));
+  os << fmt::format("GLFW window\n\ttitle: {}\n\tresolution: {}\n\tmode: {}", window.getTitle(), window.getResolution(),
+                    magic_enum::enum_name(window.getMode()));
   return os;
 }
 
@@ -47,8 +47,7 @@ void GlfwWindow::mouseButtonCallback(GLFWwindow *window, int button, int action,
   auto self = reinterpret_cast<GlfwWindow *>(glfwGetWindowUserPointer(window));
   const auto mouseButton = glfwButtonToEvents(button);
   if (!mouseButton.has_value()) { return; }
-  const auto eventType =
-      action == GLFW_PRESS ? events::MouseEventType::Down : events::MouseEventType::Up;
+  const auto eventType = action == GLFW_PRESS ? events::MouseEventType::Down : events::MouseEventType::Up;
   auto cursorPosition = std::pair<double, double>();
   glfwGetCursorPos(self->handle, &cursorPosition.first, &cursorPosition.second);
 
@@ -83,14 +82,12 @@ void GlfwWindow::keyCallback(GLFWwindow *window, int key, int, int action, int) 
 }
 vk::UniqueSurfaceKHR GlfwWindow::createVulkanSurface(const vk::Instance &instance) {
   auto surface = VkSurfaceKHR{};
-  if (const auto res = glfwCreateWindowSurface(instance, handle, nullptr, &surface);
-      res != VK_SUCCESS) {
+  if (const auto res = glfwCreateWindowSurface(instance, handle, nullptr, &surface); res != VK_SUCCESS) {
     const auto resEnum = static_cast<vk::Result>(res);
-    throw StackTraceException::fmt("Window surface creation failed: {} {}",
-                                   magic_enum::enum_name(resEnum), vk::to_string(resEnum));
+    throw StackTraceException::fmt("Window surface creation failed: {} {}", magic_enum::enum_name(resEnum),
+                                   vk::to_string(resEnum));
   }
-  auto surfaceDeleter =
-      vk::ObjectDestroy<vk::Instance, VULKAN_HPP_DEFAULT_DISPATCHER_TYPE>(instance);
+  auto surfaceDeleter = vk::ObjectDestroy<vk::Instance, VULKAN_HPP_DEFAULT_DISPATCHER_TYPE>(instance);
   return vk::UniqueSurfaceKHR(surface, surfaceDeleter);
 }
 std::unordered_set<std::string> GlfwWindow::requiredVulkanExtensions() {

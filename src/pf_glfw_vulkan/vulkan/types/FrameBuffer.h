@@ -17,9 +17,8 @@ namespace pf::vulkan {
 namespace details {
 class FrameBufferInstance : public VulkanObject {
  public:
-  explicit FrameBufferInstance(FrameBuffer &parent, RenderPass &renderPass, SwapChain &swapChain,
-                               uint32_t width, uint32_t height, uint32_t layers,
-                               std::size_t imageIdx);
+  explicit FrameBufferInstance(FrameBuffer &parent, RenderPass &renderPass, SwapChain &swapChain, uint32_t width,
+                               uint32_t height, uint32_t layers, std::size_t imageIdx);
   [[nodiscard]] std::string info() const override;
   FrameBufferInstance(const FrameBufferInstance &other) = delete;
   FrameBufferInstance &operator=(const FrameBufferInstance &other) = delete;
@@ -37,8 +36,7 @@ class FrameBufferInstance : public VulkanObject {
 };
 }// namespace details
 
-class PF_GLFW_VULKAN_EXPORT FrameBuffer : public VulkanObject,
-                                          public PtrConstructible<FrameBuffer> {
+class PF_GLFW_VULKAN_EXPORT FrameBuffer : public VulkanObject, public PtrConstructible<FrameBuffer> {
  public:
   explicit FrameBuffer(std::shared_ptr<SwapChain> swap, std::size_t imageIdx);
 

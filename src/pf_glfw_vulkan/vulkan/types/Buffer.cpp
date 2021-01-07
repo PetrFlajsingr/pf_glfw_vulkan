@@ -9,24 +9,20 @@
 
 namespace pf::vulkan {
 
-BufferMapping::BufferMapping(std::shared_ptr<Buffer> buff, vk::DeviceSize start,
-                             vk::DeviceSize count)
+BufferMapping::BufferMapping(std::shared_ptr<Buffer> buff, vk::DeviceSize start, vk::DeviceSize count)
     : buffer(std::move(buff)), offset(start), range(count) {
   dataPtr = buffer->getLogicalDevice()->mapMemory(buffer->getMemory(), offset, range, {});
 }
 
 BufferMapping::~BufferMapping() { buffer->getLogicalDevice()->unmapMemory(buffer->getMemory()); }
 std::string BufferMapping::info() const {
-  return fmt::format("Buffer mapping to '{}' with offset: {}, range: {}", buffer->info(), offset,
-                     range);
+  return fmt::format("Buffer mapping to '{}' with offset: {}, range: {}", buffer->info(), offset, range);
 }
 vk::DeviceSize BufferMapping::getSize() const { return range - offset; }
 
 void *BufferMapping::rawData() { return dataPtr; }
 
-
-Buffer::Buffer(std::shared_ptr<LogicalDevice> device, BufferConfig &&config,
-               bool allocateImmediately)
+Buffer::Buffer(std::shared_ptr<LogicalDevice> device, BufferConfig &&config, bool allocateImmediately)
     : logicalDevice(std::move(device)), size(config.size), usageFlags(config.usageFlags),
       sharingMode(config.sharingMode) {
   auto createInfo = vk::BufferCreateInfo();
@@ -39,8 +35,7 @@ Buffer::Buffer(std::shared_ptr<LogicalDevice> device, BufferConfig &&config,
 }
 
 void Buffer::allocate() {
-  const auto bufferMemRequirements =
-      logicalDevice->getVkLogicalDevice().getBufferMemoryRequirements(*vkBuffer);
+  const auto bufferMemRequirements = logicalDevice->getVkLogicalDevice().getBufferMemoryRequirements(*vkBuffer);
 
   auto allocationInfo = vk::MemoryAllocateInfo();
   allocationInfo.allocationSize = bufferMemRequirements.size;
@@ -63,13 +58,10 @@ vk::Buffer const *Buffer::operator->() const { return &*vkBuffer; }
 bool Buffer::isAllocated() const { return isAllocated_; }
 
 uint32_t Buffer::findMemoryType(uint32_t memoryTypeBits) {
-  const auto properties =
-      vk::MemoryPropertyFlagBits::eHostVisible | vk::MemoryPropertyFlagBits::eHostCoherent;
+  const auto properties = vk::MemoryPropertyFlagBits::eHostVisible | vk::MemoryPropertyFlagBits::eHostCoherent;
   auto memoryProperties = logicalDevice->getPhysicalDevice()->getMemoryProperties();
   for (const auto &[idx, prop] : ranges::views::enumerate(memoryProperties.memoryTypes)) {
-    if ((memoryTypeBits & (1u << idx)) && (prop.propertyFlags & properties) == properties) {
-      return idx;
-    }
+    if ((memoryTypeBits & (1u << idx)) && (prop.propertyFlags & properties) == properties) { return idx; }
   }
   throw VulkanException("Could not find fitting memory type");
 }
@@ -80,9 +72,7 @@ std::shared_ptr<BufferView> Buffer::createView(BufferViewConfig &&config) {
 }
 const vk::DeviceMemory &Buffer::getMemory() const { return *vkMemory; }
 
-BufferMapping Buffer::mapping(vk::DeviceSize offset) {
-  return BufferMapping(shared_from_this(), offset, getSize());
-}
+BufferMapping Buffer::mapping(vk::DeviceSize offset) { return BufferMapping(shared_from_this(), offset, getSize()); }
 
 BufferMapping Buffer::mapping(vk::DeviceSize offset, vk::DeviceSize range) {
   return BufferMapping(shared_from_this(), offset, range);

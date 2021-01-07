@@ -12,7 +12,7 @@ namespace pf::vulkan {
 class PF_GLFW_VULKAN_EXPORT VulkanException : public StackTraceException {
  public:
   explicit VulkanException(const std::string_view &message);
-  static VulkanException fmt(std::string_view fmt, auto &&... args) {
+  static VulkanException fmt(std::string_view fmt, auto &&...args) {
     return VulkanException(fmt::format(fmt, args...));
   }
 };

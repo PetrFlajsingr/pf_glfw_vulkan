@@ -18,18 +18,14 @@
 
 namespace pf::vulkan {
 
-Texture::Texture(std::shared_ptr<LogicalDevice> device, CommandPool &pool,
-                 FileTextureConfig &&config)
+Texture::Texture(std::shared_ptr<LogicalDevice> device, CommandPool &pool, FileTextureConfig &&config)
     : logicalDevice(std::move(device)) {
   int width;
   int height;
   int channels;
-  auto pixels = stbi_load(config.path.string().c_str(), &width, &height, &channels,
-                          static_cast<int>(config.channels));
+  auto pixels = stbi_load(config.path.string().c_str(), &width, &height, &channels, static_cast<int>(config.channels));
   const auto pixelsFree = RAII([pixels] { stbi_image_free(pixels); });
-  if (pixels == nullptr) {
-    throw VulkanException::fmt("Texture could not be loaded: {}", config.path.string());
-  }
+  if (pixels == nullptr) { throw VulkanException::fmt("Texture could not be loaded: {}", config.path.string()); }
   const auto imageSize = vk::DeviceSize(width * height * static_cast<int>(config.channels));
   auto buffer = logicalDevice->createBuffer(
       {.size = imageSize,
@@ -43,17 +39,16 @@ Texture::Texture(std::shared_ptr<LogicalDevice> device, CommandPool &pool,
     mapping.set(std::span<uint8_t>{pixels, imageSize});
   }
 
-  image = logicalDevice->createImage(
-      {.imageType = vk::ImageType::e2D,
-       .format = TextureChannelsToVkFormat(config.channels),
-       .extent = {static_cast<uint32_t>(width), static_cast<uint32_t>(height), 1},
-       .mipLevels = config.mipLevels,
-       .arrayLayers = 1,
-       .sampleCount = vk::SampleCountFlagBits::e1,
-       .tiling = vk::ImageTiling::eOptimal,
-       .usage = config.usage,
-       .sharingQueues = {},
-       .layout = vk::ImageLayout::eUndefined});
+  image = logicalDevice->createImage({.imageType = vk::ImageType::e2D,
+                                      .format = TextureChannelsToVkFormat(config.channels),
+                                      .extent = {static_cast<uint32_t>(width), static_cast<uint32_t>(height), 1},
+                                      .mipLevels = config.mipLevels,
+                                      .arrayLayers = 1,
+                                      .sampleCount = vk::SampleCountFlagBits::e1,
+                                      .tiling = vk::ImageTiling::eOptimal,
+                                      .usage = config.usage,
+                                      .sharingQueues = {},
+                                      .layout = vk::ImageLayout::eUndefined});
 
   auto subRange = vk::ImageSubresourceRange();
   subRange.aspectMask = vk::ImageAspectFlagBits::eColor;
@@ -71,11 +66,8 @@ Texture::Texture(std::shared_ptr<LogicalDevice> device, CommandPool &pool,
     subresource.layerCount = 1;
     bufferCopyCmd->begin(vk::CommandBufferUsageFlagBits::eOneTimeSubmit)
         .copyBufferToImage(*buffer, *image, 0, 0, 0, {0, 0, 0}, subresource);
-    bufferCopyCmd->submit({.waitSemaphores = {},
-                           .signalSemaphores = {},
-                           .flags = {},
-                           .fence = std::nullopt,
-                           .wait = true});
+    bufferCopyCmd->submit(
+        {.waitSemaphores = {}, .signalSemaphores = {}, .flags = {}, .fence = std::nullopt, .wait = true});
   }
   image->transitionLayout(pool, vk::ImageLayout::eShaderReadOnlyOptimal, subRange);
 }

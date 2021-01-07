@@ -33,8 +33,7 @@ class PF_GLFW_VULKAN_EXPORT CommandPool : public VulkanObject,
   CommandPool(const CommandPool &other) = delete;
   CommandPool &operator=(const CommandPool &other) = delete;
 
-  [[nodiscard]] std::vector<std::shared_ptr<CommandBuffer>>
-  createCommandBuffers(const CommandBufferConfig &config);
+  [[nodiscard]] std::vector<std::shared_ptr<CommandBuffer>> createCommandBuffers(const CommandBufferConfig &config);
 
   void submitCommandBuffers(const MultiCommandSubmitConfig &config);
 

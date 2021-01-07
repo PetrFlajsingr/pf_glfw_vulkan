@@ -67,23 +67,20 @@ class PF_GLFW_VULKAN_EXPORT SwapChain : public VulkanObject,
   [[nodiscard]] std::size_t getCurrentFrameIndex() const;
 
  private:
-  static vk::PresentModeKHR
-  selectPresentMode(const std::set<vk::PresentModeKHR> &present_modes,
-                    const std::vector<vk::PresentModeKHR> &surface_present_modes);
+  static vk::PresentModeKHR selectPresentMode(const std::set<vk::PresentModeKHR> &present_modes,
+                                              const std::vector<vk::PresentModeKHR> &surface_present_modes);
 
-  static vk::SurfaceFormatKHR
-  selectSurfaceFormat(const std::set<vk::SurfaceFormatKHR> &formats,
-                      const std::vector<vk::SurfaceFormatKHR> &surfaceFormats);
+  static vk::SurfaceFormatKHR selectSurfaceFormat(const std::set<vk::SurfaceFormatKHR> &formats,
+                                                  const std::vector<vk::SurfaceFormatKHR> &surfaceFormats);
 
   static vk::Extent2D selectExtent(const ui::Resolution &resolution,
                                    const vk::SurfaceCapabilitiesKHR &surfaceCapabilities);
 
-  static vk::UniqueSwapchainKHR
-  createSwapChainHandle(Surface &surface, LogicalDevice &logicalDevice,
-                        const vk::SurfaceCapabilitiesKHR &surfaceCapabilities,
-                        const pf::vulkan::SwapChainConfig &config,
-                        vk::SurfaceFormatKHR surfaceFormat, vk::Extent2D extent,
-                        vk::PresentModeKHR presentMode);
+  static vk::UniqueSwapchainKHR createSwapChainHandle(Surface &surface, LogicalDevice &logicalDevice,
+                                                      const vk::SurfaceCapabilitiesKHR &surfaceCapabilities,
+                                                      const pf::vulkan::SwapChainConfig &config,
+                                                      vk::SurfaceFormatKHR surfaceFormat, vk::Extent2D extent,
+                                                      vk::PresentModeKHR presentMode);
 
   void initImagesAndImageViews();
   void initFrameBuffers();

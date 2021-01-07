@@ -60,14 +60,12 @@ Shader::Shader(std::shared_ptr<LogicalDevice> device, const ShaderConfigFile &co
     : Shader(std::move(device),
              ShaderConfigSrc{.name = config.name,
                              .type = config.type,
-                             .data = readSpvFile(
-                                 std::ifstream(config.path, std::ios::ate | std::ios::binary))}) {}
+                             .data = readSpvFile(std::ifstream(config.path, std::ios::ate | std::ios::binary))}) {}
 
 Shader::Shader(std::shared_ptr<LogicalDevice> device, const ShaderConfigSrc &config)
     : logicalDevice(std::move(device)) {
   auto createInfo = vk::ShaderModuleCreateInfo();
-  createInfo.setCodeSize(config.data.size())
-      .setPCode(reinterpret_cast<const uint32_t *>(config.data.data()));
+  createInfo.setCodeSize(config.data.size()).setPCode(reinterpret_cast<const uint32_t *>(config.data.data()));
   name = config.name;
   type = config.type;
   vkShader = logicalDevice->getVkLogicalDevice().createShaderModuleUnique(createInfo);
@@ -77,8 +75,7 @@ Shader::Shader(std::shared_ptr<LogicalDevice> device, const ShaderConfigGlslSrc 
     : logicalDevice(std::move(device)) {
   name = config.name;
   type = config.type;
-  auto compiler = glsl::Compiler(config.name, config.src, toShaderc(config.type), config.macros,
-                                 config.replaceMacros);
+  auto compiler = glsl::Compiler(config.name, config.src, toShaderc(config.type), config.macros, config.replaceMacros);
   const auto binary = compiler.compile(config.optimization);
   auto createInfo = vk::ShaderModuleCreateInfo();
   createInfo.setCode(binary);

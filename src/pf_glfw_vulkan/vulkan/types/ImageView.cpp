@@ -8,8 +8,7 @@
 #include "PhysicalDevice.h"
 
 namespace pf::vulkan {
-ImageView::ImageView(std::shared_ptr<Image> img, const ImageViewConfig &config)
-    : image(std::move(img)) {
+ImageView::ImageView(std::shared_ptr<Image> img, const ImageViewConfig &config) : image(std::move(img)) {
   auto createInfo = vk::ImageViewCreateInfo{};
   createInfo.setImage(**image)
       .setViewType(config.viewType)

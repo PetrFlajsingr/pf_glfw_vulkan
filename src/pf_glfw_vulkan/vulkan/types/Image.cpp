@@ -11,14 +11,12 @@
 
 namespace pf::vulkan {
 Image::Image(std::shared_ptr<LogicalDevice> device, ImageConfig &&config)
-    : imageType(config.imageType), format(config.format), extent(config.extent),
-      mipLevels(config.mipLevels), arrayLayers(config.arrayLayers), sampleCount(config.sampleCount),
-      tiling(config.tiling), layout(config.layout), usage(config.usage),
-      sharingQueues(std::move(config.sharingQueues)), logicalDevice(std::move(device)) {}
+    : imageType(config.imageType), format(config.format), extent(config.extent), mipLevels(config.mipLevels),
+      arrayLayers(config.arrayLayers), sampleCount(config.sampleCount), tiling(config.tiling), layout(config.layout),
+      usage(config.usage), sharingQueues(std::move(config.sharingQueues)), logicalDevice(std::move(device)) {}
 
-std::shared_ptr<ImageView>
-Image::createImageView(vk::ColorSpaceKHR colorSpace, vk::ImageViewType viewType,
-                       const vk::ImageSubresourceRange &subResourceRange) {
+std::shared_ptr<ImageView> Image::createImageView(vk::ColorSpaceKHR colorSpace, vk::ImageViewType viewType,
+                                                  const vk::ImageSubresourceRange &subResourceRange) {
   auto imageViewConfig = ImageViewConfig{.format = format,
                                          .colorSpace = colorSpace,
                                          .viewType = viewType,
@@ -73,8 +71,7 @@ ImageUnique::ImageUnique(std::shared_ptr<LogicalDevice> device, ImageConfig &&co
   }
   vkImage = logicalDevice->getVkLogicalDevice().createImageUnique(createInfo);
 
-  const auto requirements =
-      logicalDevice->getVkLogicalDevice().getImageMemoryRequirements(*vkImage);
+  const auto requirements = logicalDevice->getVkLogicalDevice().getImageMemoryRequirements(*vkImage);
   auto allocateInfo = vk::MemoryAllocateInfo();
   allocateInfo.allocationSize = requirements.size;
   allocateInfo.memoryTypeIndex = findMemoryType(requirements.memoryTypeBits);
@@ -89,9 +86,7 @@ uint32_t ImageUnique::findMemoryType(uint32_t memoryTypeBits) {
   //    vk::MemoryPropertyFlagBits::eHostVisible | vk::MemoryPropertyFlagBits::eHostCoherent;t;
   auto memoryProperties = logicalDevice->getPhysicalDevice()->getMemoryProperties();
   for (const auto &[idx, prop] : ranges::views::enumerate(memoryProperties.memoryTypes)) {
-    if ((memoryTypeBits & (1u << idx)) && (prop.propertyFlags & properties) == properties) {
-      return idx;
-    }
+    if ((memoryTypeBits & (1u << idx)) && (prop.propertyFlags & properties) == properties) { return idx; }
   }
   throw VulkanException("Could not find fitting memory type");
 }
@@ -104,8 +99,7 @@ LogicalDevice &Image::getLogicalDevice() { return *logicalDevice; }
 
 void Image::transitionLayout(CommandPool &cmdPool, vk::ImageLayout newLayout,
                              const vk::ImageSubresourceRange &subresourceRange) {
-  auto cmdBuffer =
-      cmdPool.createCommandBuffers({.level = vk::CommandBufferLevel::ePrimary, .count = 1})[0];
+  auto cmdBuffer = cmdPool.createCommandBuffers({.level = vk::CommandBufferLevel::ePrimary, .count = 1})[0];
   auto cmdRecorder = cmdBuffer->begin(vk::CommandBufferUsageFlagBits::eOneTimeSubmit);
   auto barrier = vk::ImageMemoryBarrier();
   barrier.oldLayout = layout;
@@ -122,8 +116,7 @@ void Image::transitionLayout(CommandPool &cmdPool, vk::ImageLayout newLayout,
     barrier.dstAccessMask = vk::AccessFlagBits::eTransferWrite;
     srcStage = vk::PipelineStageFlagBits::eTopOfPipe;
     dstStage = vk::PipelineStageFlagBits::eTransfer;
-  } else if (layout == vk::ImageLayout::eTransferDstOptimal
-             && newLayout == vk::ImageLayout::eShaderReadOnlyOptimal) {
+  } else if (layout == vk::ImageLayout::eTransferDstOptimal && newLayout == vk::ImageLayout::eShaderReadOnlyOptimal) {
     barrier.srcAccessMask = vk::AccessFlagBits::eTransferWrite;
     barrier.dstAccessMask = vk::AccessFlagBits::eShaderRead;
     srcStage = vk::PipelineStageFlagBits::eTransfer;
@@ -134,22 +127,16 @@ void Image::transitionLayout(CommandPool &cmdPool, vk::ImageLayout newLayout,
     srcStage = vk::PipelineStageFlagBits::eTopOfPipe;
     dstStage = vk::PipelineStageFlagBits::eTransfer;
   } else {
-    throw VulkanException::fmt("Unsupported layout transition: {}",
-                               magic_enum::enum_name(newLayout));
+    throw VulkanException::fmt("Unsupported layout transition: {}", magic_enum::enum_name(newLayout));
   }
   cmdRecorder.pipelineBarrier(srcStage, dstStage, {}, {}, {barrier});
   cmdRecorder.end();
-  cmdBuffer->submit({.waitSemaphores = {},
-                     .signalSemaphores = {},
-                     .flags = {},
-                     .fence = std::nullopt,
-                     .wait = true});
+  cmdBuffer->submit({.waitSemaphores = {}, .signalSemaphores = {}, .flags = {}, .fence = std::nullopt, .wait = true});
   layout = newLayout;
 }
 vk::ImageMemoryBarrier Image::createImageBarrier(vk::ImageSubresourceRange &&subresourceRange,
                                                  const vk::AccessFlags &srcAccessMask,
-                                                 const vk::AccessFlags &dstAccessMask,
-                                                 vk::ImageLayout oldLayout,
+                                                 const vk::AccessFlags &dstAccessMask, vk::ImageLayout oldLayout,
                                                  vk::ImageLayout newLayout, uint32_t srcQueue,
                                                  uint32_t dstQueue) const {
   return vk::ImageMemoryBarrier{.srcAccessMask = srcAccessMask,

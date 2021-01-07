@@ -45,8 +45,7 @@ CommandBufferRecording &CommandBufferRecording::endRenderPass() {
   return *this;
 }
 
-CommandBufferRecording &CommandBufferRecording::bindPipeline(vk::PipelineBindPoint bindPoint,
-                                                             Pipeline &pipeline) {
+CommandBufferRecording &CommandBufferRecording::bindPipeline(vk::PipelineBindPoint bindPoint, Pipeline &pipeline) {
   owner.get()->bindPipeline(bindPoint, *pipeline);
   return *this;
 }
@@ -61,8 +60,7 @@ CommandBufferRecording &CommandBufferRecording::dispatch(uint32_t x, uint32_t y,
 }
 
 CommandBuffer &CommandBufferRecording::getCommandBuffer() { return owner.get(); }
-CommandBufferRecording::CommandBufferRecording(CommandBufferRecording &&other) noexcept
-    : owner(other.owner) {
+CommandBufferRecording::CommandBufferRecording(CommandBufferRecording &&other) noexcept : owner(other.owner) {
   other.isValid = false;
   isValid = true;
 }
@@ -72,10 +70,8 @@ CommandBufferRecording &CommandBufferRecording::operator=(CommandBufferRecording
   isValid = true;
   return *this;
 }
-CommandBufferRecording &CommandBufferRecording::copyBuffer(Buffer &src, Buffer &dst,
-                                                           vk::DeviceSize srcOffset,
-                                                           vk::DeviceSize dstOffset,
-                                                           vk::DeviceSize range) {
+CommandBufferRecording &CommandBufferRecording::copyBuffer(Buffer &src, Buffer &dst, vk::DeviceSize srcOffset,
+                                                           vk::DeviceSize dstOffset, vk::DeviceSize range) {
   auto bufferCopy = vk::BufferCopy();
   bufferCopy.srcOffset = srcOffset;
   bufferCopy.dstOffset = dstOffset;
@@ -84,9 +80,10 @@ CommandBufferRecording &CommandBufferRecording::copyBuffer(Buffer &src, Buffer &
   return *this;
 }
 
-CommandBufferRecording &CommandBufferRecording::copyBufferToImage(
-    Buffer &src, Image &dst, vk::DeviceSize srcOffset, uint32_t srcRowLength, uint32_t srcHeight,
-    vk::Offset3D dstOffset, const vk::ImageSubresourceLayers &imageSubresourceLayers) {
+CommandBufferRecording &
+CommandBufferRecording::copyBufferToImage(Buffer &src, Image &dst, vk::DeviceSize srcOffset, uint32_t srcRowLength,
+                                          uint32_t srcHeight, vk::Offset3D dstOffset,
+                                          const vk::ImageSubresourceLayers &imageSubresourceLayers) {
   auto bufferCopy = vk::BufferImageCopy();
   bufferCopy.bufferOffset = srcOffset;
   bufferCopy.bufferRowLength = srcRowLength;
@@ -99,8 +96,7 @@ CommandBufferRecording &CommandBufferRecording::copyBufferToImage(
 }
 
 CommandBufferRecording &
-CommandBufferRecording::pipelineBarrier(vk::PipelineStageFlagBits srcStage,
-                                        vk::PipelineStageFlagBits dstStage,
+CommandBufferRecording::pipelineBarrier(vk::PipelineStageFlagBits srcStage, vk::PipelineStageFlagBits dstStage,
                                         const std::vector<vk::MemoryBarrier> &memoryBarrier,
                                         const std::vector<vk::BufferMemoryBarrier> &bufferBarrier,
                                         const std::vector<vk::ImageMemoryBarrier> &imageBarrier) {

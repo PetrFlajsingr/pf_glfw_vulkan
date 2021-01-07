@@ -32,12 +32,9 @@ requires std::same_as<ranges::range_value_t<T>, char> uint32_t charViewToUint(T 
 namespace pf::vulkan {
 std::vector<uint32_t> splitVersionString(const char *verStr) {
   const auto versionRegex = std::regex(R"(\d+\.\d+\.\d+)");
-  if (!std::regex_match(verStr, versionRegex)) {
-    throw std::runtime_error("Invalid version literal: "s + verStr);
-  }
+  if (!std::regex_match(verStr, versionRegex)) { throw std::runtime_error("Invalid version literal: "s + verStr); }
   return c_str(verStr) | split('.')
-      | transform([](const auto &chars) { return charViewToUint(chars | ranges::to_vector); })
-      | ranges::to_vector;
+      | transform([](const auto &chars) { return charViewToUint(chars | ranges::to_vector); }) | ranges::to_vector;
 }
 
 Version literals::operator""_v(const char *verStr, std::size_t) {

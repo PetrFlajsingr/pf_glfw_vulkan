@@ -16,8 +16,7 @@
 
 namespace pf::vulkan {
 
-class PF_GLFW_VULKAN_EXPORT BufferMapping : public VulkanObject,
-                                            public PtrConstructible<BufferMapping> {
+class PF_GLFW_VULKAN_EXPORT BufferMapping : public VulkanObject, public PtrConstructible<BufferMapping> {
  public:
   BufferMapping(std::shared_ptr<Buffer> buff, vk::DeviceSize start, vk::DeviceSize count);
   ~BufferMapping() override;
@@ -47,8 +46,7 @@ class PF_GLFW_VULKAN_EXPORT BufferMapping : public VulkanObject,
     const auto size = getSize();
     assert(start < size);
     assert(start + count <= size);
-    return std::span(reinterpret_cast<T *>(reinterpret_cast<std::byte *>(dataPtr) + start),
-                     count / sizeof(T));
+    return std::span(reinterpret_cast<T *>(reinterpret_cast<std::byte *>(dataPtr) + start), count / sizeof(T));
   }
 
   template<std::ranges::contiguous_range T>
@@ -66,8 +64,7 @@ class PF_GLFW_VULKAN_EXPORT BufferMapping : public VulkanObject,
     const auto size = getSize();
     assert(start < size);
     assert(start + container.size() * sizeof(ValueType) <= size);
-    std::ranges::copy(
-        container, reinterpret_cast<ValueType *>(reinterpret_cast<std::byte *>(dataPtr) + start));
+    std::ranges::copy(container, reinterpret_cast<ValueType *>(reinterpret_cast<std::byte *>(dataPtr) + start));
   }
 
   [[nodiscard]] vk::DeviceSize getSize() const;
@@ -91,8 +88,7 @@ class PF_GLFW_VULKAN_EXPORT Buffer : public VulkanObject,
                                      public PtrConstructible<Buffer>,
                                      public std::enable_shared_from_this<Buffer> {
  public:
-  Buffer(std::shared_ptr<LogicalDevice> device, BufferConfig &&config,
-         bool allocateImmediately = false);
+  Buffer(std::shared_ptr<LogicalDevice> device, BufferConfig &&config, bool allocateImmediately = false);
 
   void allocate();
 
@@ -112,8 +108,7 @@ class PF_GLFW_VULKAN_EXPORT Buffer : public VulkanObject,
   [[nodiscard]] BufferMapping mapping(vk::DeviceSize offset = 0);
   [[nodiscard]] BufferMapping mapping(vk::DeviceSize offset, vk::DeviceSize range);
   [[nodiscard]] std::shared_ptr<BufferMapping> mappingShared(vk::DeviceSize offset = 0);
-  [[nodiscard]] std::shared_ptr<BufferMapping> mappingShared(vk::DeviceSize offset,
-                                                             vk::DeviceSize range);
+  [[nodiscard]] std::shared_ptr<BufferMapping> mappingShared(vk::DeviceSize offset, vk::DeviceSize range);
 
   [[nodiscard]] std::string info() const override;
 

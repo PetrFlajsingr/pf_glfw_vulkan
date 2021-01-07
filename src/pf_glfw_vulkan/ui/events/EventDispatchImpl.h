@@ -23,15 +23,13 @@ class PF_GLFW_VULKAN_EXPORT EventDispatchImpl {
   Subscription addMouseListener(MouseEventType type, MouseEventListener auto listener) {
     const auto id = generateListenerId();
     mouseListeners[magic_enum::enum_integer(type)][id] = listener;
-    return Subscription(
-        [id, type, this] { mouseListeners[magic_enum::enum_integer(type)].erase(id); });
+    return Subscription([id, type, this] { mouseListeners[magic_enum::enum_integer(type)].erase(id); });
   }
 
   Subscription addKeyListener(KeyEventType type, KeyEventListener auto listener) {
     const auto id = generateListenerId();
     keyListeners[magic_enum::enum_integer(type)][id] = listener;
-    return Subscription(
-        [id, type, this] { keyListeners[magic_enum::enum_integer(type)].erase(id); });
+    return Subscription([id, type, this] { keyListeners[magic_enum::enum_integer(type)].erase(id); });
   }
 
   Subscription addTextListener(TextEventListener auto listener) {
@@ -42,8 +40,7 @@ class PF_GLFW_VULKAN_EXPORT EventDispatchImpl {
 
   [[nodiscard]] const std::unordered_set<MouseButton> &getMouseButtonsDown() const;
 
-  void enqueue(std::invocable auto &&fnc,
-               std::chrono::milliseconds delay = std::chrono::milliseconds(0)) {
+  void enqueue(std::invocable auto &&fnc, std::chrono::milliseconds delay = std::chrono::milliseconds(0)) {
     const auto execTime = std::chrono::steady_clock::now() + delay;
     eventQueue.emplace(fnc, execTime);
   }
@@ -71,10 +68,8 @@ class PF_GLFW_VULKAN_EXPORT EventDispatchImpl {
 
   std::function<bool()> inputIgnorePredicate = [] { return false; };
 
-  std::array<std::unordered_map<ListenerId, details::MouseEventFnc>, MouseEventTypeCount>
-      mouseListeners;
-  std::array<std::unordered_map<ListenerId, details::KeyEventFnc>, KeyboardEventTypeCount>
-      keyListeners;
+  std::array<std::unordered_map<ListenerId, details::MouseEventFnc>, MouseEventTypeCount> mouseListeners;
+  std::array<std::unordered_map<ListenerId, details::KeyEventFnc>, KeyboardEventTypeCount> keyListeners;
   std::unordered_map<ListenerId, details::TextEventFnc> textListeners;
 
   std::unordered_set<MouseButton> buttonsDown;

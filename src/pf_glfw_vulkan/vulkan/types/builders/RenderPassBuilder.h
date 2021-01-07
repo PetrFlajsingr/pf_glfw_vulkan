@@ -110,8 +110,7 @@ class PF_GLFW_VULKAN_EXPORT RenderPassBuilder {
 
  private:
   std::shared_ptr<LogicalDevice> logicalDevice;
-  std::pair<std::vector<std::string>, vk::UniqueRenderPass>
-  build(pf::vulkan::LogicalDevice &device);
+  std::pair<std::vector<std::string>, vk::UniqueRenderPass> build(pf::vulkan::LogicalDevice &device);
 
   std::map<std::string, vk::AttachmentDescription> attachDescriptions;
   std::map<std::string, details::SubPassData> subpasses;

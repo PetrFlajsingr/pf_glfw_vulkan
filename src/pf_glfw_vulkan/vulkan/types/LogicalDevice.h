@@ -47,11 +47,9 @@ class PF_GLFW_VULKAN_EXPORT LogicalDevice : public VulkanObject,
   vk::Device const *operator->() const;
 
   [[nodiscard]] std::shared_ptr<ImageUnique> createImage(ImageConfig &&config);
-  [[nodiscard]] std::shared_ptr<SwapChain> createSwapChain(std::shared_ptr<Surface> surface,
-                                                           SwapChainConfig &&config);
+  [[nodiscard]] std::shared_ptr<SwapChain> createSwapChain(std::shared_ptr<Surface> surface, SwapChainConfig &&config);
   [[nodiscard]] std::shared_ptr<CommandPool> createCommandPool(CommandPoolConfig &&config);
-  [[nodiscard]] std::shared_ptr<DescriptorSetLayout>
-  createDescriptorSetLayout(DescriptorSetLayoutConfig &&config);
+  [[nodiscard]] std::shared_ptr<DescriptorSetLayout> createDescriptorSetLayout(DescriptorSetLayoutConfig &&config);
 
   [[nodiscard]] std::shared_ptr<Shader> createShader(ShaderConfigFile &&config);
   [[nodiscard]] std::shared_ptr<Shader> createShader(ShaderConfigSrc &&config);
@@ -61,10 +59,8 @@ class PF_GLFW_VULKAN_EXPORT LogicalDevice : public VulkanObject,
   [[nodiscard]] std::shared_ptr<DescriptorPool> createDescriptorPool(DescriptorPoolConfig &&config);
   [[nodiscard]] std::shared_ptr<Fence> createFence(FenceConfig &&config);
   [[nodiscard]] std::shared_ptr<Semaphore> createSemaphore();
-  [[nodiscard]] std::shared_ptr<Buffer> createBuffer(BufferConfig &&config,
-                                                     bool allocateImmediately = true);
-  [[nodiscard]] std::shared_ptr<Texture> createTexture(FileTextureConfig &&config,
-                                                       CommandPool &commandPool);
+  [[nodiscard]] std::shared_ptr<Buffer> createBuffer(BufferConfig &&config, bool allocateImmediately = true);
+  [[nodiscard]] std::shared_ptr<Texture> createTexture(FileTextureConfig &&config, CommandPool &commandPool);
 
   [[nodiscard]] PhysicalDevice &getPhysicalDevice() const;
 

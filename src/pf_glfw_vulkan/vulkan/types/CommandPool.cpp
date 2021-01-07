@@ -27,8 +27,7 @@ const vk::CommandPool &CommandPool::operator*() const { return *vkCommandPool; }
 
 vk::CommandPool const *CommandPool::operator->() const { return &*vkCommandPool; }
 
-std::vector<std::shared_ptr<CommandBuffer>>
-CommandPool::createCommandBuffers(const CommandBufferConfig &config) {
+std::vector<std::shared_ptr<CommandBuffer>> CommandPool::createCommandBuffers(const CommandBufferConfig &config) {
   auto allocateInfo = vk::CommandBufferAllocateInfo();
   allocateInfo.commandBufferCount = config.count;
   allocateInfo.level = config.level;
@@ -50,10 +49,10 @@ void CommandPool::submitCommandBuffers(const MultiCommandSubmitConfig &config) {
   std::ranges::transform(config.commandBuffers, std::back_inserter(buffers),
                          [](const auto &buffer) { return *buffer.get(); });
   auto submitInfo = vk::SubmitInfo();
-  const auto waitSemaphores = config.waitSemaphores
-      | ranges::views::transform([](auto &sem) { return *sem.get(); }) | ranges::to_vector;
-  const auto signalSemaphores = config.signalSemaphores
-      | ranges::views::transform([](auto &sem) { return *sem.get(); }) | ranges::to_vector;
+  const auto waitSemaphores =
+      config.waitSemaphores | ranges::views::transform([](auto &sem) { return *sem.get(); }) | ranges::to_vector;
+  const auto signalSemaphores =
+      config.signalSemaphores | ranges::views::transform([](auto &sem) { return *sem.get(); }) | ranges::to_vector;
   submitInfo.setWaitSemaphores(waitSemaphores);
   submitInfo.setSignalSemaphores(signalSemaphores);
   submitInfo.setCommandBuffers(buffers);

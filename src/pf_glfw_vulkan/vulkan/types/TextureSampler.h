@@ -14,8 +14,7 @@
 
 namespace pf::vulkan {
 
-class PF_GLFW_VULKAN_EXPORT TextureSampler : public VulkanObject,
-                                             public PtrConstructible<TextureSampler> {
+class PF_GLFW_VULKAN_EXPORT TextureSampler : public VulkanObject, public PtrConstructible<TextureSampler> {
  public:
   TextureSampler(std::shared_ptr<LogicalDevice> device, TextureSamplerConfig &&config);
 
