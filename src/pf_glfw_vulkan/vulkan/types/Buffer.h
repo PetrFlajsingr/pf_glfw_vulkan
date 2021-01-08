@@ -67,6 +67,23 @@ class PF_GLFW_VULKAN_EXPORT BufferMapping : public VulkanObject, public PtrConst
     std::ranges::copy(container, reinterpret_cast<ValueType *>(reinterpret_cast<std::byte *>(dataPtr) + start));
   }
 
+  template <typename T>
+  void setValue(const T &value, vk::DeviceSize start = 0) {
+    const auto typedSize = getTypedSize<T>();
+    assert(start < typedSize);
+    assert(start + 1 <= typedSize);
+    data<T>(start)[0] = value;
+  }
+
+  template <typename T>
+  void setValueRawOffset(const T &value, vk::DeviceSize start) {
+    const auto size = getSize();
+    constexpr auto valueSize = sizeof(T);
+    assert(start < size);
+    assert(start + valueSize <= size);
+    data<T>(start)[0] = value;
+  }
+
   [[nodiscard]] vk::DeviceSize getSize() const;
 
   template<typename T>
