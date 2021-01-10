@@ -179,6 +179,7 @@ set(INCLUDES
         src/pf_glfw_vulkan/vulkan/types/builders/RenderPassBuilder.h
         src/pf_glfw_vulkan/lib_config.h
         src/pf_glfw_vulkan/logging.h
+        src/pf_glfw_vulkan/vulkan/utils.h
         src/pf_glfw_vulkan/enums.h)
 
 
