@@ -8,7 +8,7 @@
 #include <vulkan/vulkan_core.h>
 
 namespace pf::vulkan {
-inline constexpr const char const *errorString(VkResult errorCode) {
+inline constexpr const char *errorString(VkResult errorCode) {
   switch (errorCode) {
 #define STR(r)                                                                                                         \
   case VK_##r: return #r
