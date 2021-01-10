@@ -55,7 +55,7 @@ class PF_GLFW_VULKAN_EXPORT BufferMapping : public VulkanObject, public PtrConst
   template<typename T>
   void set(T &&value, vk::DeviceSize start = 0) {
     if constexpr (std::ranges::contiguous_range<T>) {
-      using ValueType = typename T::value_type;
+      using ValueType = std::ranges::range_value_t<T>;
       const auto typedSize = getTypedSize<ValueType>();
       assert(start < typedSize);
       assert(start + value.size() <= typedSize);
@@ -71,7 +71,7 @@ class PF_GLFW_VULKAN_EXPORT BufferMapping : public VulkanObject, public PtrConst
   template<typename T>
   void setRawOffset(T &&value, vk::DeviceSize start) {
     if constexpr (std::ranges::contiguous_range<T>) {
-      using ValueType = typename T::value_type;
+      using ValueType = typename std::ranges::range_value_t<T>;
       const auto size = getSize();
       assert(start < size);
       assert(start + value.size() * sizeof(ValueType) <= size);
