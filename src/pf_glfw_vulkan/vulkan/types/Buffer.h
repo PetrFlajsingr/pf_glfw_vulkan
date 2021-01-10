@@ -61,10 +61,10 @@ class PF_GLFW_VULKAN_EXPORT BufferMapping : public VulkanObject, public PtrConst
       assert(start + value.size() <= typedSize);
       std::ranges::copy(value, reinterpret_cast<ValueType *>(dataPtr) + start);
     } else {
-      const auto typedSize = getTypedSize<T>();
+      const auto typedSize = getTypedSize<std::remove_reference_t<T>>();
       assert(start < typedSize);
       assert(start + 1 <= typedSize);
-      data<T>(start)[0] = value;
+      data<std::remove_reference_t<T>>(start)[0] = value;
     }
   }
 
@@ -78,10 +78,10 @@ class PF_GLFW_VULKAN_EXPORT BufferMapping : public VulkanObject, public PtrConst
       std::ranges::copy(value, reinterpret_cast<ValueType *>(reinterpret_cast<std::byte *>(dataPtr) + start));
     } else {
       const auto size = getSize();
-      constexpr auto valueSize = sizeof(T);
+      constexpr auto valueSize = sizeof(std::remove_reference_t<T>);
       assert(start < size);
       assert(start + valueSize <= size);
-      *reinterpret_cast<T *>(reinterpret_cast<std::byte *>(dataPtr) + start) = value;
+      *reinterpret_cast<std::remove_reference_t<T> *>(reinterpret_cast<std::byte *>(dataPtr) + start) = value;
     }
   }
 
