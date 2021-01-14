@@ -37,7 +37,7 @@ class PF_GLFW_VULKAN_EXPORT Instance : public VulkanObject,
   [[nodiscard]] std::optional<std::reference_wrapper<const vk::DebugUtilsMessengerEXT>> getDebugMessenger();
 
   [[nodiscard]] std::shared_ptr<Surface> createSurface(ui::Window auto &window) {
-    window.createVulkanSurface(getInstance());
+    return window.createVulkanSurface(getInstance());
   }
 
   template<DeviceSuitabilityScorer DeviceScorer>
