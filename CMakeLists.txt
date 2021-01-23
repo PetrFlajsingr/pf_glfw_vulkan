@@ -180,7 +180,7 @@ set(INCLUDES
         src/pf_glfw_vulkan/lib_config.h
         src/pf_glfw_vulkan/logging.h
         src/pf_glfw_vulkan/vulkan/utils.h
-        src/pf_glfw_vulkan/enums.h)
+        )
 
 
 option(BUILD_SHARED_LIBS "build this library as shared")

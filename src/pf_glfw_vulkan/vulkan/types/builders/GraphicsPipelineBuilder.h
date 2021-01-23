@@ -6,8 +6,8 @@
 #define PF_GLFW_VULKAN_VULKAN_TYPES_BUILDERS_GRAPHICSPIPELINEBUILDER_H
 
 #include "../fwd.h"
+#include <pf_common/enums.h>
 #include <pf_glfw_vulkan/_export.h>
-#include <pf_glfw_vulkan/enums.h>
 #include <vulkan/vulkan.hpp>
 
 namespace pf::vulkan {

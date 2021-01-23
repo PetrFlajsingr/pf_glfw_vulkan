@@ -8,6 +8,7 @@
 #include "../LogicalDevice.h"
 #include "../RenderPass.h"
 #include "../Shader.h"
+#include <string>
 
 namespace pf::vulkan {
 GraphicsPipelineBuilder &
