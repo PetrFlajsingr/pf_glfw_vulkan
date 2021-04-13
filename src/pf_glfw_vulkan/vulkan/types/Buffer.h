@@ -36,7 +36,7 @@ class PF_GLFW_VULKAN_EXPORT BufferMapping : public VulkanObject, public PtrConst
     const auto typedSize = getTypedSize<T>();
     assert(start < typedSize);
     assert(start + count <= typedSize);
-    return std::span(reinterpret_cast<T *>(dataPtr) + start, count);
+    return std::span<T>(reinterpret_cast<T *>(dataPtr) + start, count);
   }
 
   template<typename T>
@@ -49,7 +49,7 @@ class PF_GLFW_VULKAN_EXPORT BufferMapping : public VulkanObject, public PtrConst
     const auto size = getSize();
     assert(start < size);
     assert(start + count <= size);
-    return std::span(reinterpret_cast<T *>(reinterpret_cast<std::byte *>(dataPtr) + start), count / sizeof(T));
+    return std::span<T>(reinterpret_cast<T *>(reinterpret_cast<std::byte *>(dataPtr) + start), count / sizeof(T));
   }
 
   template<typename T>

@@ -15,8 +15,9 @@ using DeviceSuitabilityScore = std::size_t;
 using DeviceSuitabilityScoreResult = std::optional<DeviceSuitabilityScore>;
 using DeviceSuitabilityScorerFnc = std::function<DeviceSuitabilityScoreResult(const vk::PhysicalDevice &)>;
 template<typename T>
-concept DeviceSuitabilityScorer = std::invocable<T, const vk::PhysicalDevice &>
-    &&std::same_as<DeviceSuitabilityScoreResult, std::invoke_result_t<T, const vk::PhysicalDevice &>>;
+concept DeviceSuitabilityScorer =
+    std::invocable<T, const vk::PhysicalDevice &> && std::same_as<DeviceSuitabilityScoreResult,
+                                                                  std::invoke_result_t<T, const vk::PhysicalDevice &>>;
 
 struct PF_GLFW_VULKAN_EXPORT DefaultDeviceSuitabilityScorer {
  public:

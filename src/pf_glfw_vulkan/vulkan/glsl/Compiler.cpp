@@ -9,8 +9,9 @@ namespace pf::glsl {
 Compiler::Compiler(std::string srcName, std::string src, shaderc_shader_kind type, const MacroDefs &macros,
                    const ReplaceMacroDefs &replaceMacros)
     : name(std::move(srcName)), source(std::move(src)), kind(type) {
-  for (const auto &macro : macros) { options.AddMacroDefinition(macro); }
-  for (const auto &[macro, value] : replaceMacros) { options.AddMacroDefinition(macro, value); }
+  std::ranges::for_each(macros, [this](const auto &macro) { options.AddMacroDefinition(macro); });
+  std::ranges::for_each(replaceMacros,
+                        [this](const auto &macro) { options.AddMacroDefinition(macro.first, macro.second); });
   options.SetTargetSpirv(shaderc_spirv_version_1_4);
 }
 
@@ -72,7 +73,4 @@ BinaryData Compiler::compile(Optimization optimization) {
 }
 
 CompilationException::CompilationException(const std::string_view &message) : StackTraceException(message) {}
-CompilationException CompilationException::fmt(std::string_view fmt, auto &&...args) {
-  return CompilationException(fmt::format(fmt, args...));
-}
 }// namespace pf::glsl

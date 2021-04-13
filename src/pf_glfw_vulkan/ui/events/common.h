@@ -46,13 +46,17 @@ using TextEventFnc = std::function<bool(TextEvent)>;
 }// namespace details
 
 template<typename F>
-concept MouseEventListener = std::invocable<F, MouseEvent> &&std::same_as<std::invoke_result_t<F, MouseEvent>, bool>;
+concept MouseEventListener = std::invocable<F, MouseEvent> && std::same_as < std::invoke_result_t<F, MouseEvent>,
+bool > ;
 template<typename F>
-concept KeyEventListener = std::invocable<F, KeyEvent> &&std::same_as<std::invoke_result_t<F, KeyEvent>, bool>;
+concept KeyEventListener = std::invocable<F, KeyEvent> && std::same_as < std::invoke_result_t<F, KeyEvent>,
+bool > ;
 template<typename F>
-concept TextEventListener = std::invocable<F, TextEvent> &&std::same_as<std::invoke_result_t<F, TextEvent>, bool>;
+concept TextEventListener = std::invocable<F, TextEvent> && std::same_as < std::invoke_result_t<F, TextEvent>,
+bool > ;
 template<typename F>
-concept InputIgnorePredicate = std::invocable<F> &&std::same_as<std::invoke_result_t<F>, bool>;
+concept InputIgnorePredicate = std::invocable<F> && std::same_as < std::invoke_result_t<F>,
+bool > ;
 
 }// namespace pf::events
 

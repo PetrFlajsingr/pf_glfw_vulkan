@@ -2,6 +2,7 @@
 // Created by petr on 10/12/20.
 //
 #include "EventDispatchImpl.h"
+#include <algorithm>
 
 namespace pf::events {
 
@@ -39,16 +40,14 @@ void EventDispatchImpl::notifyMouse(MouseEventType type, MouseButton button, std
 void EventDispatchImpl::notifyKey(KeyEventType type, char key) {
   if (inputIgnorePredicate()) { return; }
   const auto &listeners = keyListeners[magic_enum::enum_integer(type)];
-  const auto event = KeyEvent{.type = type, .key = key};
   for (auto &[id, listener] : listeners) {
-    if (listener(event)) { break; }
+    if (listener(KeyEvent{.type = type, .key = key})) { break; }
   }
 }
-void EventDispatchImpl::notifyText(std::string text) {
+void EventDispatchImpl::notifyText(const std::string &text) {
   if (inputIgnorePredicate()) { return; }
-  const auto event = TextEvent{.text = std::move(text)};
-  for (auto &[id, listener] : textListeners) {
-    if (listener(event)) { break; }
+  for ([[maybe_unused]] auto &[id, listener] : textListeners) {
+    if (listener(TextEvent{.text = text})) { break; }
   }
 }
 void EventDispatchImpl::onFrame() {

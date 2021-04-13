@@ -49,44 +49,31 @@ class PF_GLFW_VULKAN_EXPORT WindowData {
 };
 
 template<typename T>
-concept Window = std::constructible_from<T, WindowSettings> &&requires(T t, std::function<void()> callback,
-                                                                       Resolution res, Mode mod, std::string title,
-                                                                       std::function<void(Resolution)> resizeCallback) {
-  { t.init() }
-  ->std::same_as<std::optional<std::string>>;
+concept Window = std::constructible_from<T, WindowSettings> && requires(
+    T t, std::function<void()> callback, Resolution res, Mode mod, std::string title,
+    std::function<void(Resolution)> resizeCallback) {
+  { t.init() } -> std::same_as<std::optional<std::string>>;
   {t.setMainLoopCallback(callback)};
   {t.setResizeCallback(resizeCallback)};
   {t.mainLoop()};
   {t.setResolution(res)};
   {t.setMode(mod)};
   {t.setTitle(title)};
-  { t.getResolution() }
-  ->std::convertible_to<Resolution>;
-  { t.getMode() }
-  ->std::convertible_to<Mode>;
-  { t.getTitle() }
-  ->std::convertible_to<std::string>;
-}
-&&requires(T t, events::MouseEventType m_type, events::KeyEventType k_type, events::details::MouseEventFnc m_fnc,
-           events::details::KeyEventFnc k_fnc) {
-  { t.addMouseListener(m_type, m_fnc) }
-  ->std::same_as<Subscription>;
-  { t.addKeyListener(k_type, k_fnc) }
-  ->std::same_as<Subscription>;
-}
-&&requires(T t, const vk::Instance &instance) {
-  { t.createVulkanSurface(instance) }
-  ->std::same_as<vk::UniqueSurfaceKHR>;
-  { t.requiredVulkanExtensions() }
-  ->std::same_as<std::unordered_set<std::string>>;
-}
-&&requires(T t, std::function<bool()> pred, std::function<void()> fnc, std::chrono::milliseconds delay) {
+  { t.getResolution() } -> std::convertible_to<Resolution>;
+  { t.getMode() } -> std::convertible_to<Mode>;
+  { t.getTitle() } -> std::convertible_to<std::string>;
+} && requires(T t, events::MouseEventType m_type, events::KeyEventType k_type, events::details::MouseEventFnc m_fnc,
+              events::details::KeyEventFnc k_fnc) {
+  { t.addMouseListener(m_type, m_fnc) } -> std::same_as<Subscription>;
+  { t.addKeyListener(k_type, k_fnc) } -> std::same_as<Subscription>;
+} && requires(T t, const vk::Instance &instance) {
+  { t.createVulkanSurface(instance) } -> std::same_as<vk::UniqueSurfaceKHR>;
+  { t.requiredVulkanExtensions() } -> std::same_as<std::unordered_set<std::string>>;
+} && requires(T t, std::function<bool()> pred, std::function<void()> fnc, std::chrono::milliseconds delay) {
   {t.setInputIgnorePredicate(pred)};
   {t.enqueue(fnc, delay)};
-  { t.getMouseButtonsDown() }
-  ->std::convertible_to<std::unordered_set<events::MouseButton>>;
-}
-&&StreamInputable<T>;
+  { t.getMouseButtonsDown() } -> std::convertible_to<std::unordered_set<events::MouseButton>>;
+} && StreamInputable<T>;
 
 }// namespace pf::ui
 

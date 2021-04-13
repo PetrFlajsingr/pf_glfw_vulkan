@@ -25,7 +25,9 @@ class CompilationException : public StackTraceException {
  public:
   explicit CompilationException(const std::string_view &message);
 
-  static CompilationException fmt(std::string_view fmt, auto &&...args);
+  static CompilationException fmt(std::string_view fmt, auto &&...args) {
+    return CompilationException(fmt::format(fmt, args...));
+  }
 };
 
 class PF_GLFW_VULKAN_EXPORT Compiler {

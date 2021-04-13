@@ -55,7 +55,7 @@ class PF_GLFW_VULKAN_EXPORT EventDispatchImpl {
 
   void notifyKey(KeyEventType type, char key);
 
-  void notifyText(std::string text);
+  void notifyText(const std::string &text);
 
   void onFrame();
 

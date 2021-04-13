@@ -15,7 +15,8 @@ using namespace ranges::views;
 using namespace std::string_literals;
 
 template<ranges::bidirectional_range T>
-requires std::same_as<ranges::range_value_t<T>, char> uint32_t charViewToUint(T &&range) {
+requires std::same_as < ranges::range_value_t<T>,
+char > uint32_t charViewToUint(T &&range) {
   auto d = 1u;
   const auto charToUintOrThrow = [](auto ch) {
     if (!std::isdigit(ch)) { throw std::runtime_error{"Invalid char in uint conversion: "s + ch}; }

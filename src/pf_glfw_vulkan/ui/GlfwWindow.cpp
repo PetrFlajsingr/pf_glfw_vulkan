@@ -15,7 +15,8 @@ std::optional<std::string> GlfwWindow::init() {
   if (glfwInit() == GLFW_FALSE) { return "glfwInit failed"; }
   glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
 
-  handle = glfwCreateWindow(resolution.width, resolution.height, title.c_str(), nullptr, nullptr);
+  handle = glfwCreateWindow(static_cast<int>(resolution.width), static_cast<int>(resolution.height), title.c_str(),
+                            nullptr, nullptr);
   glfwSetWindowUserPointer(handle, this);
   glfwSetFramebufferSizeCallback(handle, resizeCallback);
   glfwSetMouseButtonCallback(handle, mouseButtonCallback);
@@ -48,7 +49,7 @@ void GlfwWindow::mouseButtonCallback(GLFWwindow *window, int button, int action,
   const auto mouseButton = glfwButtonToEvents(button);
   if (!mouseButton.has_value()) { return; }
   const auto eventType = action == GLFW_PRESS ? events::MouseEventType::Down : events::MouseEventType::Up;
-  auto cursorPosition = std::pair<double, double>();
+  auto cursorPosition = std::pair<double, double>{};
   glfwGetCursorPos(self->handle, &cursorPosition.first, &cursorPosition.second);
 
   self->notifyMouse(eventType, mouseButton.value(), cursorPosition, std::make_pair(0.0, 0.0));
