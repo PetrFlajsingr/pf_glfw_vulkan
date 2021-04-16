@@ -25,6 +25,11 @@ addons:
 install:
   sudo apt-get install snapd;
   sudo snap install cmake --beta --classic;
+  sudo apt-get -qq update;
+  wget -qO - https://packages.lunarg.com/lunarg-signing-key-pub.asc | sudo apt-key add -;
+  sudo wget -qO /etc/apt/sources.list.d/lunarg-vulkan-1.2.170-bionic.list https://packages.lunarg.com/vulkan/1.2.170/lunarg-vulkan-1.2.170-bionic.list;
+  sudo apt update;
+  sudo apt install vulkan-sdk;
 
 script:
   - export CC=gcc-10
