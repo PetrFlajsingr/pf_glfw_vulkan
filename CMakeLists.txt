@@ -61,7 +61,7 @@ set(SPIRV_CROSS_ENABLE_TESTS OFF)
 CPMAddPackage(
         NAME pf_common
         GITHUB_REPOSITORY PetrFlajsingr/pf_common
-        GIT_TAG master
+        GIT_TAG 1.0.3
 )
 CPMAddPackage(
         NAME magic_enum

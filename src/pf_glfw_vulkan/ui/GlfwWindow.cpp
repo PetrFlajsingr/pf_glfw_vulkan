@@ -85,7 +85,7 @@ vk::UniqueSurfaceKHR GlfwWindow::createVulkanSurface(const vk::Instance &instanc
   auto surface = VkSurfaceKHR{};
   if (const auto res = glfwCreateWindowSurface(instance, handle, nullptr, &surface); res != VK_SUCCESS) {
     const auto resEnum = static_cast<vk::Result>(res);
-    throw StackTraceException::fmt("Window surface creation failed: {} {}", magic_enum::enum_name(resEnum),
+    throw StackTraceException("Window surface creation failed: {} {}", magic_enum::enum_name(resEnum),
                                    vk::to_string(resEnum));
   }
   auto surfaceDeleter = vk::ObjectDestroy<vk::Instance, VULKAN_HPP_DEFAULT_DISPATCHER_TYPE>(instance);
