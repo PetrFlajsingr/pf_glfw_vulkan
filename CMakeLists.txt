@@ -18,6 +18,13 @@ endif ()
 
 include(${CPM_DOWNLOAD_LOCATION})
 
+option(ENABLE_STACKTRACE "enable stacktrace in exceptions" OFF)
+
+if (ENABLE_STACKTRACE)
+    add_compile_definitions(STACKTRACE_ENABLE)
+endif()
+
+
 project(pf_glfw_vulkan
         VERSION 0.1.0)
 
@@ -58,11 +65,20 @@ include_directories(${GLFW_INCLUDE_DIRS})
 set(SHADERC_SKIP_TESTS ON)
 set(SPIRV_CROSS_ENABLE_TESTS OFF)
 
-CPMAddPackage(
-        NAME pf_common
-        GITHUB_REPOSITORY PetrFlajsingr/pf_common
-        GIT_TAG 1.0.3
-)
+if (ENABLE_STACKTRACE)
+    CPMAddPackage(
+            NAME pf_common
+            GITHUB_REPOSITORY PetrFlajsingr/pf_common
+            GIT_TAG v1.0.4
+            OPTIONS "ENABLE_STACKTRACE ON"
+    )
+else()
+    CPMAddPackage(
+            NAME pf_common
+            GITHUB_REPOSITORY PetrFlajsingr/pf_common
+            GIT_TAG v1.0.4
+    )
+endif()
 CPMAddPackage(
         NAME magic_enum
         GITHUB_REPOSITORY Neargye/magic_enum
