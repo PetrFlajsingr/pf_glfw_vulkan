@@ -30,6 +30,7 @@ install:
   sudo wget -qO /etc/apt/sources.list.d/lunarg-vulkan-1.2.170-bionic.list https://packages.lunarg.com/vulkan/1.2.170/lunarg-vulkan-1.2.170-bionic.list;
   sudo apt update;
   sudo apt install vulkan-sdk;
+  sudo apt-get install libglfw3-dev;
 
 script:
   - export CC=gcc-10
