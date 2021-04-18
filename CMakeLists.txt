@@ -91,12 +91,12 @@ CPMAddPackage(
 CPMAddPackage(
         NAME spirvheaders
         GITHUB_REPOSITORY KhronosGroup/SPIRV-Headers
-        GIT_TAG 1.5.4.raytracing.fixed
+        GIT_TAG master
 )
 CPMAddPackage(
         NAME spirvtools
         GITHUB_REPOSITORY KhronosGroup/SPIRV-Tools
-        GIT_TAG v2020.4
+        GIT_TAG master
 )
 CPMAddPackage(
         NAME spirvcross
