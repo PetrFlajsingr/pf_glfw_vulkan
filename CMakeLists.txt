@@ -69,21 +69,17 @@ if (ENABLE_STACKTRACE)
     CPMAddPackage(
             NAME pf_common
             GITHUB_REPOSITORY PetrFlajsingr/pf_common
-            GIT_TAG v1.0.4
+            GIT_TAG v1.0.5
             OPTIONS "ENABLE_STACKTRACE ON"
     )
 else()
     CPMAddPackage(
             NAME pf_common
             GITHUB_REPOSITORY PetrFlajsingr/pf_common
-            GIT_TAG v1.0.4
+            GIT_TAG v1.0.5
     )
 endif()
-CPMAddPackage(
-        NAME magic_enum
-        GITHUB_REPOSITORY Neargye/magic_enum
-        GIT_TAG v0.6.6
-)
+
 include_directories(${cppcoro_SOURCE_DIR}/include)
 
 
@@ -95,7 +91,7 @@ CPMAddPackage(
 CPMAddPackage(
         NAME spirvheaders
         GITHUB_REPOSITORY KhronosGroup/SPIRV-Headers
-        GIT_TAG 1.5.3.reservations1
+        GIT_TAG 1.5.4.raytracing.fixed
 )
 CPMAddPackage(
         NAME spirvtools
@@ -105,12 +101,12 @@ CPMAddPackage(
 CPMAddPackage(
         NAME spirvcross
         GITHUB_REPOSITORY KhronosGroup/SPIRV-Cross
-        GIT_TAG 2020-09-17
+        GIT_TAG 2021-01-15
 )
 CPMAddPackage(
         NAME shaderc
         GITHUB_REPOSITORY google/shaderc
-        GIT_TAG v2020.3
+        GIT_TAG v2020.5
 )
 
 

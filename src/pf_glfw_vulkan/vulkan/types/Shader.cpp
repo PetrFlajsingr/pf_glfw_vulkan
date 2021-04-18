@@ -72,9 +72,7 @@ Shader::Shader(std::shared_ptr<LogicalDevice> device, const ShaderConfigSrc &con
 }
 
 Shader::Shader(std::shared_ptr<LogicalDevice> device, const ShaderConfigGlslSrc &config)
-    : logicalDevice(std::move(device)) {
-  name = config.name;
-  type = config.type;
+    : logicalDevice(std::move(device)), type(config.type), name(config.name) {
   auto compiler = glsl::Compiler(config.name, config.src, toShaderc(config.type), config.macros, config.replaceMacros);
   const auto binary = compiler.compile(config.optimization);
   auto createInfo = vk::ShaderModuleCreateInfo();
