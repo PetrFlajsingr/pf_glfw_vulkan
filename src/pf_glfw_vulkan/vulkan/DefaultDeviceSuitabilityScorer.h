@@ -8,6 +8,7 @@
 #include <functional>
 #include <pf_glfw_vulkan/_export.h>
 #include <unordered_set>
+#include <optional>
 #include <vulkan/vulkan.hpp>
 
 namespace pf::vulkan {

@@ -9,6 +9,7 @@
 #include "configs/CommandBufferConfig.h"
 #include "configs/CommandPoolConfig.h"
 #include "fwd.h"
+#include <optional>
 #include <pf_common/concepts/PtrConstructible.h>
 #include <pf_glfw_vulkan/_export.h>
 #include <vulkan/vulkan.hpp>

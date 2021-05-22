@@ -5,6 +5,7 @@
 #ifndef PF_GLFW_VULKAN_VULKAN_TYPES_CONFIGS_TEXTURESAMPLERCONFIG_H
 #define PF_GLFW_VULKAN_VULKAN_TYPES_CONFIGS_TEXTURESAMPLERCONFIG_H
 
+#include <optional>
 #include <pf_glfw_vulkan/_export.h>
 #include <vulkan/vulkan.hpp>
 

@@ -7,6 +7,7 @@
 
 #include "../fwd.h"
 #include <map>
+#include <optional>
 #include <pf_glfw_vulkan/_export.h>
 #include <utility>
 #include <vulkan/vulkan.hpp>
