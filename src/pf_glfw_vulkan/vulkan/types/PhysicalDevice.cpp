@@ -66,7 +66,7 @@ Instance &PhysicalDevice::getInstance() const { return *instance; }
 std::unordered_map<vk::QueueFlagBits, uint32_t>
 details::getQueueFamilyIndices(vk::PhysicalDevice &physicalDevice, std::unordered_set<vk::QueueFlagBits> queueTypes) {
   using namespace logging;
-  log(LogLevel::Info, VK_TAG, "Getting queue family indices.");
+  logi(VK_TAG, "Getting queue family indices.");
   const auto queueFamilyPropertiesList = physicalDevice.getQueueFamilyProperties();
   auto result = std::unordered_map<vk::QueueFlagBits, uint32_t>{};
   for (const auto &[idx, queueFamilyProperties] : ranges::views::enumerate(queueFamilyPropertiesList)) {

@@ -73,12 +73,12 @@ vk::PhysicalDevice PhysicalDevice::selectPhysicalDevice(const std::vector<vk::Ph
                                                         DeviceScorer &&device_scorer) {
   using namespace ranges;
   using namespace logging;
-  log(LogLevel::Info, VK_TAG, "Selecting physical device.");
+  logi(VK_TAG, "Selecting physical device.");
   const auto suitableDevices =
       physicalDevices | views::transform([&](const auto &device) {
         const auto deviceName = device.getProperties().deviceName;
         const auto score = device_scorer(device);
-        logFmt(LogLevel::Info, VK_TAG, "Device name: {}, score: {}", deviceName, score.has_value() ? *score : -1);
+        logi(VK_TAG, "Device name: {}, score: {}", deviceName, score.has_value() ? *score : -1);
         return std::make_pair(score, device);
       })
       | views::filter([](const auto &scored_device) { return scored_device.first.has_value(); }) | to_vector
@@ -87,7 +87,7 @@ vk::PhysicalDevice PhysicalDevice::selectPhysicalDevice(const std::vector<vk::Ph
   const auto selectedDevice = suitableDevices.front().second;
   const auto deviceName = selectedDevice.getProperties().deviceName;
   const auto score = suitableDevices.front().first.value();
-  logFmt(LogLevel::Info, VK_TAG, "Selected device: Device name: {}, score: {}", deviceName, score);
+  logi(VK_TAG, "Selected device: Device name: {}, score: {}", deviceName, score);
   return selectedDevice;
 }
 
