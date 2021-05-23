@@ -11,14 +11,14 @@ namespace pf::vulkan {
 
 Instance::Instance(InstanceConfig config) {
   using namespace logging;
-  log(LogLevel::Info, VK_TAG, "Creating vulkan instance.");
+  logi(VK_TAG, "Creating vulkan instance.");
   const auto appInfo = vk::ApplicationInfo{.pApplicationName = config.appName.c_str(),
                                            .applicationVersion = versionToUint32(config.appVersion),
                                            .pEngineName = config.engineInfo.name.c_str(),
                                            .engineVersion = versionToUint32(config.engineInfo.engineVersion),
                                            .apiVersion = versionToUint32(config.vkVersion)};
-  logFmt(LogLevel::Info, VK_TAG, "App name: {}\nversion: {}\nengine name: {}\nengine version: {}\nvulkan version: {}.",
-         config.appName, config.appVersion, config.engineInfo.name, config.engineInfo.engineVersion, config.vkVersion);
+  logi(VK_TAG, "App name: {}\nversion: {}\nengine name: {}\nengine version: {}\nvulkan version: {}.", config.appName,
+       config.appVersion, config.engineInfo.name, config.engineInfo.engineVersion, config.vkVersion);
 
   const auto messageSeverityFlags = vk::DebugUtilsMessageSeverityFlagBitsEXT::eVerbose
       | vk::DebugUtilsMessageSeverityFlagBitsEXT::eInfo | vk::DebugUtilsMessageSeverityFlagBitsEXT::eWarning

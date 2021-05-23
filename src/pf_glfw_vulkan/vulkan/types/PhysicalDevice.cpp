@@ -30,7 +30,7 @@ std::vector<vk::PhysicalDevice> PhysicalDevice::getPhysicalDevices() {
 std::shared_ptr<LogicalDevice> &PhysicalDevice::createLogicalDevice(LogicalDeviceConfig config) {
   using namespace logging;
   using namespace ranges;
-  logFmt(LogLevel::Info, VK_TAG, "Creating logical device with id: {}.", config.id);
+  logi(VK_TAG, "Creating logical device with id: {}.", config.id);
   const auto queueFamilyIndices = vulkan::details::getQueueFamilyIndices(vkDevice, std::move(config.queueTypes));
 
   auto queuePriorities = std::vector(queueFamilyIndices.size(), 1.0f);

@@ -36,18 +36,18 @@ SwapChain::SwapChain(std::shared_ptr<Surface> surf, std::shared_ptr<LogicalDevic
     : logicalDevice(std::move(device)), surface(std::move(surf)), formats(config.formats),
       presentModes(config.presentModes), imageUsage(config.imageUsage), sharingQueues(config.sharingQueues),
       imageArrayLayers(config.imageArrayLayers), clipped(config.clipped), compositeAlpha(config.compositeAlpha) {
-  log(LogLevel::Info, VK_TAG, "Creating vulkan swap chain.");
+  logi(VK_TAG, "Creating vulkan swap chain.");
   auto &physicalDevice = logicalDevice->getPhysicalDevice();
   const auto surfaceFormats = physicalDevice->getSurfaceFormatsKHR(surface->getSurface());
   const auto selectedSurfaceFormat = selectSurfaceFormat(config.formats, surfaceFormats);
-  logFmt(LogLevel::Info, VK_TAG, "Surface format: {}, color space: {}.", vk::to_string(selectedSurfaceFormat.format),
-         vk::to_string(selectedSurfaceFormat.colorSpace));
+  logi(VK_TAG, "Surface format: {}, color space: {}.", vk::to_string(selectedSurfaceFormat.format),
+       vk::to_string(selectedSurfaceFormat.colorSpace));
   const auto surfacePresentModes = physicalDevice->getSurfacePresentModesKHR(surface->getSurface());
   const auto selectedPresentMode = selectPresentMode(config.presentModes, surfacePresentModes);
-  logFmt(LogLevel::Info, VK_TAG, "Present mode: {}.", vk::to_string(selectedPresentMode));
+  logi(VK_TAG, "Present mode: {}.", vk::to_string(selectedPresentMode));
   const auto surfaceCapabilities = physicalDevice->getSurfaceCapabilitiesKHR(surface->getSurface());
   const auto selectedExtent = selectExtent(config.resolution, surfaceCapabilities);
-  logFmt(LogLevel::Info, VK_TAG, "Extent: {}x{}.", selectedExtent.width, selectedExtent.height);
+  logi(VK_TAG, "Extent: {}x{}.", selectedExtent.width, selectedExtent.height);
   vkSwapChain = createSwapChainHandle(*surface, *logicalDevice, surfaceCapabilities, config, selectedSurfaceFormat,
                                       selectedExtent, selectedPresentMode);
   format = selectedSurfaceFormat.format;
@@ -174,14 +174,14 @@ void SwapChain::rebuildSwapChain(ui::Resolution resolution) {
   auto &physicalDevice = logicalDevice->getPhysicalDevice();
   const auto surfaceFormats = physicalDevice->getSurfaceFormatsKHR(surface->getSurface());
   const auto selectedSurfaceFormat = selectSurfaceFormat(formats, surfaceFormats);
-  logFmt(LogLevel::Info, VK_TAG, "Surface format: {}, color space: {}.", vk::to_string(selectedSurfaceFormat.format),
+  logi(VK_TAG, "Surface format: {}, color space: {}.", vk::to_string(selectedSurfaceFormat.format),
          vk::to_string(selectedSurfaceFormat.colorSpace));
   const auto surfacePresentModes = physicalDevice->getSurfacePresentModesKHR(surface->getSurface());
   const auto selectedPresentMode = selectPresentMode(presentModes, surfacePresentModes);
-  logFmt(LogLevel::Info, VK_TAG, "Present mode: {}.", vk::to_string(selectedPresentMode));
+  logi(VK_TAG, "Present mode: {}.", vk::to_string(selectedPresentMode));
   const auto surfaceCapabilities = physicalDevice->getSurfaceCapabilitiesKHR(surface->getSurface());
   const auto selectedExtent = selectExtent(resolution, surfaceCapabilities);
-  logFmt(LogLevel::Info, VK_TAG, "Extent: {}x{}.", selectedExtent.width, selectedExtent.height);
+  logi(VK_TAG, "Extent: {}x{}.", selectedExtent.width, selectedExtent.height);
 
   auto config = SwapChainConfig{.formats = {},
                                 .presentModes = {},
