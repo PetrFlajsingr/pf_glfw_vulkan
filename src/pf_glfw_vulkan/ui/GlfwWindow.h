@@ -27,6 +27,8 @@ class PF_GLFW_VULKAN_EXPORT GlfwWindow final : public WindowData, public events:
   void setResizeCallback(std::invocable<Resolution> auto &&callback) { resizeFnc = callback; }
   void mainLoop();
 
+  void close();
+
   vk::UniqueSurfaceKHR createVulkanSurface(const vk::Instance &instance);
   static std::unordered_set<std::string> requiredVulkanExtensions();
 

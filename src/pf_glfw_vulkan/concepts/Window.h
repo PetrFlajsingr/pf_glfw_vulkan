@@ -59,6 +59,7 @@ concept Window = std::constructible_from<T, WindowSettings> && requires(
   {t.setResolution(res)};
   {t.setMode(mod)};
   {t.setTitle(title)};
+  {t.close()};
   { t.getResolution() } -> std::convertible_to<Resolution>;
   { t.getMode() } -> std::convertible_to<Mode>;
   { t.getTitle() } -> std::convertible_to<std::string>;

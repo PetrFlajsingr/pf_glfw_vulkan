@@ -86,7 +86,7 @@ vk::UniqueSurfaceKHR GlfwWindow::createVulkanSurface(const vk::Instance &instanc
   if (const auto res = glfwCreateWindowSurface(instance, handle, nullptr, &surface); res != VK_SUCCESS) {
     const auto resEnum = static_cast<vk::Result>(res);
     throw StackTraceException("Window surface creation failed: {} {}", magic_enum::enum_name(resEnum),
-                                   vk::to_string(resEnum));
+                              vk::to_string(resEnum));
   }
   auto surfaceDeleter = vk::ObjectDestroy<vk::Instance, VULKAN_HPP_DEFAULT_DISPATCHER_TYPE>(instance);
   return vk::UniqueSurfaceKHR(surface, surfaceDeleter);
@@ -103,6 +103,8 @@ void GlfwWindow::resizeCallback(GLFWwindow *window, int width, int height) {
   self->resizeFnc({static_cast<std::size_t>(width), static_cast<std::size_t>(height)});
 }
 GLFWwindow *GlfwWindow::getHandle() const { return handle; }
+
+void GlfwWindow::close() { glfwSetWindowShouldClose(handle, GL_TRUE); }
 
 std::optional<events::MouseButton> glfwButtonToEvents(int button) {
   switch (button) {
