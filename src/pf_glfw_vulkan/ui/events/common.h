@@ -14,17 +14,35 @@
 
 namespace pf::events {
 
-enum class MouseButton { Left, Right, Middle, None };
+enum class MouseButton { Left = 1 << 0, Right = 1 << 1, Middle = 1 << 2, None = 1 << 3 };
 constexpr unsigned int mouseButtonCount = 3;
+static_assert(IsPureFlags<MouseButton>());
 enum class MouseButtonState { Pressed, Released };
 
-enum class MouseEventType { Down, Up, Click, DblClick, Move, Wheel };
+enum class MouseEventType {
+  Down = 1 << 0,
+  Up = 1 << 1,
+  Click = 1 << 2,
+  DblClick = 1 << 3,
+  Move = 1 << 4,
+  Wheel = 1 << 5
+};
 constexpr std::size_t MouseEventTypeCount = magic_enum::enum_count<MouseEventType>();
+static_assert(IsPureFlags<MouseEventType>());
 
-enum class KeyEventType { Up, Pressed, Repeat };
+enum class KeyEventType { Up = 1 << 0, Pressed = 1 << 1, Repeat = 1 << 2 };
 constexpr std::size_t KeyboardEventTypeCount = magic_enum::enum_count<KeyEventType>();
+static_assert(IsPureFlags<KeyEventType>());
 
-enum class ModifierKey { Shift, Control, Alt, Super, CapsLock, NumLock };
+enum class ModifierKey {
+  Shift = 1 << 0,
+  Control = 1 << 1,
+  Alt = 1 << 2,
+  Super = 1 << 3,
+  CapsLock = 1 << 4,
+  NumLock = 1 << 5
+};
+static_assert(IsPureFlags<ModifierKey>());
 
 struct PF_GLFW_VULKAN_EXPORT KeyEvent {
   KeyEventType type;

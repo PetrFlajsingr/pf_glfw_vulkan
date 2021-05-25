@@ -23,6 +23,7 @@ std::optional<std::string> GlfwWindow::init() {
   glfwSetCursorPosCallback(handle, mousePositionCallback);
   glfwSetScrollCallback(handle, mouseWheelCallback);
   glfwSetKeyCallback(handle, keyCallback);
+  glfwSetInputMode(handle, GLFW_LOCK_KEY_MODS, GLFW_TRUE);
   return std::nullopt;
 }
 
