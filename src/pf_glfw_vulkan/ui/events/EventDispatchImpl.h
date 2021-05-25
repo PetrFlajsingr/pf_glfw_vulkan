@@ -22,14 +22,14 @@ class PF_GLFW_VULKAN_EXPORT EventDispatchImpl {
  public:
   Subscription addMouseListener(MouseEventType type, MouseEventListener auto listener) {
     const auto id = generateListenerId();
-    mouseListeners[magic_enum::enum_integer(type)][id] = listener;
-    return Subscription([id, type, this] { mouseListeners[magic_enum::enum_integer(type)].erase(id); });
+    mouseListeners[*magic_enum::enum_index(type)][id] = listener;
+    return Subscription([id, type, this] { mouseListeners[*magic_enum::enum_index(type)].erase(id); });
   }
 
   Subscription addKeyListener(KeyEventType type, KeyEventListener auto listener) {
     const auto id = generateListenerId();
-    keyListeners[magic_enum::enum_integer(type)][id] = listener;
-    return Subscription([id, type, this] { keyListeners[magic_enum::enum_integer(type)].erase(id); });
+    keyListeners[*magic_enum::enum_index(type)][id] = listener;
+    return Subscription([id, type, this] { keyListeners[*magic_enum::enum_index(type)].erase(id); });
   }
 
   Subscription addTextListener(TextEventListener auto listener) {
@@ -53,7 +53,7 @@ class PF_GLFW_VULKAN_EXPORT EventDispatchImpl {
   void notifyMouse(MouseEventType type, MouseButton button, std::pair<double, double> location,
                    std::pair<double, double> delta);
 
-  void notifyKey(KeyEventType type, const Flags<ModifierKey>& modifierKeys, char key);
+  void notifyKey(KeyEventType type, const Flags<ModifierKey> &modifierKeys, char key);
 
   void notifyText(const std::string &text);
 

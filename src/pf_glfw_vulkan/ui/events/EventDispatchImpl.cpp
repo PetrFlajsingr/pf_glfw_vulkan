@@ -16,7 +16,7 @@ void EventDispatchImpl::notifyMouse(MouseEventType type, MouseButton button, std
     mouseClicked = buttonsDown.contains(button);
     buttonsDown.erase(button);
   }
-  const auto &listeners = mouseListeners[magic_enum::enum_integer(type)];
+  const auto &listeners = mouseListeners[*magic_enum::enum_index(type)];
   const auto event = MouseEvent{.type = type, .button = button, .location = location, .delta = delta};
   for (auto &[id, listener] : listeners) {
     if (listener(event)) { break; }
@@ -39,7 +39,7 @@ void EventDispatchImpl::notifyMouse(MouseEventType type, MouseButton button, std
 }
 void EventDispatchImpl::notifyKey(KeyEventType type, const Flags<ModifierKey> &modifierKeys, char key) {
   if (inputIgnorePredicate()) { return; }
-  const auto &listeners = keyListeners[magic_enum::enum_integer(type)];
+  const auto &listeners = keyListeners[*magic_enum::enum_index(type)];
   for (auto &[id, listener] : listeners) {
     if (listener(KeyEvent{.type = type, .modifiersKeys = modifierKeys, .key = key})) { break; }
   }
