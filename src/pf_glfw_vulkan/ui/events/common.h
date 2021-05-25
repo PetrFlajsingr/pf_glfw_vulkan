@@ -7,6 +7,7 @@
 
 #include <functional>
 #include <magic_enum.hpp>
+#include <pf_common/enums.h>
 #include <pf_glfw_vulkan/_export.h>
 #include <string>
 #include <utility>
@@ -23,8 +24,11 @@ constexpr std::size_t MouseEventTypeCount = magic_enum::enum_count<MouseEventTyp
 enum class KeyEventType { Up, Pressed, Repeat };
 constexpr std::size_t KeyboardEventTypeCount = magic_enum::enum_count<KeyEventType>();
 
+enum class ModifierKey { Shift, Control, Alt, Super, CapsLock, NumLock };
+
 struct PF_GLFW_VULKAN_EXPORT KeyEvent {
   KeyEventType type;
+  Flags<ModifierKey> modifiersKeys;
   char key;
 };
 

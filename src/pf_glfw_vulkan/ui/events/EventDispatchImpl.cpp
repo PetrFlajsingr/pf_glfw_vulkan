@@ -37,11 +37,11 @@ void EventDispatchImpl::notifyMouse(MouseEventType type, MouseButton button, std
     }
   }
 }
-void EventDispatchImpl::notifyKey(KeyEventType type, char key) {
+void EventDispatchImpl::notifyKey(KeyEventType type, const Flags<ModifierKey> &modifierKeys, char key) {
   if (inputIgnorePredicate()) { return; }
   const auto &listeners = keyListeners[magic_enum::enum_integer(type)];
   for (auto &[id, listener] : listeners) {
-    if (listener(KeyEvent{.type = type, .key = key})) { break; }
+    if (listener(KeyEvent{.type = type, .modifiersKeys = modifierKeys, .key = key})) { break; }
   }
 }
 void EventDispatchImpl::notifyText(const std::string &text) {

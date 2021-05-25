@@ -74,12 +74,12 @@ void GlfwWindow::mouseWheelCallback(GLFWwindow *window, double xpos, double ypos
   self->cursorPosition = cursorPosition;
 }
 
-void GlfwWindow::keyCallback(GLFWwindow *window, int key, int, int action, int) {
+void GlfwWindow::keyCallback(GLFWwindow *window, int key, int, int action, int mods) {
   auto self = reinterpret_cast<GlfwWindow *>(glfwGetWindowUserPointer(window));
   const auto eventType = glfwKeyEventToEvents(action);
   if (!eventType.has_value()) { return; }
   const auto keyChar = static_cast<char>(key);
-  self->notifyKey(eventType.value(), keyChar);
+  self->notifyKey(eventType.value(), ModToFlags(mods), keyChar);
 }
 vk::UniqueSurfaceKHR GlfwWindow::createVulkanSurface(const vk::Instance &instance) {
   auto surface = VkSurfaceKHR{};
@@ -114,6 +114,16 @@ void GlfwWindow::setCursorDisabled(bool disabled) {
   } else {
     glfwSetInputMode(handle, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
   }
+}
+Flags<events::ModifierKey> GlfwWindow::ModToFlags(int mods) {
+  auto result = Flags<events::ModifierKey>{};
+  if (mods & GLFW_MOD_SHIFT) { result |= events::ModifierKey::Shift; }
+  if (mods & GLFW_MOD_CONTROL) { result |= events::ModifierKey::Control; }
+  if (mods & GLFW_MOD_ALT) { result |= events::ModifierKey::Alt; }
+  if (mods & GLFW_MOD_SUPER) { result |= events::ModifierKey::Super; }
+  if (mods & GLFW_MOD_CAPS_LOCK) { result |= events::ModifierKey::CapsLock; }
+  if (mods & GLFW_MOD_NUM_LOCK) { result |= events::ModifierKey::NumLock; }
+  return result;
 }
 
 std::optional<events::MouseButton> glfwButtonToEvents(int button) {

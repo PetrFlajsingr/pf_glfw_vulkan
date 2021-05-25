@@ -53,7 +53,7 @@ class PF_GLFW_VULKAN_EXPORT EventDispatchImpl {
   void notifyMouse(MouseEventType type, MouseButton button, std::pair<double, double> location,
                    std::pair<double, double> delta);
 
-  void notifyKey(KeyEventType type, char key);
+  void notifyKey(KeyEventType type, const Flags<ModifierKey>& modifierKeys, char key);
 
   void notifyText(const std::string &text);
 

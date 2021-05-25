@@ -43,6 +43,7 @@ class PF_GLFW_VULKAN_EXPORT GlfwWindow final : public WindowData, public events:
   static void mouseWheelCallback(GLFWwindow *window, double xpos, double ypos);
   static void keyCallback(GLFWwindow *window, int key, int scancode, int action, int mods);
   static void resizeCallback(GLFWwindow *window, int width, int height);
+  static Flags<events::ModifierKey> ModToFlags(int mod);
   GLFWwindow *handle{};
   std::function<void()> mainLoopFnc = [] {};
   std::function<void(Resolution)> resizeFnc = [](Resolution) {};
