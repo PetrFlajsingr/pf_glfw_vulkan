@@ -108,8 +108,8 @@ void GlfwWindow::close() { glfwSetWindowShouldClose(handle, GL_TRUE); }
 
 void GlfwWindow::setCursorPosition(double x, double y) { glfwSetCursorPos(handle, x, y); }
 
-void GlfwWindow::setCursorDisabled(bool visible) {
-  if (visible) {
+void GlfwWindow::setCursorDisabled(bool disabled) {
+  if (!disabled) {
     glfwSetInputMode(handle, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
   } else {
     glfwSetInputMode(handle, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
