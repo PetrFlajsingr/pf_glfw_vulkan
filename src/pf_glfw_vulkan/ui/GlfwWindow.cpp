@@ -106,6 +106,16 @@ GLFWwindow *GlfwWindow::getHandle() const { return handle; }
 
 void GlfwWindow::close() { glfwSetWindowShouldClose(handle, GL_TRUE); }
 
+void GlfwWindow::setCursorPosition(double x, double y) { glfwSetCursorPos(handle, x, y); }
+
+void GlfwWindow::setCursorVisible(bool visible) {
+  if (visible) {
+    glfwSetInputMode(handle, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+  } else {
+    glfwSetInputMode(handle, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
+  }
+}
+
 std::optional<events::MouseButton> glfwButtonToEvents(int button) {
   switch (button) {
     case GLFW_MOUSE_BUTTON_LEFT: return events::MouseButton::Left;

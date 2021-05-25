@@ -49,9 +49,10 @@ class PF_GLFW_VULKAN_EXPORT WindowData {
 };
 
 template<typename T>
-concept Window = std::constructible_from<T, WindowSettings> && requires(
-    T t, std::function<void()> callback, Resolution res, Mode mod, std::string title,
-    std::function<void(Resolution)> resizeCallback) {
+concept Window = std::constructible_from<T, WindowSettings> && requires(T t, std::function<void()> callback,
+                                                                        Resolution res, Mode mod, std::string title,
+                                                                        std::function<void(Resolution)> resizeCallback,
+                                                                        double dbl, bool bol) {
   { t.init() } -> std::same_as<std::optional<std::string>>;
   {t.setMainLoopCallback(callback)};
   {t.setResizeCallback(resizeCallback)};
@@ -60,6 +61,8 @@ concept Window = std::constructible_from<T, WindowSettings> && requires(
   {t.setMode(mod)};
   {t.setTitle(title)};
   {t.close()};
+  {t.setCursorPosition(dbl, dbl)};
+  {t.setCursorVisible(bol)};
   { t.getResolution() } -> std::convertible_to<Resolution>;
   { t.getMode() } -> std::convertible_to<Mode>;
   { t.getTitle() } -> std::convertible_to<std::string>;
