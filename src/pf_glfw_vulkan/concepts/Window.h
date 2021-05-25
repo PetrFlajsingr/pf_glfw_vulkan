@@ -48,6 +48,7 @@ class PF_GLFW_VULKAN_EXPORT WindowData {
   Mode mode;
 };
 
+// TODO: change this to inheritance
 template<typename T>
 concept Window = std::constructible_from<T, WindowSettings> && requires(T t, std::function<void()> callback,
                                                                         Resolution res, Mode mod, std::string title,
@@ -62,7 +63,7 @@ concept Window = std::constructible_from<T, WindowSettings> && requires(T t, std
   {t.setTitle(title)};
   {t.close()};
   {t.setCursorPosition(dbl, dbl)};
-  {t.setCursorVisible(bol)};
+  {t.setCursorDisabled(bol)};
   { t.getResolution() } -> std::convertible_to<Resolution>;
   { t.getMode() } -> std::convertible_to<Mode>;
   { t.getTitle() } -> std::convertible_to<std::string>;
