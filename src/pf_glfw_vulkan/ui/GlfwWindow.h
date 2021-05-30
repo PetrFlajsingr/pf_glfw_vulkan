@@ -12,7 +12,7 @@
 #include <pf_common/Subscription.h>
 #include <pf_common/coroutines/Sequence.h>
 #include <pf_glfw_vulkan/_export.h>
-#include <pf_glfw_vulkan/ui/Window.h>
+#include <pf_glfw_vulkan/ui/WindowEventsDefaultImpl.h>
 #include <unordered_map>
 
 namespace pf::ui {

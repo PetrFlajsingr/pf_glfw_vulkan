@@ -149,7 +149,7 @@ set(SOURCES
         src/pf_glfw_vulkan/vulkan/types/builders/GraphicsPipelineBuilder.cpp
         src/pf_glfw_vulkan/vulkan/types/builders/RenderPassBuilder.cpp
         src/pf_glfw_vulkan/lib_config.cpp
-        )
+        src/pf_glfw_vulkan/ui/WindowEventsDefaultImpl.cpp)
 
 set(INCLUDES
         src/pf_glfw_vulkan/ui/GlfwWindow.h
@@ -190,7 +190,8 @@ set(INCLUDES
         src/pf_glfw_vulkan/lib_config.h
         src/pf_glfw_vulkan/logging.h
         src/pf_glfw_vulkan/vulkan/utils.h
-        src/pf_glfw_vulkan/ui/Resolution.h)
+        src/pf_glfw_vulkan/ui/Resolution.h
+        src/pf_glfw_vulkan/ui/WindowEventsDefaultImpl.h)
 
 
 option(BUILD_SHARED_LIBS "build this library as shared")
