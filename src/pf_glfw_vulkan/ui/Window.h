@@ -57,7 +57,7 @@ class PF_GLFW_VULKAN_EXPORT Window {
   Subscription addMouseListener(events::MouseEventType event, events::MouseEventListener auto &&listener) {
     return addMouseListenerImpl(event, std::forward<decltype(listener)>(listener));
   }
-  Subscription addKeyboardListener(events::KeyEventType event, events::MouseEventListener auto &&listener) {
+  Subscription addKeyboardListener(events::KeyEventType event, events::KeyEventListener auto &&listener) {
     return addKeyboardListenerImpl(event, std::forward<decltype(listener)>(listener));
   }
   Subscription addTextListener(events::TextEventListener auto &&listener) {
