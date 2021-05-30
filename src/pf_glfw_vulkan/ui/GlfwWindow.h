@@ -42,8 +42,6 @@ class PF_GLFW_VULKAN_EXPORT GlfwWindow final : public WindowEventsDefaultImpl {
   static void resizeCallback(GLFWwindow *window, int width, int height);
   static Flags<events::ModifierKey> ModToFlags(int mod);
   GLFWwindow *handle{};
-  std::function<void()> mainLoopFnc = [] {};
-  std::function<void(Resolution)> resizeFnc = [](Resolution) {};
   std::pair<double, double> cursorPosition{0, 0};
 };
 

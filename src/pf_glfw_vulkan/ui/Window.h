@@ -35,8 +35,8 @@ class PF_GLFW_VULKAN_EXPORT Window {
   Window(const Resolution &resolution, Mode mode, const std::string &title);
   virtual std::optional<std::string> init() = 0;
 
-  void setMainLoopCallback(std::invocable auto &&callback) { mainLoopCallback = callback; }
-  void setResizeCallback(std::invocable<Resolution> auto &&callback) { resizeCallback = callback; }
+  void setMainLoopCallback(std::invocable auto &&callback) { mainLoopUserCallback = callback; }
+  void setResizeCallback(std::invocable<Resolution> auto &&callback) { resizeUserCallback = callback; }
 
   virtual void run() = 0;// start mainloop
 
@@ -87,8 +87,8 @@ class PF_GLFW_VULKAN_EXPORT Window {
   Resolution resolution;
   Mode mode;
   std::string title;
-  std::function<void()> mainLoopCallback = [] {};
-  std::function<void(Resolution)> resizeCallback = [](Resolution) {};
+  std::function<void()> mainLoopUserCallback = [] {};
+  std::function<void(Resolution)> resizeUserCallback = [](Resolution) {};
 };
 
 }// namespace pf::ui

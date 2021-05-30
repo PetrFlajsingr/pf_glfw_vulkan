@@ -39,7 +39,7 @@ void GlfwWindow::run() {
   while (!glfwWindowShouldClose(handle)) {
     glfwPollEvents();
     onFrame();
-    mainLoopFnc();
+    mainLoopUserCallback();
   }
 }
 
@@ -109,7 +109,7 @@ std::unordered_set<std::string> GlfwWindow::requiredVulkanExtensions() {
 
 void GlfwWindow::resizeCallback(GLFWwindow *window, int width, int height) {
   auto self = reinterpret_cast<GlfwWindow *>(glfwGetWindowUserPointer(window));
-  self->resizeFnc({static_cast<std::size_t>(width), static_cast<std::size_t>(height)});
+  self->resizeUserCallback({static_cast<std::size_t>(width), static_cast<std::size_t>(height)});
 }
 GLFWwindow *GlfwWindow::getHandle() const { return handle; }
 
@@ -151,6 +151,5 @@ std::optional<events::KeyEventType> glfwKeyEventToEvents(int key_event) {
     default: return std::nullopt;
   }
 }
-
 
 }// namespace pf::ui
