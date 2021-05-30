@@ -6,6 +6,7 @@
 #include "../VulkanException.h"
 #include "Buffer.h"
 #include "LogicalDevice.h"
+#include <magic_enum.hpp>
 
 namespace pf::vulkan {
 

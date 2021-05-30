@@ -10,16 +10,13 @@
 #include "fwd.h"
 #include <pf_common/concepts/PtrConstructible.h>
 #include <pf_glfw_vulkan/_export.h>
-#include <pf_glfw_vulkan/concepts/Window.h>
+#include <pf_glfw_vulkan/ui/Window.h>
 
 namespace pf::vulkan {
 
 class PF_GLFW_VULKAN_EXPORT Surface : public VulkanObject, public PtrConstructible<Surface> {
  public:
-  template<ui::Window Window>
-  explicit Surface(std::shared_ptr<Instance> inst, Window &window)
-      : instance(std::move(inst)), vkSurface(window.createVulkanSurface(**instance)),
-        windowSizeFnc([&window] { return window.getResolution(); }) {}
+  explicit Surface(std::shared_ptr<Instance> inst, ui::Window &window);
 
   Surface(const Surface &other) = delete;
   Surface &operator=(const Surface &other) = delete;

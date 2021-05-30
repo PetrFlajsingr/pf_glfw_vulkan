@@ -10,6 +10,8 @@
 #include <string>
 
 namespace pf::vulkan {
+// TODO: docs
+// TODO: change set usage to Flags<Enum>
 class PF_GLFW_VULKAN_EXPORT VulkanObject {
  public:
   [[nodiscard]] virtual std::string info() const = 0;

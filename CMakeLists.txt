@@ -22,7 +22,7 @@ option(ENABLE_STACKTRACE "enable stacktrace in exceptions" OFF)
 
 if (ENABLE_STACKTRACE)
     add_compile_definitions(STACKTRACE_ENABLE)
-endif()
+endif ()
 
 
 project(pf_glfw_vulkan
@@ -72,13 +72,13 @@ if (ENABLE_STACKTRACE)
             GIT_TAG v1.0.7
             OPTIONS "ENABLE_STACKTRACE ON"
     )
-else()
+else ()
     CPMAddPackage(
             NAME pf_common
             GITHUB_REPOSITORY PetrFlajsingr/pf_common
             GIT_TAG v1.0.7
     )
-endif()
+endif ()
 
 include_directories(${cppcoro_SOURCE_DIR}/include)
 
@@ -116,9 +116,8 @@ hunter_add_package(stb)
 find_package(stb CONFIG REQUIRED)
 
 set(SOURCES
-        src/pf_glfw_vulkan/concepts/Window.cpp
+        src/pf_glfw_vulkan/ui/Window.cpp
         src/pf_glfw_vulkan/ui/GlfwWindow.cpp
-        src/pf_glfw_vulkan/ui/events/EventDispatchImpl.cpp
         src/pf_glfw_vulkan/vulkan/DefaultDeviceSuitabilityScorer.cpp
         src/pf_glfw_vulkan/vulkan/VulkanException.cpp
         src/pf_glfw_vulkan/vulkan/glsl/Compiler.cpp
@@ -150,13 +149,12 @@ set(SOURCES
         src/pf_glfw_vulkan/vulkan/types/builders/GraphicsPipelineBuilder.cpp
         src/pf_glfw_vulkan/vulkan/types/builders/RenderPassBuilder.cpp
         src/pf_glfw_vulkan/lib_config.cpp
-        )
+        src/pf_glfw_vulkan/ui/WindowEventsDefaultImpl.cpp)
 
 set(INCLUDES
-        src/pf_glfw_vulkan/concepts/Window.h
         src/pf_glfw_vulkan/ui/GlfwWindow.h
+        src/pf_glfw_vulkan/ui/Window.h
         src/pf_glfw_vulkan/ui/events/common.h
-        src/pf_glfw_vulkan/ui/events/EventDispatchImpl.h
         src/pf_glfw_vulkan/vulkan/DefaultDeviceSuitabilityScorer.h
         src/pf_glfw_vulkan/vulkan/VulkanException.h
         src/pf_glfw_vulkan/vulkan/glsl/Compiler.h
@@ -192,7 +190,8 @@ set(INCLUDES
         src/pf_glfw_vulkan/lib_config.h
         src/pf_glfw_vulkan/logging.h
         src/pf_glfw_vulkan/vulkan/utils.h
-        )
+        src/pf_glfw_vulkan/ui/Resolution.h
+        src/pf_glfw_vulkan/ui/WindowEventsDefaultImpl.h)
 
 
 option(BUILD_SHARED_LIBS "build this library as shared")
@@ -210,7 +209,7 @@ target_compile_options(${PROJECT_NAME} PRIVATE ${flags})
 
 if (MEASURE_BUILD_TIME)
     set_property(GLOBAL PROPERTY RULE_LAUNCH_COMPILE "${CMAKE_COMMAND} -E time")
-endif()
+endif ()
 
 include(GNUInstallDirs)
 
@@ -218,7 +217,6 @@ target_include_directories(${PROJECT_NAME} PUBLIC $<INSTALL_INTERFACE:${CMAKE_IN
 target_include_directories(${PROJECT_NAME} PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src>)
 
 target_link_libraries(${PROJECT_NAME} PUBLIC pf_common::pf_common fmt::fmt magic_enum range-v3 ${GLFW_STATIC_LIBRARIES} ${Vulkan_LIBRARIES})
-
 
 
 set(CMAKE_INCLUDE_CURRENT_DIR ON)

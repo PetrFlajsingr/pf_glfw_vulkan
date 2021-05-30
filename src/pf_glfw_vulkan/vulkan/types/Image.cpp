@@ -8,6 +8,7 @@
 #include "ImageView.h"
 #include "LogicalDevice.h"
 #include "PhysicalDevice.h"
+#include <magic_enum.hpp>
 
 namespace pf::vulkan {
 Image::Image(std::shared_ptr<LogicalDevice> device, ImageConfig &&config)

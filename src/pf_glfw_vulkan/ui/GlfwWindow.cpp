@@ -9,7 +9,8 @@
 #include <pf_common/exceptions/StackTraceException.h>
 
 namespace pf::ui {
-GlfwWindow::GlfwWindow(const WindowSettings &settings) : WindowData(settings) {}
+GlfwWindow::GlfwWindow(const WindowSettings &settings)
+    : WindowEventsDefaultImpl(settings.resolution, settings.mode, settings.title) {}
 
 std::optional<std::string> GlfwWindow::init() {
   if (glfwInit() == GLFW_FALSE) { return "glfwInit failed"; }
@@ -18,6 +19,13 @@ std::optional<std::string> GlfwWindow::init() {
   handle = glfwCreateWindow(static_cast<int>(resolution.width), static_cast<int>(resolution.height), title.c_str(),
                             nullptr, nullptr);
   glfwSetWindowUserPointer(handle, this);
+  // TODO: setWindowSizeCallback?
+  // TODO: window size limits support, aspect ratio, position, position callback
+  // TODO: set title
+  // TODO: set icon
+  // TODO: monitor
+  // TODO: maximize and restore + callback
+  // TODO: focus callback
   glfwSetFramebufferSizeCallback(handle, resizeCallback);
   glfwSetMouseButtonCallback(handle, mouseButtonCallback);
   glfwSetCursorPosCallback(handle, mousePositionCallback);
@@ -27,11 +35,11 @@ std::optional<std::string> GlfwWindow::init() {
   return std::nullopt;
 }
 
-void GlfwWindow::mainLoop() {
+void GlfwWindow::run() {
   while (!glfwWindowShouldClose(handle)) {
     glfwPollEvents();
     onFrame();
-    mainLoopFnc();
+    mainLoopUserCallback();
   }
 }
 
@@ -101,7 +109,7 @@ std::unordered_set<std::string> GlfwWindow::requiredVulkanExtensions() {
 
 void GlfwWindow::resizeCallback(GLFWwindow *window, int width, int height) {
   auto self = reinterpret_cast<GlfwWindow *>(glfwGetWindowUserPointer(window));
-  self->resizeFnc({static_cast<std::size_t>(width), static_cast<std::size_t>(height)});
+  self->resizeUserCallback({static_cast<std::size_t>(width), static_cast<std::size_t>(height)});
 }
 GLFWwindow *GlfwWindow::getHandle() const { return handle; }
 
@@ -109,7 +117,7 @@ void GlfwWindow::close() { glfwSetWindowShouldClose(handle, GL_TRUE); }
 
 void GlfwWindow::setCursorPosition(double x, double y) { glfwSetCursorPos(handle, x, y); }
 
-void GlfwWindow::setCursorDisabled(bool disabled) {
+void GlfwWindow::setCursorHiddenAndCaptured(bool disabled) {
   if (!disabled) {
     glfwSetInputMode(handle, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
   } else {

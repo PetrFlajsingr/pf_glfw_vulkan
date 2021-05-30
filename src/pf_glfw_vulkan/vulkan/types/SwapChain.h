@@ -8,9 +8,9 @@
 #include "VulkanObject.h"
 #include "configs/SwapChainConfig.h"
 #include "fwd.h"
+#include <optional>
 #include <pf_common/concepts/PtrConstructible.h>
 #include <pf_glfw_vulkan/_export.h>
-#include <pf_glfw_vulkan/concepts/Window.h>
 #include <set>
 #include <unordered_set>
 #include <vector>

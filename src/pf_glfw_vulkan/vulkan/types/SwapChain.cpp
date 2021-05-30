@@ -175,7 +175,7 @@ void SwapChain::rebuildSwapChain(ui::Resolution resolution) {
   const auto surfaceFormats = physicalDevice->getSurfaceFormatsKHR(surface->getSurface());
   const auto selectedSurfaceFormat = selectSurfaceFormat(formats, surfaceFormats);
   logi(VK_TAG, "Surface format: {}, color space: {}.", vk::to_string(selectedSurfaceFormat.format),
-         vk::to_string(selectedSurfaceFormat.colorSpace));
+       vk::to_string(selectedSurfaceFormat.colorSpace));
   const auto surfacePresentModes = physicalDevice->getSurfacePresentModesKHR(surface->getSurface());
   const auto selectedPresentMode = selectPresentMode(presentModes, surfacePresentModes);
   logi(VK_TAG, "Present mode: {}.", vk::to_string(selectedPresentMode));
