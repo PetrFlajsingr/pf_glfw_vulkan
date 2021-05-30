@@ -12,6 +12,7 @@
 #include "configs/InstanceConfig.h"
 #include <pf_common/concepts/PtrConstructible.h>
 #include <pf_glfw_vulkan/_export.h>
+#include <pf_glfw_vulkan/ui/Window.h>
 #include <unordered_set>
 #include <vulkan/vulkan.hpp>
 
@@ -36,9 +37,7 @@ class PF_GLFW_VULKAN_EXPORT Instance : public VulkanObject,
   [[nodiscard]] const vk::Instance &getInstance();
   [[nodiscard]] std::optional<std::reference_wrapper<const vk::DebugUtilsMessengerEXT>> getDebugMessenger();
 
-  [[nodiscard]] std::shared_ptr<Surface> createSurface(ui::Window auto &window) {
-    return window.createVulkanSurface(getInstance());
-  }
+  [[nodiscard]] std::shared_ptr<Surface> createSurface(ui::Window &window);
 
   template<DeviceSuitabilityScorer DeviceScorer>
   [[nodiscard]] std::shared_ptr<PhysicalDevice> selectDevice(DeviceScorer &&scorer);

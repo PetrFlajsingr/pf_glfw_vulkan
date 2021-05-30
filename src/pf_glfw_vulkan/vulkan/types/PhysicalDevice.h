@@ -12,7 +12,6 @@
 #include "fwd.h"
 #include <pf_common/concepts/PtrConstructible.h>
 #include <pf_glfw_vulkan/_export.h>
-#include <pf_glfw_vulkan/concepts/Window.h>
 #include <pf_glfw_vulkan/logging.h>
 #include <range/v3/action/sort.hpp>
 #include <range/v3/view/filter.hpp>

@@ -5,8 +5,6 @@
 #ifndef PF_GLFW_VULKAN_UI_GLFWWINDOW_H
 #define PF_GLFW_VULKAN_UI_GLFWWINDOW_H
 
-#include "../concepts/Window.h"
-#include "events/EventDispatchImpl.h"
 #include "events/common.h"
 #include <GLFW/glfw3.h>
 #include <array>
@@ -14,26 +12,25 @@
 #include <pf_common/Subscription.h>
 #include <pf_common/coroutines/Sequence.h>
 #include <pf_glfw_vulkan/_export.h>
+#include <pf_glfw_vulkan/ui/Window.h>
 #include <unordered_map>
 
 namespace pf::ui {
-class PF_GLFW_VULKAN_EXPORT GlfwWindow final : public WindowData, public events::EventDispatchImpl {
+class PF_GLFW_VULKAN_EXPORT GlfwWindow final : public WindowEventsDefaultImpl {
  public:
   explicit GlfwWindow(const WindowSettings &settings);
   virtual ~GlfwWindow();
-  [[nodiscard]] std::optional<std::string> init();
+  [[nodiscard]] std::optional<std::string> init() override;
 
-  void setMainLoopCallback(std::invocable auto &&callback) { mainLoopFnc = callback; }
-  void setResizeCallback(std::invocable<Resolution> auto &&callback) { resizeFnc = callback; }
-  void mainLoop();
+  void run() override;
 
-  void close();
+  void close() override;
 
-  void setCursorPosition(double x, double y);
-  void setCursorDisabled(bool disabled);
+  void setCursorPosition(double x, double y) override;
+  void setCursorHiddenAndCaptured(bool disabled) override;
 
-  vk::UniqueSurfaceKHR createVulkanSurface(const vk::Instance &instance);
-  static std::unordered_set<std::string> requiredVulkanExtensions();
+  [[nodiscard]] vk::UniqueSurfaceKHR createVulkanSurface(const vk::Instance &instance) override;
+  std::unordered_set<std::string> requiredVulkanExtensions() override;
 
   GLFWwindow *getHandle() const;
 
@@ -54,6 +51,5 @@ std::optional<events::MouseButton> glfwButtonToEvents(int button);
 std::optional<events::KeyEventType> glfwKeyEventToEvents(int key_event);
 
 std::ostream &operator<<(std::ostream &os, const GlfwWindow &window);
-static_assert(Window<GlfwWindow>);
 }// namespace pf::ui
 #endif//PF_GLFW_VULKAN_UI_GLFWWINDOW_H

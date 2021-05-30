@@ -5,7 +5,6 @@
 #ifndef PF_GLFW_VULKAN_VULKAN_TYPES_LOGICALDEVICE_H
 #define PF_GLFW_VULKAN_VULKAN_TYPES_LOGICALDEVICE_H
 
-#include "../../concepts/Window.h"
 #include "VulkanObject.h"
 #include "configs/BufferConfig.h"
 #include "configs/CommandPoolConfig.h"
@@ -21,7 +20,6 @@
 #include <pf_common/concepts/PtrConstructible.h>
 #include <pf_glfw_vulkan/_export.h>
 #include <string>
-#include <unordered_set>
 #include <vulkan/vulkan.hpp>
 
 namespace pf::vulkan {

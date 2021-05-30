@@ -5,9 +5,11 @@
 #ifndef PF_GLFW_VULKAN_VULKAN_TYPES_CONFIGS_SWAPCHAINCONFIG_H
 #define PF_GLFW_VULKAN_VULKAN_TYPES_CONFIGS_SWAPCHAINCONFIG_H
 
-#include "../../../concepts/Window.h"
+#include <optional>
 #include <pf_glfw_vulkan/_export.h>
+#include <pf_glfw_vulkan/ui/Resolution.h>
 #include <set>
+#include <unordered_set>
 #include <vulkan/vulkan.hpp>
 
 namespace pf::vulkan {

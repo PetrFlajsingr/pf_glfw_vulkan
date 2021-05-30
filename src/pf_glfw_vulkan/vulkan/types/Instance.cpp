@@ -4,6 +4,7 @@
 
 #include "Instance.h"
 #include <pf_glfw_vulkan/logging.h>
+#include <pf_glfw_vulkan/vulkan/types/Surface.h>
 #include <range/v3/view.hpp>
 #include <utility>
 
@@ -93,5 +94,9 @@ std::string Instance::info() const { return "Vulkan instance unique"; }
 const vk::Instance &Instance::operator*() const { return *vkInstance; }
 
 vk::Instance const *Instance::operator->() const { return &*vkInstance; }
+
+std::shared_ptr<Surface> Instance::createSurface(ui::Window &window) {
+  return Surface::CreateShared(shared_from_this(), window);
+}
 
 }// namespace pf::vulkan
