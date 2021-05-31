@@ -18,7 +18,7 @@ BufferMapping::~BufferMapping() { buffer->getLogicalDevice()->unmapMemory(buffer
 std::string BufferMapping::info() const {
   return fmt::format("Buffer mapping to '{}' with offset: {}, range: {}", buffer->info(), offset, range);
 }
-vk::DeviceSize BufferMapping::getSize() const { return range - offset; }
+vk::DeviceSize BufferMapping::getSize() const { return range; }
 
 void *BufferMapping::rawData() { return dataPtr; }
 
