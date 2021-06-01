@@ -56,12 +56,12 @@ class PF_GLFW_VULKAN_EXPORT BufferMapping : public VulkanObject, public PtrConst
   void set(T &&value, vk::DeviceSize start = 0) {
     if constexpr (std::ranges::contiguous_range<T>) {
       using ValueType = std::ranges::range_value_t<T>;
-      const auto typedSize = getTypedSize<ValueType>();
+      [[maybe_unused]] const auto typedSize = getTypedSize<ValueType>();
       assert(start < typedSize);
       assert(start + value.size() <= typedSize);
       std::ranges::copy(value, reinterpret_cast<ValueType *>(dataPtr) + start);
     } else {
-      const auto typedSize = getTypedSize<std::remove_reference_t<T>>();
+      [[maybe_unused]] const auto typedSize = getTypedSize<std::remove_reference_t<T>>();
       assert(start < typedSize);
       assert(start + 1 <= typedSize);
       data<std::decay_t<T>>(start)[0] = value;
