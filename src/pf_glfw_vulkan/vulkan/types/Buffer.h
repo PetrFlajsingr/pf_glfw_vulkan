@@ -33,7 +33,7 @@ class PF_GLFW_VULKAN_EXPORT BufferMapping : public VulkanObject, public PtrConst
   }
   template<typename T>
   std::span<T> data(vk::DeviceSize start, vk::DeviceSize count) {
-    const auto typedSize = getTypedSize<T>();
+    [[maybe_unused]] const auto typedSize = getTypedSize<T>();
     assert(start < typedSize);
     assert(start + count <= typedSize);
     return std::span<T>(reinterpret_cast<T *>(dataPtr) + start, count);
@@ -46,7 +46,7 @@ class PF_GLFW_VULKAN_EXPORT BufferMapping : public VulkanObject, public PtrConst
   }
   template<typename T>
   std::span<T> dataRawOffset(vk::DeviceSize start, vk::DeviceSize count) {
-    const auto size = getSize();
+    [[maybe_unused]] const auto size = getSize();
     assert(start < size);
     assert(start + count <= size);
     return std::span<T>(reinterpret_cast<T *>(reinterpret_cast<std::byte *>(dataPtr) + start), count / sizeof(T));
