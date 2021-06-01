@@ -72,13 +72,13 @@ class PF_GLFW_VULKAN_EXPORT BufferMapping : public VulkanObject, public PtrConst
   void setRawOffset(T &&value, vk::DeviceSize start) {
     if constexpr (std::ranges::contiguous_range<T>) {
       using ValueType = typename std::ranges::range_value_t<T>;
-      const auto size = getSize();
+      [[maybe_unused]] const auto size = getSize();
       assert(start < size);
       assert(start + value.size() * sizeof(ValueType) <= size);
       std::ranges::copy(value, reinterpret_cast<ValueType *>(reinterpret_cast<std::byte *>(dataPtr) + start));
     } else {
-      const auto size = getSize();
-      constexpr auto valueSize = sizeof(std::remove_reference_t<T>);
+      [[maybe_unused]] const auto size = getSize();
+      [[maybe_unused]] constexpr auto valueSize = sizeof(std::remove_reference_t<T>);
       assert(start < size);
       assert(start + valueSize <= size);
       *reinterpret_cast<std::decay_t<T> *>(reinterpret_cast<std::byte *>(dataPtr) + start) = value;
