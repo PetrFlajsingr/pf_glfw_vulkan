@@ -95,7 +95,7 @@ const vk::Instance &Instance::operator*() const { return *vkInstance; }
 
 vk::Instance const *Instance::operator->() const { return &*vkInstance; }
 
-std::shared_ptr<Surface> Instance::createSurface(ui::Window &window) {
+std::shared_ptr<Surface> Instance::createSurface(std::shared_ptr<ui::Window> window) {
   return Surface::CreateShared(shared_from_this(), window);
 }
 

@@ -16,13 +16,14 @@ namespace pf::vulkan {
 
 class PF_GLFW_VULKAN_EXPORT Surface : public VulkanObject, public PtrConstructible<Surface> {
  public:
-  explicit Surface(std::shared_ptr<Instance> inst, ui::Window &window);
+  explicit Surface(std::shared_ptr<Instance> inst, std::shared_ptr<ui::Window> win);
 
   Surface(const Surface &other) = delete;
   Surface &operator=(const Surface &other) = delete;
 
   [[nodiscard]] const vk::SurfaceKHR &getSurface();
   [[nodiscard]] Instance &getInstance();
+  [[nodiscard]] ui::Window &getWindow();
 
   const vk::SurfaceKHR &operator*() const;
   vk::SurfaceKHR const *operator->() const;
@@ -33,6 +34,7 @@ class PF_GLFW_VULKAN_EXPORT Surface : public VulkanObject, public PtrConstructib
 
  private:
   std::shared_ptr<Instance> instance;
+  std::shared_ptr<ui::Window> window;
   vk::UniqueSurfaceKHR vkSurface;
 
   std::function<ui::Resolution()> windowSizeFnc;
