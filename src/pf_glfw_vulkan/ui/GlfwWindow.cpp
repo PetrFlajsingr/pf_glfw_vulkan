@@ -38,8 +38,11 @@ std::optional<std::string> GlfwWindow::init() {
 void GlfwWindow::run() {
   while (!glfwWindowShouldClose(handle)) {
     glfwPollEvents();
+    PF_GLFW_WINDOW_TRY
     onFrame();
     mainLoopUserCallback();
+    PF_GLFW_WINDOW_CATCH(
+        const std::exception &e, if (!exceptionHandler(e)) { throw; })
   }
 }
 

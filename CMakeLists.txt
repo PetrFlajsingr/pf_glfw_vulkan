@@ -19,7 +19,10 @@ endif ()
 include(${CPM_DOWNLOAD_LOCATION})
 
 option(ENABLE_STACKTRACE "enable stacktrace in exceptions" OFF)
-
+option(PF_GLFW_EXCEPTIONS "enable window exception handling" OFF)
+if (PF_GLFW_EXCEPTIONS)
+    add_compile_definitions(PF_GLFW_WINDOW_EXCEPTIONS_ENABLED)
+endif ()
 if (ENABLE_STACKTRACE)
     add_compile_definitions(STACKTRACE_ENABLE)
 endif ()
@@ -31,7 +34,7 @@ project(pf_glfw_vulkan
 set(CMAKE_CXX_STANDARD 20)
 list(APPEND flags "-fconcepts" "-fconcepts-diagnostics-depth=10" "-Werror=return-type" "-fcoroutines"
         "-Wall" "-Wextra" "-Werror" "-Wpedantic" "-Wno-unknown-pragmas" "-Wno-unused-function"
-        "-Wpointer-arith" "-Wcast-qual" "-Wno-type-limits" )
+        "-Wpointer-arith" "-Wcast-qual" "-Wno-type-limits")
 add_compile_options("-Wno-stringop-truncation")
 if (CMAKE_BUILD_TYPE MATCHES Release)
     list(APPEND flags "-O3")

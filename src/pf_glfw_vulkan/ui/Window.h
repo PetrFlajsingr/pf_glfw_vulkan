@@ -19,6 +19,14 @@
 #include <unordered_set>
 #include <vulkan/vulkan.hpp>
 
+#ifdef PF_GLFW_WINDOW_EXCEPTIONS_ENABLED
+#define PF_GLFW_WINDOW_TRY try {
+#define PF_GLFW_WINDOW_CATCH(exc_type, handle) } catch(exc_type) { handle }
+#else
+#define PF_GLFW_WINDOW_TRY
+#define PF_GLFW_WINDOW_CATCH(exc_type, handle)
+#endif
+
 namespace pf::ui {
 
 std::ostream &operator<<(std::ostream &os, const Resolution &res);
@@ -75,6 +83,12 @@ class PF_GLFW_VULKAN_EXPORT Window {
     enqueueImpl(std::forward<decltype(callable)>(callable), delay);
   }
 
+  void setExceptionHandler([[maybe_unused]] std::invocable<const std::exception&> auto &&handler) {
+#ifdef PF_GLFW_WINDOW_EXCEPTIONS_ENABLED
+    exceptionHandler = std::forward<decltype(handler)>(handler);
+#endif
+  }
+
   [[nodiscard]] virtual Flags<events::MouseButton> getMouseButtonsDown() = 0;
 
  protected:
@@ -89,6 +103,7 @@ class PF_GLFW_VULKAN_EXPORT Window {
   std::string title;
   std::function<void()> mainLoopUserCallback = [] {};
   std::function<void(Resolution)> resizeUserCallback = [](Resolution) {};
+  std::function<bool(const std::exception &)> exceptionHandler = [](auto) { return false; };
 };
 
 }// namespace pf::ui
