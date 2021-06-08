@@ -5,6 +5,7 @@
 #ifndef PF_GLFW_VULKAN_SRC_PF_GLFW_VULKAN_UI_WINDOWEVENTSDEFAULTIMPL_H
 #define PF_GLFW_VULKAN_SRC_PF_GLFW_VULKAN_UI_WINDOWEVENTSDEFAULTIMPL_H
 
+#include <pf_common/coroutines/Sequence.h>
 #include <pf_glfw_vulkan/ui/Window.h>
 
 namespace pf::ui {
@@ -50,8 +51,11 @@ class PF_GLFW_VULKAN_EXPORT WindowEventsDefaultImpl : public Window {
   const std::chrono::milliseconds DBL_CLICK_LIMIT{500};
 
   struct DelayEvent {
+    static inline auto IdGenerator = iota<std::size_t>();
+    DelayEvent(std::function<void()> fnc, const std::chrono::steady_clock::time_point &execTime);
     std::function<void()> fnc;
     std::chrono::steady_clock::time_point execTime;
+    std::size_t id = getNext(IdGenerator);
     bool operator<(const DelayEvent &rhs) const;
 
     void operator()() const;

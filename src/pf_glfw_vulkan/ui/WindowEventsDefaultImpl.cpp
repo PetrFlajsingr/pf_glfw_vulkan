@@ -4,6 +4,8 @@
 
 #include "WindowEventsDefaultImpl.h"
 
+#include <utility>
+
 namespace pf::ui {
 using namespace enum_operators;
 
@@ -102,8 +104,11 @@ void WindowEventsDefaultImpl::onFrame() {
 }
 
 bool WindowEventsDefaultImpl::DelayEvent::operator<(const WindowEventsDefaultImpl::DelayEvent &rhs) const {
-  return execTime < rhs.execTime;
+  return execTime < rhs.execTime && id < rhs.id;
 }
 
 void WindowEventsDefaultImpl::DelayEvent::operator()() const { fnc(); }
+WindowEventsDefaultImpl::DelayEvent::DelayEvent(std::function<void()> fnc,
+                                                const std::chrono::steady_clock::time_point &execTime)
+    : fnc(std::move(fnc)), execTime(execTime) {}
 }// namespace pf::ui
