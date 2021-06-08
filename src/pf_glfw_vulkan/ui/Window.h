@@ -78,7 +78,7 @@ class PF_GLFW_VULKAN_EXPORT Window {
   void setInputIgnorePredicate(std::predicate auto &&predicate) {
     setInputIgnorePredicateImpl(std::forward<decltype(predicate)>(predicate));
   }
-
+  // TODO: allow wait for exec
   void enqueue(std::invocable auto &&callable, std::chrono::microseconds delay = std::chrono::microseconds{0}) {
     enqueueImpl(std::forward<decltype(callable)>(callable), delay);
   }
