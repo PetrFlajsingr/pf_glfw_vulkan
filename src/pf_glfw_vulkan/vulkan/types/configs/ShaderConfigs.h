@@ -6,6 +6,7 @@
 #define PF_GLFW_VULKAN_VULKAN_TYPES_CONFIGS_SHADERCONFIGS_H
 
 #include "../../glsl/Compiler.h"
+#include <filesystem>
 #include <pf_glfw_vulkan/_export.h>
 #include <string>
 #include <vulkan/vulkan.hpp>
@@ -32,7 +33,7 @@ enum class ShaderType {
 struct PF_GLFW_VULKAN_EXPORT ShaderConfigFile {
   std::string name;
   ShaderType type;
-  std::string path;
+  std::filesystem::path path;
 };
 
 struct PF_GLFW_VULKAN_EXPORT ShaderConfigSrc {
@@ -44,7 +45,7 @@ struct PF_GLFW_VULKAN_EXPORT ShaderConfigSrc {
 struct PF_GLFW_VULKAN_EXPORT ShaderConfigGlslFile {
   std::string name;
   ShaderType type;
-  std::string path;
+  std::filesystem::path path;
   glsl::MacroDefs macros;
   glsl::ReplaceMacroDefs replaceMacros = {};
   glsl::Optimization optimization = {};
