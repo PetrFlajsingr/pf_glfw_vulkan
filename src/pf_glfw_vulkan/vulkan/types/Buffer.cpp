@@ -3,6 +3,7 @@
 //
 
 #include "Buffer.h"
+#include "BufferMemoryPool.h"
 #include "BufferView.h"
 #include "LogicalDevice.h"
 #include "PhysicalDevice.h"
@@ -57,6 +58,10 @@ const LogicalDevice &Buffer::getLogicalDevice() const { return *logicalDevice; }
 std::shared_ptr<BufferView> Buffer::createView(BufferViewConfig &&config) {
   return BufferView::CreateShared(shared_from_this(), std::move(config));
 }
+std::shared_ptr<BufferMemoryPool> Buffer::createMemoryPool(BufferMemoryPoolConfig &&config) {
+  return BufferMemoryPool::CreateShared(shared_from_this(), config.alignment, config.offset);
+}
+
 const vk::DeviceMemory &Buffer::getMemory() const { return *vkMemory; }
 
 BufferMapping Buffer::mapping(vk::DeviceSize offset) { return BufferMapping(shared_from_this(), offset, getSize()); }
@@ -64,7 +69,6 @@ BufferMapping Buffer::mapping(vk::DeviceSize offset) { return BufferMapping(shar
 BufferMapping Buffer::mapping(vk::DeviceSize offset, vk::DeviceSize range) {
   return BufferMapping(shared_from_this(), offset, range);
 }
-
 std::shared_ptr<BufferMapping> Buffer::mappingShared(vk::DeviceSize offset) {
   return BufferMapping::CreateShared(shared_from_this(), offset, getSize());
 }

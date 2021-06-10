@@ -40,6 +40,7 @@ class PF_GLFW_VULKAN_EXPORT Buffer : public VulkanObject,
   [[nodiscard]] bool isAllocated() const;
 
   [[nodiscard]] std::shared_ptr<BufferView> createView(BufferViewConfig &&config);
+  [[nodiscard]] std::shared_ptr<BufferMemoryPool> createMemoryPool(BufferMemoryPoolConfig &&config);
   [[nodiscard]] BufferMapping mapping(vk::DeviceSize offset = 0);
   [[nodiscard]] BufferMapping mapping(vk::DeviceSize offset, vk::DeviceSize range);
   [[nodiscard]] std::shared_ptr<BufferMapping> mappingShared(vk::DeviceSize offset = 0);

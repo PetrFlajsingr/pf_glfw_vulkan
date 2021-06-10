@@ -17,6 +17,11 @@ struct PF_GLFW_VULKAN_EXPORT BufferConfig {
   std::vector<uint32_t> queueFamilyIndices;
 };
 
+struct PF_GLFW_VULKAN_EXPORT BufferMemoryPoolConfig {
+  vk::DeviceSize alignment;
+  vk::DeviceSize offset = 0;
+};
+
 }// namespace pf::vulkan
 
 #endif//PF_GLFW_VULKAN_VULKAN_TYPES_CONFIGS_BUFFERCONFIG_H
