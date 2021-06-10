@@ -6,6 +6,8 @@
 #define PF_GLFW_VULKAN_TYPES_H
 
 #include "types/Buffer.h"
+#include "types/BufferMapping.h"
+#include "types/BufferMemoryPool.h"
 #include "types/BufferView.h"
 #include "types/CommandBuffer.h"
 #include "types/CommandPool.h"

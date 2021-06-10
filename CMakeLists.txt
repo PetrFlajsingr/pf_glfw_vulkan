@@ -112,7 +112,11 @@ CPMAddPackage(
         GITHUB_REPOSITORY google/shaderc
         GIT_TAG v2020.5
 )
-
+CPMAddPackage(
+        NAME expected
+        GITHUB_REPOSITORY TartanLlama/expected
+        GIT_TAG v1.0.0
+)
 
 hunter_add_package(fmt)
 find_package(fmt CONFIG REQUIRED)
@@ -149,14 +153,17 @@ set(SOURCES
         src/pf_glfw_vulkan/vulkan/types/Texture.cpp
         src/pf_glfw_vulkan/vulkan/types/TextureSampler.cpp
         src/pf_glfw_vulkan/vulkan/types/VulkanCommon.cpp
+        src/pf_glfw_vulkan/vulkan/types/BufferMemoryPool.cpp
         src/pf_glfw_vulkan/vulkan/types/configs/TextureConfigs.cpp
         src/pf_glfw_vulkan/vulkan/types/builders/GraphicsPipelineBuilder.cpp
         src/pf_glfw_vulkan/vulkan/types/builders/RenderPassBuilder.cpp
         src/pf_glfw_vulkan/lib_config.cpp
+        src/pf_glfw_vulkan/vulkan/types/BufferMapping.cpp
         src/pf_glfw_vulkan/ui/WindowEventsDefaultImpl.cpp)
 
 set(INCLUDES
         src/pf_glfw_vulkan/ui/GlfwWindow.h
+        src/pf_glfw_vulkan/vulkan/types/BufferMemoryPool.h
         src/pf_glfw_vulkan/ui/Window.h
         src/pf_glfw_vulkan/ui/events/common.h
         src/pf_glfw_vulkan/vulkan/DefaultDeviceSuitabilityScorer.h
@@ -195,7 +202,8 @@ set(INCLUDES
         src/pf_glfw_vulkan/logging.h
         src/pf_glfw_vulkan/vulkan/utils.h
         src/pf_glfw_vulkan/ui/Resolution.h
-        src/pf_glfw_vulkan/ui/WindowEventsDefaultImpl.h)
+        src/pf_glfw_vulkan/ui/WindowEventsDefaultImpl.h
+        src/pf_glfw_vulkan/vulkan/types/BufferMapping.h)
 
 
 option(BUILD_SHARED_LIBS "build this library as shared")
@@ -211,6 +219,7 @@ add_library(${PROJECT_NAME}::${PROJECT_NAME} ALIAS ${PROJECT_NAME})
 add_backward(${PROJECT_NAME})
 target_compile_options(${PROJECT_NAME} PRIVATE ${flags})
 
+
 if (MEASURE_BUILD_TIME)
     set_property(GLOBAL PROPERTY RULE_LAUNCH_COMPILE "${CMAKE_COMMAND} -E time")
 endif ()
@@ -222,6 +231,8 @@ target_include_directories(${PROJECT_NAME} PUBLIC $<BUILD_INTERFACE:${CMAKE_CURR
 
 target_link_libraries(${PROJECT_NAME} PUBLIC pf_common::pf_common fmt::fmt magic_enum range-v3 ${GLFW_STATIC_LIBRARIES} ${Vulkan_LIBRARIES})
 
+
+target_include_directories(${PROJECT_NAME} PRIVATE ${expected_SOURCE_DIR}/include)
 
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_INCLUDE_CURRENT_DIR_IN_INTERFACE ON)

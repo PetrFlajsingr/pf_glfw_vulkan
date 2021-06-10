@@ -24,6 +24,7 @@ class Surface;
 class SwapChain;
 class Buffer;
 class BufferView;
+class BufferMemoryPool;
 class DescriptorPool;
 class Semaphore;
 class Fence;

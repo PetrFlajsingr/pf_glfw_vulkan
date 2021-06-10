@@ -9,8 +9,6 @@
 #include <pf_common/ILogger.h>
 #include <pf_glfw_vulkan/_export.h>
 
-// TODO: vulkan struct const init
-
 namespace pf::vulkan {
 PF_GLFW_VULKAN_EXPORT void setGlobalLoggerInstance(std::shared_ptr<ILogger> logger);
 }
