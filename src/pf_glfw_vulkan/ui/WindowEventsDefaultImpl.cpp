@@ -36,9 +36,18 @@ void WindowEventsDefaultImpl::setInputIgnorePredicateImpl(std::function<bool()> 
   inputIgnorePredicate = predicate;
 }
 
-void WindowEventsDefaultImpl::enqueueImpl(std::function<void()> callable, std::chrono::microseconds delay) {
+std::future<void> WindowEventsDefaultImpl::enqueueImpl(std::function<void()> callable,
+                                                       std::chrono::microseconds delay) {
+  auto promise = std::make_shared<std::promise<void>>();
+  auto future = promise->get_future();
   const auto execTime = std::chrono::steady_clock::now() + delay;
-  eventQueue.emplace(callable, execTime);
+  eventQueue.emplace(
+      [c = std::move(callable), p = std::move(promise)] {
+        c();
+        p->set_value();
+      },
+      execTime);
+  return future;
 }
 
 Flags<events::MouseButton> WindowEventsDefaultImpl::getMouseButtonsDown() { return buttonsDown; }

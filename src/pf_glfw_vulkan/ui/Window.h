@@ -9,6 +9,7 @@
 #include <chrono>
 #include <cppcoro/generator.hpp>
 #include <functional>
+#include <future>
 #include <optional>
 #include <pf_common/Subscription.h>
 #include <pf_common/coroutines/Sequence.h>
@@ -21,7 +22,11 @@
 
 #ifdef PF_GLFW_WINDOW_EXCEPTIONS_ENABLED
 #define PF_GLFW_WINDOW_TRY try {
-#define PF_GLFW_WINDOW_CATCH(exc_type, handle) } catch(exc_type) { handle }
+#define PF_GLFW_WINDOW_CATCH(exc_type, handle)                                                                         \
+  }                                                                                                                    \
+  catch (exc_type) {                                                                                                   \
+    handle                                                                                                             \
+  }
 #else
 #define PF_GLFW_WINDOW_TRY
 #define PF_GLFW_WINDOW_CATCH(exc_type, handle)
@@ -78,12 +83,13 @@ class PF_GLFW_VULKAN_EXPORT Window {
   void setInputIgnorePredicate(std::predicate auto &&predicate) {
     setInputIgnorePredicateImpl(std::forward<decltype(predicate)>(predicate));
   }
-  // TODO: allow wait for exec
-  void enqueue(std::invocable auto &&callable, std::chrono::microseconds delay = std::chrono::microseconds{0}) {
-    enqueueImpl(std::forward<decltype(callable)>(callable), delay);
+
+  std::future<void> enqueue(std::invocable auto &&callable,
+                            std::chrono::microseconds delay = std::chrono::microseconds{0}) {
+    return enqueueImpl(std::forward<decltype(callable)>(callable), delay);
   }
 
-  void setExceptionHandler([[maybe_unused]] std::invocable<const std::exception&> auto &&handler) {
+  void setExceptionHandler([[maybe_unused]] std::invocable<const std::exception &> auto &&handler) {
 #ifdef PF_GLFW_WINDOW_EXCEPTIONS_ENABLED
     exceptionHandler = std::forward<decltype(handler)>(handler);
 #endif
@@ -96,7 +102,7 @@ class PF_GLFW_VULKAN_EXPORT Window {
   virtual Subscription addKeyboardListenerImpl(events::KeyEventType event, events::details::KeyEventFnc listener) = 0;
   virtual Subscription addTextListenerImpl(events::details::TextEventFnc listener) = 0;
   virtual void setInputIgnorePredicateImpl(std::function<bool()> predicate) = 0;
-  virtual void enqueueImpl(std::function<void()> callable, std::chrono::microseconds delay) = 0;
+  virtual std::future<void> enqueueImpl(std::function<void()> callable, std::chrono::microseconds delay) = 0;
 
   Resolution resolution;
   Mode mode;

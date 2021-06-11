@@ -20,7 +20,7 @@ class PF_GLFW_VULKAN_EXPORT WindowEventsDefaultImpl : public Window {
   Subscription addKeyboardListenerImpl(events::KeyEventType event, events::details::KeyEventFnc listener) override;
   Subscription addTextListenerImpl(events::details::TextEventFnc listener) override;
   void setInputIgnorePredicateImpl(std::function<bool()> predicate) override;
-  void enqueueImpl(std::function<void()> callable, std::chrono::microseconds delay) override;
+  std::future<void> enqueueImpl(std::function<void()> callable, std::chrono::microseconds delay) override;
 
   void notifyMouse(events::MouseEventType type, events::MouseButton button, std::pair<double, double> location,
                    std::pair<double, double> delta);
