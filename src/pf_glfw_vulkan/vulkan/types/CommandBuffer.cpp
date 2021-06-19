@@ -105,10 +105,10 @@ CommandBufferRecording::pipelineBarrier(vk::PipelineStageFlagBits srcStage, vk::
 }
 CommandBufferRecording &CommandBufferRecording::copyImage(ImageCopyCommand &&cmd) {
   const auto copy = std::vector<vk::ImageCopy>{{.srcSubresource = cmd.srcLayers,
-                                                .srcOffset = cmd.srcOffset,
-                                                .dstSubresource = cmd.dstLayers,
-                                                .dstOffset = cmd.dstOffset,
-                                                .extent = cmd.src.getExtent()}};
+                                                   .srcOffset = cmd.srcOffset,
+                                                   .dstSubresource = cmd.dstLayers,
+                                                   .dstOffset = cmd.dstOffset,
+                                                   .extent = cmd.src.getExtent()}};
   owner.get()->copyImage(*cmd.src, cmd.srcLayout, *cmd.dst, cmd.dstLayout, copy);
   return *this;
 }
@@ -136,10 +136,10 @@ CommandPool &CommandBuffer::getCommandPool() { return *commandPool; }
 
 void CommandBuffer::submit(CommandSubmitConfig &&config) {
   commandPool->submitCommandBuffers({.commandBuffers = {*this},
-                                     .waitSemaphores = std::move(config.waitSemaphores),
-                                     .signalSemaphores = std::move(config.signalSemaphores),
-                                     .flags = config.flags,
-                                     .fence = config.fence,
-                                     .wait = config.wait});
+                                        .waitSemaphores = std::move(config.waitSemaphores),
+                                        .signalSemaphores = std::move(config.signalSemaphores),
+                                        .flags = config.flags,
+                                        .fence = config.fence,
+                                        .wait = config.wait});
 }
 }// namespace pf::vulkan

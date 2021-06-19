@@ -16,11 +16,12 @@
 
 namespace pf::vulkan {
 
+// TODO: join flags with semaphores to array of pairs or smt
 struct PF_GLFW_VULKAN_EXPORT MultiCommandSubmitConfig {
   std::vector<std::reference_wrapper<CommandBuffer>> commandBuffers;
   std::vector<std::reference_wrapper<Semaphore>> waitSemaphores;
   std::vector<std::reference_wrapper<Semaphore>> signalSemaphores;
-  vk::PipelineStageFlags flags;
+  std::vector<vk::PipelineStageFlags> flags;
   std::optional<std::reference_wrapper<Fence>> fence;
   bool wait;
 };

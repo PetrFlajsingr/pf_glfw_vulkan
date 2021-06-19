@@ -79,10 +79,11 @@ class PF_GLFW_VULKAN_EXPORT CommandBufferRecording {
   std::reference_wrapper<CommandBuffer> owner;
 };
 
+// TODO: join flags with semaphores to array of pairs or smt
 struct PF_GLFW_VULKAN_EXPORT CommandSubmitConfig {
   std::vector<std::reference_wrapper<Semaphore>> waitSemaphores;
   std::vector<std::reference_wrapper<Semaphore>> signalSemaphores;
-  vk::PipelineStageFlags flags;
+  std::vector<vk::PipelineStageFlags> flags;
   std::optional<std::reference_wrapper<Fence>> fence;
   bool wait;
 };

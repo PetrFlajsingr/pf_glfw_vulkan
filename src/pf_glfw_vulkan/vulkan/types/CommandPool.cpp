@@ -44,6 +44,7 @@ std::vector<std::shared_ptr<CommandBuffer>> CommandPool::createCommandBuffers(co
 LogicalDevice &CommandPool::getDevice() const { return *logicalDevice; }
 
 void CommandPool::submitCommandBuffers(const MultiCommandSubmitConfig &config) {
+  assert(config.waitSemaphores.size() == config.flags.size());
   auto buffers = std::vector<vk::CommandBuffer>();
   buffers.reserve(config.commandBuffers.size());
   std::ranges::transform(config.commandBuffers, std::back_inserter(buffers),
@@ -56,7 +57,7 @@ void CommandPool::submitCommandBuffers(const MultiCommandSubmitConfig &config) {
   submitInfo.setWaitSemaphores(waitSemaphores);
   submitInfo.setSignalSemaphores(signalSemaphores);
   submitInfo.setCommandBuffers(buffers);
-  submitInfo.pWaitDstStageMask = &config.flags;
+  submitInfo.setWaitDstStageMask(config.flags);
 
   queue.submit({submitInfo}, config.fence.has_value() ? config.fence->get().getVkFence() : nullptr);
   if (config.wait) { queue.waitIdle(); }
