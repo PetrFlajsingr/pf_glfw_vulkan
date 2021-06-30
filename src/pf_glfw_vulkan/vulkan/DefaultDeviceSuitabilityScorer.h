@@ -6,9 +6,9 @@
 #define PF_GLFW_VULKAN_DEFAULTDEVICESUITABILITYSCORER_H
 
 #include <functional>
+#include <optional>
 #include <pf_glfw_vulkan/_export.h>
 #include <unordered_set>
-#include <optional>
 #include <vulkan/vulkan.hpp>
 
 namespace pf::vulkan {
@@ -22,7 +22,8 @@ concept DeviceSuitabilityScorer =
 
 struct PF_GLFW_VULKAN_EXPORT DefaultDeviceSuitabilityScorer {
  public:
-  using FeatureScoreFnc = std::function<DeviceSuitabilityScoreResult(const vk::PhysicalDeviceFeatures &)>;
+  using FeatureScoreFnc = std::function<DeviceSuitabilityScoreResult(const vk::PhysicalDeviceFeatures &,
+                                                                     const vk::PhysicalDeviceProperties)>;
 
   explicit DefaultDeviceSuitabilityScorer(std::unordered_set<std::string> requiredExtensions,
                                           std::unordered_map<std::string, DeviceSuitabilityScore> optionalExtensions,

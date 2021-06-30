@@ -20,7 +20,7 @@ DeviceSuitabilityScoreResult DefaultDeviceSuitabilityScorer::operator()(const vk
     if (optExtensions.contains(extension.extensionName)) { score += optExtensions[extension.extensionName]; }
   }
   if (!notFoundRequiredExt.empty()) { return std::nullopt; }
-  if (const auto featureScore = featureCheck(device.getFeatures()); featureScore.has_value()) {
+  if (const auto featureScore = featureCheck(device.getFeatures(), device.getProperties()); featureScore.has_value()) {
     score += featureScore.value();
   } else {
     return std::nullopt;
