@@ -223,7 +223,7 @@ void SwapChain::init() {
 
 const std::vector<std::shared_ptr<FrameBuffer>> &SwapChain::getFrameBuffers() const { return frameBuffers; }
 void SwapChain::swap() {
-  checkRebuild();
+  //checkRebuild();
   imageFences[frameIdx]->wait();
   imageIdx =
       logicalDevice->getVkLogicalDevice()
